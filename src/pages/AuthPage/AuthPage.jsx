@@ -5,7 +5,7 @@ import SignUpForm from "../../components/SignUpForm/SignUpForm"
 function AuthPage({user, setUser}) {
   // 'clicked' state variable - data-related
   const [clicked, setClicked] = useState(true);
-  const buttonText = !clicked ? 'Login' : 'Sign up';
+  // const buttonText = !clicked ? 'Login' : 'Sign up';
 
   function handleToggle() {
     setClicked(!clicked) // toggle the value which is why it is negative
@@ -17,16 +17,13 @@ function AuthPage({user, setUser}) {
         
         {clicked ? (
           <>
-            <h1>Login</h1>
-            <LoginForm user={user} setUser={setUser} />
+            <LoginForm user={user} setUser={setUser} handleToggle={handleToggle}/>
           </>
         ) : (
           <>
-            <h1>Sign up</h1>
-            <SignUpForm setUser={setUser} />
+            <SignUpForm setUser={setUser} handleToggle={handleToggle}/>
           </>
         )}
-        <button onClick={handleToggle}>{buttonText}</button>
       </>
    </main>
  )

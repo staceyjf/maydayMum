@@ -1,68 +1,182 @@
 // import the named export - look at Pure Component as an alternative
-import { Component } from "react"
-import { signUp } from "../../utilities/users-service"
+import { useState } from 'react'; 
+import { signUp } from '../../utilities/users-service'
+// MUI 
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// create an instance of the SignUpForm (object) which we can access via .this
-class SignUpForm extends Component {
-    state = {
-        name:"",
-        email:"",
-        password:"",
-        confirm:"",
-        error:"",
-    };
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+          Mayday Mum
+        {' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
-    // handles the change in the input box eg when the user writes
-    // cant use the evt.target.value as it won't be bound properly as it needs access to this as its a callback
-    // need to use arrow function so that the function is bound to the instance
-    handleChange = (evt) => {
-        this.setState({
-            [evt.target.name]: evt.target.value,
-            error:""
-        });
-    };
+const defaultTheme = createTheme();
 
-    // // handleSubmit which handles the data post the submit button 
-    handleSubmit = async (evt) => {
-        evt.preventDefault();
-        // declare them in a new variable by taking advantage of object shortcut eg name: name, email= email etc 
-        try {
-            const {name, email, password} = this.state;
-            const formData = {name, email, password}
-            const user = await signUp(formData)
-            //replace with the setter function. As its a class, we don't have to destructure
-            this.props.setUser(user)
-        } catch {
-            this.setState({ error: "Sign up failed - Try Again" })
-        }
-    };
+function SignUpForm({handleToggle, setUser}) {
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirm: '',
+    error: '',
+  });
+  const [error, setError] = useState(''); 
 
-    // overwrite with the render() which returns its user UI as JSX
-    render() {
-        // using the disable variable as validation for the sign up button 
-        const disable = this.state.password !== this.state.confirm;
-        return (
-            <div>
-            <div className="form-container">
-                <form autoComplete="off" onSubmit={this.handleSubmit}>
-                    <label>Name</label>
-                    {/* name props match state properties so that we can have a single function to handleChange  */}
-                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-                    <label>Email</label>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-                    <label>Password</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-                    <label>Confirm</label>
-                    <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-                    {/* matches to the disable prop and if its true the sign up button will be disable */}
-                    <button type="submit" disabled={disable}>SIGN UP</button>
-                </form>
-            </div>
-            {/* rendering our error  */}
-            <p className="error-message">&nbsp;{this.state.error}</p>
-            </div>
-        );
-        }
-}
+  function handleChange(evt) { 
+    setUserData({ 
+        ...userData, 
+        [evt.target.name]: evt.target.value,
+        error:'' 
+    }); 
+  };
+
+  async function handleSubmit(evt) { 
+    evt.preventDefault(); 
+    try { 
+      const user = await signUp(userData)
+      setUser(user); 
+    } catch { 
+      setError('Sign up failed - Try Again'); 
+    } 
+  };
+
+  const disable = userData.password !== userData.confirm;
+  
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Please sign in
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                value={userData.name} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={userData.email} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={userData.password} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirm"
+                label="Confirm Password"
+                type="password"
+                id="confirm"
+                autoComplete="new-password"
+                value={userData.confirm} 
+                onChange={handleChange}
+              />
+              {/* <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              /> */}
+              <Button
+                type="submit"
+                disabled={disable}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }
+              }
+              >
+                Sign Up
+              </Button>
+              <Grid container>
+                {/* <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid> */}
+                <Grid item>
+                  <Link onClick={handleToggle} variant="body2" style={{ cursor: 'pointer' }}>
+                    {"Already have an account? Login"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <p className="error-message">&nbsp;{error}</p>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+  }
 
 export default SignUpForm

@@ -3,6 +3,7 @@
 import * as usersAPI from './users-api'
 
 export async function signUp(userData) {
+  console.log('Sending userData to server:', userData);
     const token = await usersAPI.signUp(userData);
     // persist the token by using the browser's local storage
     // only accepts strs
@@ -15,8 +16,8 @@ export async function signUp(userData) {
 }
 
 // save the token in the browsers local storage
-export async function login(userData) {
-  const token = await usersAPI.login(userData);
+export async function login(credentials) {
+  const token = await usersAPI.login(credentials);
   localStorage.setItem('token', token);
   return getUser();
 }

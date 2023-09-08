@@ -1,22 +1,16 @@
 import { useState } from 'react'
 // import Router
 import { Routes, Route } from 'react-router-dom';
-import { getUser } from "../../utilities/users-service"
+import { getUser } from '../../utilities/users-service';
 // Page components
-import AuthPage from "../AuthPage/AuthPage"
-import NewOrderPage from "../NewOrderPage/NewOrderPage"
-import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage"
+import AuthPage from '../AuthPage/AuthPage';
+import NewProfilePage from '../NewProfilePage/NewProfilePage';
+import NannyProfilePage from '../NannyProfilePage/NannyProfilePage';
 // Components
-import NavBar from "../../components/NavBar/NavBar"
-
+import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
-// don't need to import react with later versions of react
-
 
 function App() {
-  // // user state using useState hook
-  // const [ user, setUser ] = useState(null);
-  // updating now with the token logic defined
   const [user, setUser] = useState(getUser());
 
   return (
@@ -28,8 +22,8 @@ function App() {
             <Routes>
               {/* Routes components in here * - instance of the competent provided as a prop
               only renders the best matching path based on the address bar*/}
-              <Route path="/orders/new" element={<NewOrderPage />} />
-              <Route path="/orders" element={<OrderHistoryPage />} />
+              <Route path="/team/new" element={<NewProfilePage />} />
+              <Route path="/team" element={<NannyProfilePage />} />
           </Routes>
         </> 
         :
