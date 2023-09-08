@@ -97,7 +97,7 @@ function NavBar({ user, setUser }) {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/${page}`}>
+                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/${page.toLowerCase().replace(/\s+/g, "-")}`}>
                         {page}
                     </Link>
                   </Typography>
@@ -126,20 +126,26 @@ function NavBar({ user, setUser }) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+                <Link
+                    key={page}
+                    to={`/${page.toLowerCase().replace(/\s+/g, "-")}`} 
+                    style={{ textDecoration: "none", color: "inherit", display: "block" }}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Button
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                    </Button>
+                </Link>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* TODO: how do you fix this to {user.name} first letter  */}
+                <Avatar alt="Stacey" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -171,7 +177,7 @@ function NavBar({ user, setUser }) {
                             </a>
                         ) : (
                             <Link
-                            to={`/${setting}`}
+                            to={`/${setting.toLowerCase().replace(/\s+/g, "-")}`}
                             style={{ textDecoration: "none", color: "black" }}
                             >
                             {setting}
