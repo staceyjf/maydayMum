@@ -97,7 +97,7 @@ function NavBar({ user, setUser }) {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{ textDecoration: "none", color: "white"}}  to={`/${page}`}>
+                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/${page}`}>
                         {page}
                     </Link>
                   </Typography>
