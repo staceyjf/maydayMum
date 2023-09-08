@@ -1,6 +1,6 @@
 import { useState } from 'react'
 // import Router
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate  } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 // Page components
 import AuthPage from '../AuthPage/AuthPage';
@@ -24,14 +24,15 @@ function App() {
               only renders the best matching path based on the address bar*/}
               <Route path="/team/new" element={<NewProfilePage />} />
               <Route path="/team" element={<NannyProfilePage />} />
+               {/* redirect to /orders/new if path in address bar hasn't matched a <Route> above 
+               THIS NEEDS TO BE UPDATED*/}
+              <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
         </> 
         :
         <AuthPage user={user} setUser={setUser} />
     }
 
-    
-  
     </main>
   );
 }

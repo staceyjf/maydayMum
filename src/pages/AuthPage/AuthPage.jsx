@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import LoginForm from "../../components/LoginForm/LoginForm"
-import SignUpForm from "../../components/SignUpForm/SignUpForm"
+import LoginForm from '../../components/LoginForm/LoginForm'
+import SignUpForm from '../../components/SignUpForm/SignUpForm'
 
 function AuthPage({user, setUser}) {
   // 'clicked' state variable - data-related
