@@ -96,7 +96,7 @@ function NavBar({ user, setUser }) {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/${page.toLowerCase().replace(/\s+/g, "-")}`}>
+                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`}>
                         {page}
                     </Link>
                   </Typography>
@@ -126,7 +126,7 @@ function NavBar({ user, setUser }) {
             {pages.map((page) => (
                 <Link
                     key={page}
-                    to={`/${page.toLowerCase().replace(/\s+/g, "-")}`} 
+                    to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`} 
                     style={{ textDecoration: "none", color: "inherit", display: "block" }}
                     onClick={handleCloseNavMenu}
                   >
@@ -165,7 +165,7 @@ function NavBar({ user, setUser }) {
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                        {setting === "Logout" ? (
+                        {setting === "LOGOUT" ? (
                             <a
                             href="/"
                             style={{ textDecoration: "none", color: "black" }}
@@ -175,7 +175,7 @@ function NavBar({ user, setUser }) {
                             </a>
                         ) : (
                             <Link
-                            to={`/${setting.toLowerCase().replace(/\s+/g, "-")}`}
+                            to={`/users/${setting.toLowerCase().replace(/\s+/g, "-")}`}
                             style={{ textDecoration: "none", color: "black" }}
                             >
                             {setting}
@@ -193,15 +193,3 @@ function NavBar({ user, setUser }) {
 }
 
 export default NavBar
-
-
-/* React Router implements an event handler to ensures that there is not HTTP request */
-/* 
-<Link to="/orders">Order History</Link>
-&nbsp; | &nbsp;
-<Link to="/orders/new">New Order</Link>
-&nbsp;&nbsp;
-<span>Welcome, {user.name}</span>
-&nbsp;&nbsp;
-<Link to="" onClick={handleLogOut}>Log out</Link>
- */

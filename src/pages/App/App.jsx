@@ -3,11 +3,12 @@ import { useState } from 'react'
 import { Routes, Route, Navigate  } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 // Page components
-import AuthPage from '../AuthPage/AuthPage';
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
-import AccountPage from '../AccountPage/AccountPage';
-import NewProfilePage from '../NewProfilePage/NewProfilePage';
-import NannyProfilePage from '../NannyProfilePage/NannyProfilePage';
+import ParentAccountPage from '../ParentAccountPage/ParentAccountPage';
+import NewNannyProfilePage from '../NewNannyProfilePage/NewNannyProfilePage';
+import FindANannyPage from '../FindANannyPage/FindANannyPage';
+import BookingsPage from '../BookingsPage/BookingsPage';
+import AuthPage from '../AuthPage/AuthPage';
 // Components
 import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
@@ -23,10 +24,11 @@ function App() {
           <NavBar user={user} setUser={setUser}/>
             <Routes>
                {/* index route */}
-              {/* <Route index element={<AboutUsPage />} /> */}
-              <Route path="/users/account" element={<AccountPage />} />
-              <Route path="/team/new" element={<NewProfilePage />} />
-              <Route path="/team" element={<NannyProfilePage />} />
+              <Route index element={<AboutUsPage />} />
+              <Route path="/users/account" element={<ParentAccountPage />} />
+              <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
+              <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
+              <Route path="/team/bookings" element={<BookingsPage />} />
                {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
