@@ -1,16 +1,9 @@
-// import the named export - look at Pure Component as an alternative
 import { useState } from 'react'; 
 // MUI 
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+import {  Avatar, Box, Button, CssBaseline, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 function NewNannyForm({handleToggle, setUser}) {
   const [userData, setUserData] = useState({
@@ -34,16 +27,14 @@ function NewNannyForm({handleToggle, setUser}) {
 
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
-    try { 
-      const user = await signUp(userData)
-      setUser(user); 
-    } catch { 
-      setError('Sign up failed - Try Again'); 
-    } 
+    // try { 
+    //   const user = await signUp(userData)
+    //   setUser(user); 
+    // } catch { 
+    //   setError('Sign up failed - Try Again'); 
+    // } 
   };
 
-  const disable = userData.password !== userData.confirm;
-  
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -138,7 +129,6 @@ function NewNannyForm({handleToggle, setUser}) {
               /> */}
               <Button
                 type="submit"
-                disabled={disable}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }
