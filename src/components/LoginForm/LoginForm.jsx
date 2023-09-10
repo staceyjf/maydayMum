@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import loginImg from './loginImg.jpg'
 
 function Copyright(props) {
     return (
@@ -26,8 +26,6 @@ function Copyright(props) {
       </Typography>
     );
   }
-
-const defaultTheme = createTheme();
 
 function LoginForm({handleToggle, setUser}) {
   const [credentials, setCredentials] = useState({ 
@@ -52,7 +50,6 @@ function LoginForm({handleToggle, setUser}) {
       } 
   } 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -61,7 +58,7 @@ function LoginForm({handleToggle, setUser}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${loginImg})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -139,7 +136,6 @@ function LoginForm({handleToggle, setUser}) {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
     );
   }
 

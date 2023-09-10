@@ -1,7 +1,7 @@
-function NewOrderPage() {
+function NewProfilePage() {
     return (
-       <h1>NewOrderPage</h1>
+       <h1>NewProfilePage</h1>
     )
    }
    
-   export default NewOrderPage
+   export default NewProfilePage

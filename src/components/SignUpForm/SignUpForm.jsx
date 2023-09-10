@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import signupImg from './signupImg.jpg'
 
 function Copyright(props) {
     return (
@@ -28,12 +28,12 @@ function Copyright(props) {
     );
   }
 
-const defaultTheme = createTheme();
-
 function SignUpForm({handleToggle, setUser}) {
   const [userData, setUserData] = useState({
-    name: '',
+    firstName: '',
+    surname: '',
     email: '',
+    role: '',
     password: '',
     confirm: '',
     error: '',
@@ -61,7 +61,6 @@ function SignUpForm({handleToggle, setUser}) {
   const disable = userData.password !== userData.confirm;
   
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -70,7 +69,7 @@ function SignUpForm({handleToggle, setUser}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+            backgroundImage: `url(${signupImg})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -99,12 +98,24 @@ function SignUpForm({handleToggle, setUser}) {
                 margin="normal"
                 required
                 fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="name"
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="given-name"
                 autoFocus
-                value={userData.name} 
+                value={userData.firstName} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="surname"
+                label="Surname"
+                name="surname"
+                autoComplete="family-name"
+                autoFocus
+                value={userData.surname} 
                 onChange={handleChange}
               />
               <TextField
@@ -117,6 +128,17 @@ function SignUpForm({handleToggle, setUser}) {
                 autoComplete="email"
                 autoFocus
                 value={userData.email} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="role"
+                label="Role - nanny or parent"
+                name="role"
+                autoFocus
+                value={userData.role} 
                 onChange={handleChange}
               />
               <TextField
@@ -175,7 +197,6 @@ function SignUpForm({handleToggle, setUser}) {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
   }
 

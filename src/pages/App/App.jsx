@@ -4,6 +4,7 @@ import { Routes, Route, Navigate  } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 // Page components
 import AuthPage from '../AuthPage/AuthPage';
+import AboutUsPage from '../AboutUsPage/AboutUsPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
 import NannyProfilePage from '../NannyProfilePage/NannyProfilePage';
 // Components
@@ -20,12 +21,11 @@ function App() {
         <>
           <NavBar user={user} setUser={setUser}/>
             <Routes>
-              {/* Routes components in here * - instance of the competent provided as a prop
-              only renders the best matching path based on the address bar*/}
+               {/* index route */}
+              <Route index element={<AboutUsPage />} />
               <Route path="/team/new" element={<NewProfilePage />} />
               <Route path="/team" element={<NannyProfilePage />} />
-               {/* redirect to /orders/new if path in address bar hasn't matched a <Route> above 
-               THIS NEEDS TO BE UPDATED*/}
+               {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
         </> 
