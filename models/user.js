@@ -1,27 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const parentSchema = require('./parent');
+const Nanny = require('./nanny');
 
 const SALT_ROUNDS = 6;
 
-// keep this lean and always add properties on the related document eg user posts
 const userSchema = new Schema({
-    name: {type: String, required: true},
+    firstName: {type: String, required: true},
+    surname: {type: String, required: true},
+    location: String,
+    phoneNumber: String,
     email: {
         type: String,
-        unique: true, //ensure that its a unique email
-        trim: true, // remove any whitespace
-        lowercase: true, // ensures that an email with a C and a c will match 
+        unique: true, 
+        trim: true, 
+        lowercase: true, 
         required: true
     },
     password: {
         type: String, 
         required: true
     },
-}, {
-    timestamps: true, // allows you to know when the user signed up
-    toJSON: { // transform the document when its serialized to JSON 
-        // automatically delete elements from a document
+    role: {
+        type: String, 
+        enum: ['parent', 'nanny'],
+        required: true
+    },
+    parents: [parentSchema], // embedded sub-documents 
+    nannies: [{type: Schema.Types.ObjectId, ref: 'Nanny'}] // referenced collection 
+    }, {
+    timestamps: true, 
+    toJSON: { 
         transform: function(doc, ret) {
             delete ret.password;
             return ret;
@@ -31,7 +41,6 @@ const userSchema = new Schema({
 );
 
 // using Mongoose middleware - pre-save hook - every time the document is saved, the password would be hashed
-// next is our await for mongoose
 userSchema.pre('save', async function(next) {
     // 'this' is the user document. No arrow functions
     // using the isModified() to check if the password has been modified

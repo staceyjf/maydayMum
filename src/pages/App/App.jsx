@@ -4,7 +4,7 @@ import { Routes, Route, Navigate  } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 // Page components
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
-import ParentAccountPage from '../ParentAccountPage/ParentAccountPage';
+import AccountPage from '../AccountPage/AccountPage';
 import NewNannyProfilePage from '../NewNannyProfilePage/NewNannyProfilePage';
 import FindANannyPage from '../FindANannyPage/FindANannyPage';
 import BookingsPage from '../BookingsPage/BookingsPage';
@@ -25,7 +25,7 @@ function App() {
             <Routes>
                {/* index route */}
               <Route index element={<AboutUsPage />} />
-              <Route path="/users/account" element={<ParentAccountPage />} />
+              <Route path="/users/account" element={<AccountPage user={user} />} />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
               <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
               <Route path="/team/bookings" element={<BookingsPage />} />
