@@ -5,6 +5,7 @@ import { getUser } from '../../utilities/users-service';
 // Page components
 import AuthPage from '../AuthPage/AuthPage';
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
+import AccountPage from '../AccountPage/AccountPage';
 import NewProfilePage from '../NewProfilePage/NewProfilePage';
 import NannyProfilePage from '../NannyProfilePage/NannyProfilePage';
 // Components
@@ -22,7 +23,8 @@ function App() {
           <NavBar user={user} setUser={setUser}/>
             <Routes>
                {/* index route */}
-              <Route index element={<AboutUsPage />} />
+              {/* <Route index element={<AboutUsPage />} /> */}
+              <Route path="/users/account" element={<AccountPage />} />
               <Route path="/team/new" element={<NewProfilePage />} />
               <Route path="/team" element={<NannyProfilePage />} />
                {/* catch all route */}

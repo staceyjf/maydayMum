@@ -16,8 +16,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
 
-const pages = ["Home", "Nanny Profiles", "Bookings", "About Us"];
-const settings = ["My Profile", "Account", "Dashboard", "Logout"];
+const pages = ["FIND A NANNY", "BOOKINGS"];
+const settings = ["ACCOUNT", "CREATE A NANNY PROFILE", "LOGOUT"];
 
 function NavBar({ user, setUser }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
