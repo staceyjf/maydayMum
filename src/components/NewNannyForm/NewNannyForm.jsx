@@ -1,26 +1,18 @@
 // import the named export - look at Pure Component as an alternative
 import { useState } from 'react'; 
-import { signUp } from '../../utilities/users-service'
-// MUI
-import {  Avatar, Box, Button, CssBaseline, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
+// MUI 
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import signupImg from './signupImg.jpg'
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-          Mayday Mum
-        {' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
-function SignUpForm({handleToggle, setUser}) {
+function NewNannyForm({handleToggle, setUser}) {
   const [userData, setUserData] = useState({
     firstName: '',
     surname: '',
@@ -55,20 +47,6 @@ function SignUpForm({handleToggle, setUser}) {
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: `url(${signupImg})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -79,39 +57,34 @@ function SignUpForm({handleToggle, setUser}) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
-              Please sign in
+              New Nanny Profile
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <Stack spacing={2} direction="row" sx={{marginBottom: 0}}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  name="firstName"
-                  autoComplete="given-name"
-                  autoFocus
-                  value={userData.firstName} 
-                  onChange={handleChange}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="surname"
-                  label="Surname"
-                  name="surname"
-                  autoComplete="family-name"
-                  autoFocus
-                  value={userData.surname} 
-                  onChange={handleChange}
-                />
-              </Stack>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="given-name"
+                autoFocus
+                value={userData.firstName} 
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="surname"
+                label="Surname"
+                name="surname"
+                autoComplete="family-name"
+                autoFocus
+                value={userData.surname} 
+                onChange={handleChange}
+              />
               <TextField
                 margin="normal"
                 required
@@ -171,22 +144,9 @@ function SignUpForm({handleToggle, setUser}) {
                 sx={{ mt: 3, mb: 2 }
               }
               >
-                Sign Up
+                Submit
               </Button>
-              <Grid container>
-                {/* <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid> */}
-                <Grid item>
-                  <Link onClick={handleToggle} variant="body2" style={{ cursor: 'pointer' }}>
-                    {"Already have an account? Login"}
-                  </Link>
-                </Grid>
-              </Grid>
               <p className="error-message">&nbsp;{error}</p>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
@@ -194,4 +154,4 @@ function SignUpForm({handleToggle, setUser}) {
   );
   }
 
-export default SignUpForm
+export default NewNannyForm
