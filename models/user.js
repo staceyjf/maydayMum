@@ -27,11 +27,13 @@ const userSchema = new Schema({
         enum: ['parent', 'nanny'],
         required: true
     },
-    parents: [parentSchema], // embedded sub-documents 
-    nannies: [{type: Schema.Types.ObjectId, ref: 'Nanny'}] // referenced collection 
+    isAdmin: { type: Boolean, default: false },
+    parent: parentSchema, // embedded sub-documents 
+    nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
     }, {
     timestamps: true, 
     toJSON: { 
+        virtuals: true,
         transform: function(doc, ret) {
             delete ret.password;
             return ret;
@@ -49,6 +51,10 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
     return next();
     });
+
+userSchema.virtual('fullName').get(function() {
+    return `${this.firstName} ${this.surname}`
+});
 
 // to create the document we need the following args name of model as a string, the schema
 module.exports = mongoose.model('User', userSchema);
