@@ -11,10 +11,10 @@ export async function login(credentials) {
    return sendRequest(`${BASE_URL}/login`, 'POST', credentials);
 }
 
-// export async function getParentData() {
-//    return sendRequest(`${BASE_URL}/account/parent`);
-//  }
-
 export async function getNannyData() {
    return sendRequest(`${BASE_URL}/account/nanny`);
+}
+
+export async function updateParentProfile(accountData) {
+   return sendRequest(`${BASE_URL}/account/parent-profile`, 'POST', accountData);
  }

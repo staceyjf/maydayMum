@@ -7,12 +7,11 @@ import AccountProfileDetails from '../../components/Account/AccountProfileDetail
 
 function AccountPage({user, setUser}) {
   const [fullUserProfile, setFullUserProfile ] = useState({});
-  console.log(user)
+  console.log('this is the user being passed in', user);
 
   useEffect(function() {
     async function fetchData() {
       if (user.role === 'parent') {
-        // const parentData = await usersAPI.getParentData();
         setFullUserProfile(user);
       } else {
         const nannyData = await usersAPI.getNannyData();
@@ -20,7 +19,7 @@ function AccountPage({user, setUser}) {
       }
     }
     fetchData();
-  }, [user]);
+  });
 
 
     return (

@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { updateParentProfile } from '../../../utilities/users-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 // import aboutUsImg from './aboutUsImg.jpg'
 // import styles from './Hero.module.css'; // bring in specific styling to hero
 
 
 function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
+  console.log('this is the fullUserprofile', fullUserProfile);
 
   const [userData, setUserData] = useState({
     firstName: '',
@@ -23,6 +25,17 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
 
   const childrenCount = [1,2,3,4,5];
 
+    // Update userData when fullUserProfile changes
+    useEffect(function() {
+      function updateFormData() {
+        if (fullUserProfile) {
+          setUserData(fullUserProfile); // Set userData to the received fullUserProfile
+        }
+      }
+      
+      updateFormData();
+    }, [fullUserProfile]);
+
   function handleChange(evt) { 
     setUserData({ 
         ...userData, 
@@ -32,13 +45,13 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   };
 
   async function handleSubmit(evt) { 
-    // evt.preventDefault(); 
-    // try { 
-    //   const user = await signUp(userData) //TO DO
-    //   setFullUserProfile(user); 
-    // } catch { 
-    //   setError('Update failed - please try again'); 
-    // } 
+    evt.preventDefault(); 
+    try { 
+      const user = await updateParentProfile(userData);
+      setFullUserProfile(user); 
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
   };
 
   return (
@@ -138,7 +151,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={userData.parent.numberOfChildren}
+                  value={userData.parent.numberOfChildren} 
                 >
                   {childrenCount.map((option) => (
                     <option

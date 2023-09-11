@@ -49,6 +49,7 @@ function LoginForm({handleToggle, setUser}) {
           setError('Log In Failed - Try Again'); 
       } 
   } 
+  
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
