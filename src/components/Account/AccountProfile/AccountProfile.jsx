@@ -1,6 +1,6 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-function AccountProfile({user, setUser}) {
+function AccountProfile({fullUserProfile, setFullUserProfile}) {
 
 
    /* -----Event Handlers ---- */
@@ -31,7 +31,7 @@ function AccountProfile({user, setUser}) {
           }}
         >
           <Avatar
-            src={nanny.image}
+            src={fullUserProfile.image}
             sx={{
               height: 80,
               mb: 2,
@@ -42,13 +42,13 @@ function AccountProfile({user, setUser}) {
             gutterBottom
             variant="h5"
           >
-            {nanny.fullName}
+            {fullUserProfile.firstName}
           </Typography>
           <Typography
             color="text.secondary"
             variant="body2"
           >Location: 
-            {user.location} 
+            {fullUserProfile.location} 
           </Typography>
         </Box>
       </CardContent>

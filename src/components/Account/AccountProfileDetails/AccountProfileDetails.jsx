@@ -4,7 +4,8 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextF
 // import styles from './Hero.module.css'; // bring in specific styling to hero
 
 
-function AccountProfileDetails({user, setUser}) {
+function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
+
   const [userData, setUserData] = useState({
     firstName: '',
     surname: '',
@@ -17,21 +18,21 @@ function AccountProfileDetails({user, setUser}) {
   const [error, setError] = useState(''); 
 
   function handleChange(evt) { 
-    setUserData({ 
-        ...userData, 
-        [evt.target.name]: evt.target.value,
-        error:'' 
-    }); 
+    // setUserData({ 
+    //     ...userData, 
+    //     [evt.target.name]: evt.target.value,
+    //     error:'' 
+    // }); 
   };
 
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
-    try { 
-      // const user = await signUp(userData) //TO DO
-      setUser(user); 
-    } catch { 
-      setError('Sign up failed - Try Again'); 
-    } 
+    // try { 
+    //   // const user = await signUp(userData) //TO DO
+    //   setUser(user); 
+    // } catch { 
+    //   setError('Sign up failed - Try Again'); 
+    // } 
   };
 
   return (
