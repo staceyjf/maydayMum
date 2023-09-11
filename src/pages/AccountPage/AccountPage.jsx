@@ -20,7 +20,7 @@ function AccountPage({user, setUser}) {
       }
     }
     fetchData();
-  }, [user.role]);
+  }, [user]);
 
 
     return (
@@ -36,7 +36,7 @@ function AccountPage({user, setUser}) {
           <Stack spacing={3}>
             <div>
               <Typography variant="h4">
-                Account
+                Account Details
               </Typography>
             </div>
             <div>

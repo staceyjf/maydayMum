@@ -7,7 +7,6 @@ module.exports = {
     create,
     login,
     getNannyData,
-    // getParentData
 };
 
 // will pass on a token to the users-api.jsx
@@ -60,11 +59,3 @@ async function getNannyData(req, res) {
     console.log('Server sending back', nanny);
     res.json(nanny);
 };
-
-// // get Parent profile with associated user details
-// async function getParentData(req, res) {
-//     const parent = await User.findOne(req.user._id);
-//     res.json(parent);
-//     console.log('Server sending back', parent)
-// };
-

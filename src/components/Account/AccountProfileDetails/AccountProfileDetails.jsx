@@ -9,34 +9,42 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({
     firstName: '',
     surname: '',
+    location: '',
+    phoneNumber: '',
     email: '',
-    role: '',
-    password: '',
-    confirm: '',
+    parent: {
+      numberOfChildren: 1,
+      childrenAge: [ 1 ],
+      bookings: []
+    },
     error: '',
   });
   const [error, setError] = useState(''); 
 
+  const childrenCount = [1,2,3,4,5];
+
   function handleChange(evt) { 
-    // setUserData({ 
-    //     ...userData, 
-    //     [evt.target.name]: evt.target.value,
-    //     error:'' 
-    // }); 
+    setUserData({ 
+        ...userData, 
+        [evt.target.name]: evt.target.value,
+        error:'' 
+    });
   };
 
   async function handleSubmit(evt) { 
-    evt.preventDefault(); 
+    // evt.preventDefault(); 
     // try { 
-    //   // const user = await signUp(userData) //TO DO
-    //   setUser(user); 
+    //   const user = await signUp(userData) //TO DO
+    //   setFullUserProfile(user); 
     // } catch { 
-    //   setError('Sign up failed - Try Again'); 
+    //   setError('Update failed - please try again'); 
     // } 
   };
 
   return (
     <>
+    {/* <h1>{fullUserProfile.parent.numberOfChildren}</h1> */}
+    <h1>{fullUserProfile.role}</h1>
     <form
       autoComplete="off"
       noValidate
@@ -74,10 +82,10 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 <TextField
                   fullWidth
                   label="Last name"
-                  name="lastName"
+                  name="surname"
                   onChange={handleChange}
                   required
-                  value={userData.lastName}
+                  value={userData.surname}
                 />
               </Grid>
               <Grid
@@ -100,10 +108,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 <TextField
                   fullWidth
                   label="Phone Number"
-                  name="phone"
+                  name="phoneNumber"
                   onChange={handleChange}
-                  type="number"
-                  value={userData.role}
+                  value={userData.phoneNumber}
                 />
               </Grid>
               <Grid
@@ -112,36 +119,36 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
               >
                 <TextField
                   fullWidth
-                  label="Country"
-                  name="country"
+                  label="Address"
+                  name="location"
                   onChange={handleChange}
                   required
-                  value={userData.password}
+                  value={userData.location}
                 />
               </Grid>
               <Grid
                 xs={12}
                 md={6}
               >
-                {/* <TextField
+                <TextField
                   fullWidth
-                  label="Select State"
-                  name="confirm"
+                  label="Select no of Children"
+                  name="parent.numberOfChildren"
                   onChange={handleChange}
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={userData.confirm}
+                  value={userData.parent.numberOfChildren}
                 >
-                  {states.map((option) => (
+                  {childrenCount.map((option) => (
                     <option
-                      key={option.value}
-                      value={option.value}
+                      key={option}
+                      value={option}
                     >
-                      {option.label}
+                      {option}
                     </option>
                   ))}
-                </TextField> */}
+                </TextField>
               </Grid>
             </Grid>
           </Box>

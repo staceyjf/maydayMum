@@ -42,7 +42,7 @@ function AccountProfile({fullUserProfile, setFullUserProfile}) {
             gutterBottom
             variant="h5"
           >
-            {fullUserProfile.firstName}
+            {fullUserProfile.fullName}
           </Typography>
           <Typography
             color="text.secondary"
