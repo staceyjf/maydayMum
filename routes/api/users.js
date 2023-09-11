@@ -11,7 +11,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 router.post('/', userController.create);
 router.post('/login', userController.login);
 // GET /api/users/check-token
-router.get('/check-token', ensureLoggedIn, userController.checkToken);
+router.get('/account', ensureLoggedIn, userController.getNannyData);
 
 module.exports = router;
 // don't forget to mount the router in server.js

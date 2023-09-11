@@ -11,8 +11,6 @@ export async function login(credentials) {
    return sendRequest(`${BASE_URL}/login`, 'POST', credentials);
 }
 
-// // as this is a 'GET' request and has no payload we don't need any more params
-// export async function checkToken() {
-//    return sendRequest(`${BASE_URL}/check-token`);
-// }
-
+export async function getNannyData() {
+   return sendRequest(`${BASE_URL}/account`);
+ }

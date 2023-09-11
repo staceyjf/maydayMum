@@ -21,6 +21,15 @@ const nannySchema = new Schema({
     
 });
 
+// add a nanny profile to a user's profile or creating it if it doesn't exist (upsert)
+nannySchema.statics.addNannyToUser = function(userId) {
+  return this.findOneAndUpdate(
+    { user: userId }, // query
+    { user: userId }, // update iif doesn't exist 
+    { upsert: true, new: true } // upsert option 
+  );
+};
+
 // //Need to review how to do aws for images
 // //Image getter
 const bucket = process.env.S3_BUCKET;

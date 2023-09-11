@@ -1,6 +1,6 @@
 import { useState } from 'react'; 
 // MUI 
-import {  Avatar, Box, Button, CssBaseline, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
+import {  Avatar, Box, Button, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -37,7 +37,6 @@ function NewNannyForm({handleToggle, setUser}) {
 
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{

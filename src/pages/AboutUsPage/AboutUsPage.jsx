@@ -1,7 +1,11 @@
+import Hero from '../../components/Hero/Hero';
+
 function AboutUsPage() {
     return (
-       <h1>AboutUsPage</h1>
+      <>
+       <Hero />
+       </>
     )
    }
    
-   export default AboutUsPage
+export default AboutUsPage

@@ -2,7 +2,7 @@
 import { useState } from 'react'; 
 import { signUp } from '../../utilities/users-service'
 // MUI
-import {  Avatar, Box, Button, CssBaseline, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
+import {  Avatar, Box, Button, FormControlLabel, Grid, Link, Paper, Radio, RadioGroup, Stack, TextField, Typography} from '@mui/material';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -54,7 +54,6 @@ function SignUpForm({handleToggle, setUser}) {
   
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
         <Grid
           item
           xs={false}
@@ -124,7 +123,32 @@ function SignUpForm({handleToggle, setUser}) {
                 value={userData.email} 
                 onChange={handleChange}
               />
-              <TextField
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography align='left' color="text.secondary">Looking to sign up as a:</Typography>
+                  <RadioGroup
+                    row
+                    autoFocus
+                    required
+                    defaultValue="parent"
+                    name="role"
+                    value={userData.role} // Bind the value to state
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="parent"
+                      control={<Radio />}
+                      label="Parent"
+                    />
+                    <FormControlLabel
+                      value="nanny"
+                      control={<Radio />}
+                      label="Nanny"
+                    />
+                  </RadioGroup>
+                </Grid>
+              </Grid>
+              {/* <TextField
                 margin="normal"
                 required
                 fullWidth
@@ -134,7 +158,7 @@ function SignUpForm({handleToggle, setUser}) {
                 autoFocus
                 value={userData.role} 
                 onChange={handleChange}
-              />
+              /> */}
               <TextField
                 margin="normal"
                 required

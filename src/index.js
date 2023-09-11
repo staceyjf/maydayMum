@@ -9,7 +9,7 @@ import { CssBaseline } from "@mui/material";
 
 import './index.css';
 import App from './pages/App/App';
-import theme from "./themes/theme";
+import theme from './themes/theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

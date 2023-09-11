@@ -1,23 +1,16 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
+const Nanny = require("../../models/nanny");
 const bcrypt = require('bcrypt');
 
 module.exports = {
     create,
     login,
-    checkToken
+    getNannyData
 };
 
 // will pass on a token to the users-api.jsx
 async function create(req, res) {
-    // // baby step response is going to send back the user object (re.json) which contains an object of our 3 properties
-    // // res.json is a promise
-    // res.json({
-    //     user: {
-    //         name: req.body.name,
-    //         email: req.body.email
-    //     }
-    // });
     try {
         // add our user to the db via req.body
         const user = await User.create(req.body);
@@ -28,9 +21,7 @@ async function create(req, res) {
         res.json(token);
     } catch (err) {
         res.status(400).json(err);
-        // send the error message to the server so other devs can see the error message in the network tab
     }
-
 }
 
 // create a helper function (aren't exported) to ensure DRY
@@ -60,10 +51,11 @@ async function login(req, res) {
     } catch (err) {
         res.status(400).json('Bad Credentials');
     }
-
 }
 
-function checkToken(req, res) {
-    console.log('req.user', req.user); // making sure we see our user info in terminal
-    res.json(req.exp);
+// get Nanny profile with assocated user details
+async function getNannyData(req, res) {
+    const nanny = await Nanny.addNannyToUser(req.params.id).populate('user');
+    res.json(nanny);
+    console.log('Server sending back', nanny)
 }

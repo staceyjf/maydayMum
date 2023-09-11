@@ -1,7 +1,7 @@
 // theme.js
 import { createTheme } from "@mui/material/styles";
 
-const theme = (mode) =>
+let theme = (mode) =>
   createTheme({
     palette: {
       primary: {
@@ -19,16 +19,40 @@ const theme = (mode) =>
       }, 
       text: {
         primary: 'rgba(0,0,0,0.96)',
+        secondary: 'rgba(0,0,0,0.6)',
       },
     },
-    // typography: {
-    //   fontFamily: 'Georgia',
-    // },
+    typography: {
+      // fontFamily: 'Georgia',
+      h3: {
+        fontSize: '2rem',
+      },
+      h6: {
+        fontSize: '0.75rem',
+      },
+    },
     props: {
       MuiAppBar: {
         color: 'default',
       },
     },
-  });
+    components: {
+      MuiRadioGroup: {
+        styleOverrides: {
+          root: {
+            color: 'rgba(0,0,0,0.6)', 
+          },},},
+      MuiFormControlLabel: { 
+        styleOverrides: {
+          label: {
+            color: 'rgba(0, 0, 0, 0.6)', 
+          },},},
+      MuiGrid: {
+        styleOverrides: {
+          item: {
+            margin: 0,
+          },},},
+   },
+});
 
 export default theme;
