@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as usersAPI from '../../utilities/users-api';
+import * as usersAPI from '../../utilities/accounts-api';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 // import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
@@ -19,7 +19,7 @@ function AccountPage({user, setUser}) {
       }
     }
     fetchData();
-  });
+  }, [user]);
 
 
     return (

@@ -25,7 +25,7 @@ function App() {
             <Routes>
                {/* index route */}
               <Route index element={<AboutUsPage />} />
-              <Route path="/users/account" element={<AccountPage user={user} setUser={setUser}/>} />
+              <Route path="/accounts" element={<AccountPage user={user} setUser={setUser}/>} />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
               <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
               <Route path="/team/bookings" element={<BookingsPage />} />

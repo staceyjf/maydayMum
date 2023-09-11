@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { updateParentProfile } from '../../../utilities/users-api';
+import { updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 // import aboutUsImg from './aboutUsImg.jpg'
 // import styles from './Hero.module.css'; // bring in specific styling to hero
-
 
 function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   console.log('this is the fullUserprofile', fullUserProfile);
@@ -16,8 +15,8 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     email: '',
     parent: {
       numberOfChildren: 1,
-      childrenAge: [ 1 ],
-      bookings: []
+      childrenAge: [1],
+      bookings: [],
     },
     error: '',
   });
@@ -25,16 +24,16 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
 
   const childrenCount = [1,2,3,4,5];
 
-    // Update userData when fullUserProfile changes
-    useEffect(function() {
-      function updateFormData() {
-        if (fullUserProfile) {
-          setUserData(fullUserProfile); // Set userData to the received fullUserProfile
-        }
-      }
-      
-      updateFormData();
-    }, [fullUserProfile]);
+  //wait for fallUserProfile to load then 
+  // set fullUserProfile as the initial state for UserData. handleChange should overwrite it when
+  // user start typing into the form
+  useEffect(function() {
+    async function updateFormData() {
+      const loadedData = await fullUserProfile;
+      setUserData(loadedData); // Set userData to the received fullUserProfile
+    }
+    updateFormData();
+  }, []); // dependancy fullUserProfile changing
 
   function handleChange(evt) { 
     setUserData({ 

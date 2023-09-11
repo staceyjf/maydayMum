@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt');
 module.exports = {
     create,
     login,
-    getNannyData,
+    // getNannyData,
+    // updateParentProfile
 };
 
 // will pass on a token to the users-api.jsx
@@ -53,9 +54,16 @@ async function login(req, res) {
     }
 };
 
-// get Nanny profile with associated user details
-async function getNannyData(req, res) {
-    const nanny = await Nanny.addNannyToUser(req.user._id).populate('user');
-    console.log('Server sending back', nanny);
-    res.json(nanny);
-};
+// // get Nanny profile with associated user details
+// async function getNannyData(req, res) {
+//     const nanny = await Nanny.addNannyToUser(req.user._id).populate('user');
+//     console.log('Server sending back', nanny);
+//     res.json(nanny);
+// };
+
+// // get Nanny profile with associated user details
+// async function updateParentProfile(req, res) {
+//     const nanny = await Nanny.addNannyToUser(req.user._id).populate('user');
+//     console.log('Server sending back', nanny);
+//     res.json(nanny);
+// };

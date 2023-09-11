@@ -8,7 +8,7 @@ import LogoDevIcon from "@mui/icons-material/LogoDev";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const pages = ["FIND A NANNY", "BOOKINGS"];
-const settings = ["ACCOUNT", "CREATE A NANNY PROFILE", "LOGOUT"];
+const settings = ["ACCOUNT PROFILE", "LOGOUT"];
 
 function NavBar({ user, setUser }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -100,7 +100,7 @@ function NavBar({ user, setUser }) {
             variant="h5"
             noWrap
             component="a"
-            href="/" //TODO: UPDATE LINK
+            href="/" 
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -165,12 +165,19 @@ function NavBar({ user, setUser }) {
                             {setting}
                             </a>
                         ) : (
+                            // <Link
+                            // to={`/${setting.toLowerCase().replace(/\s+/g, "-")}`}
+                            // style={{ textDecoration: "none", color: "black" }}
+                            // >
+                            // {setting}
+                            // </Link>
                             <Link
-                            to={`/users/${setting.toLowerCase().replace(/\s+/g, "-")}`}
+                            to={`/accounts`}
                             style={{ textDecoration: "none", color: "black" }}
                             >
                             {setting}
                             </Link>
+
                         )}
                         </Typography>
                 </MenuItem>
