@@ -2,7 +2,6 @@ import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typograp
 
 function AccountProfile({fullUserProfile, setFullUserProfile}) {
   console.log('this is the account profile component fulluserprofile', fullUserProfile);
-
   return (
     <>
     <Card>
@@ -31,7 +30,7 @@ function AccountProfile({fullUserProfile, setFullUserProfile}) {
           <Typography
             color="text.secondary"
             variant="body2"
-          >Location: 
+          > 
             {fullUserProfile.location} 
           </Typography>
         </Box>

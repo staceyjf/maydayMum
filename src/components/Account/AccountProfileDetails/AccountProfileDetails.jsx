@@ -1,49 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { updateParentProfile } from '../../../utilities/accounts-api';
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Unstable_Grid2 as Grid } from '@mui/material';
-// import aboutUsImg from './aboutUsImg.jpg'
-// import styles from './Hero.module.css'; // bring in specific styling to hero
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, 
+  Divider, FormControlLabel, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 
 function AccountProfileDetails({fullUserProfile}) {
-  console.log('when accountprofile loads, fulluserprofile is set to this', fullUserProfile);
-
-  const [userData, setUserData] = useState({...fullUserProfile}
-    // firstName: '',
-    // surname: '',
-    // location: '',
-    // phoneNumber: '',
-    // email: '',
-    // parent: {
-    //   numberOfChildren: 1,
-    //   childrenAge: [1],
-    //   bookings: [],
-    // },
-    // error: '',
-  );
+  const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
 
-  const childrenCount = [1,2,3,4,5];
-
-console.log('this is userdata once we set it to initialise to fulluserprofile', userData);
-
-  function handleUserChange(evt) { 
+  function handleUserChange(evt) { // handles referenced user document 
     setUserData({ 
         ...userData, 
        user: {[evt.target.name]: evt.target.value},
         error:'' 
     });    
-    console.log(evt.target.value)
   };
   
-  function handleChange(evt) { 
+  function handleChange(evt) { // handles nanny document
     setUserData({ 
         ...userData, 
         [evt.target.name]: evt.target.value,
         error:'' 
     });    
-    console.log(evt.target.value)
   };
 
+  function handleCheckedChange(evt) { // handles nanny checkboxes
+    setUserData({
+      ...userData,
+      [evt.target.name]: evt.target.checked,
+      error: '',
+    });
+  };
+  
   async function handleSubmit(evt) { 
     // evt.preventDefault(); 
     // try { 
@@ -63,8 +50,8 @@ console.log('this is userdata once we set it to initialise to fulluserprofile', 
     >
       <Card>
         <CardHeader
-          subheader="Update where needed"
           title="Profile"
+          subheader="Edit details where needed"
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -78,7 +65,6 @@ console.log('this is userdata once we set it to initialise to fulluserprofile', 
               >
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
                   label="First name"
                   name="firstName"
                   onChange={handleUserChange}
@@ -126,7 +112,7 @@ console.log('this is userdata once we set it to initialise to fulluserprofile', 
               </Grid>
               <Grid
                 xs={12}
-                md={6}
+                md={12}
               >
                 <TextField
                   fullWidth
@@ -137,29 +123,42 @@ console.log('this is userdata once we set it to initialise to fulluserprofile', 
                   value={userData.user.location}
                 />
               </Grid>
+              <Grid xs={12} md={6}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="isFirstAidCertified"
+                    checked={userData.isFirstAidCertified} // set the value of checked
+                    onChange={handleCheckedChange} // runs specific change function
+                  />
+                }
+                label="First Aid Certified"
+              />
+              </Grid>
+              <Grid xs={12} md={6}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="isWccCleared"
+                    checked={userData.isWccCleared} // set the value of checked
+                    onChange={handleCheckedChange} // runs specific change function
+                  />
+                }
+                label="WWC Cleared"
+              />
+              </Grid>
               <Grid
                 xs={12}
                 md={6}
               >
-                {/* <TextField
+                <TextField
                   fullWidth
-                  label="Select no of Children"
-                  name="parent.numberOfChildren"
+                  label="Nightly Rate in $"
+                  name="nightRate"
                   onChange={handleChange}
                   required
-                  select
-                  SelectProps={{ native: true }}
-                  value={userData.user.parent.numberOfChildren} 
-                >
-                  {childrenCount.map((option) => (
-                    <option
-                      key={option}
-                      value={option}
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </TextField> */}
+                  value={userData.nightRate}
+                />
               </Grid>
             </Grid>
           </Box>
@@ -176,3 +175,28 @@ console.log('this is userdata once we set it to initialise to fulluserprofile', 
 )};
 
 export default AccountProfileDetails
+
+{/* <Grid
+  xs={12}
+  md={6}
+>
+  <TextField
+    fullWidth
+    label="First Aid Certified"
+    name="isFirstAidCertified"
+    onChange={handleChange}
+    required
+    select
+    SelectProps={{ native: true }}
+    value={userData.isFirstAidCertified} 
+  >
+    {childrenCount.map((option) => (
+      <option
+        key={option}
+        value={option}
+      >
+        {option}
+      </option>
+    ))}
+  </TextField>
+</Grid> */}
