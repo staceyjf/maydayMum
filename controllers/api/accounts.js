@@ -18,7 +18,6 @@ async function getNannyData(req, res) {
 
 // update Nanny profile from Account Page
 async function updateNannyProfile(req, res) {
-    console.log(req.body, req.user._id, req._id)
     const updatedNanny = await Nanny.findOneAndUpdate(
     { _id: req.body._id},
     { $set: req.body },

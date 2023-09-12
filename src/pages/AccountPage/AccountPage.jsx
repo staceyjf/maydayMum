@@ -8,7 +8,6 @@ import AccountProfileDetails from '../../components/Account/AccountProfileDetail
 function AccountPage({user, setUser}) {
   const [fullUserProfile, setFullUserProfile ] = useState({});
   const [isLoading, setIsLoading] = useState(true); // 
-  // console.log('this is what is being passed in as user from app.js/sign in/login', user);
 
   useEffect(function() {
     async function fetchData() {

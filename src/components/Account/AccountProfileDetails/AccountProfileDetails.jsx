@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { updateNannyProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, 
-  Divider, FormControlLabel, TextField, Unstable_Grid2 as Grid } from '@mui/material';
+  Divider, FormControlLabel, TextField, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
 function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
+  const [successMessage, setSuccessMessage] = useState('');
   // console.log(userData)
 
   function handleUserChange(evt) { // handles user document
@@ -41,7 +42,8 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     evt.preventDefault(); 
     try { 
       const user = await updateNannyProfile(userData);
-      setFullUserProfile(user); 
+      setFullUserProfile(user);
+      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
     } 
@@ -172,6 +174,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
+          <Typography variant="h6">
+          {successMessage}
+          </Typography>
           <Button type="submit" variant="contained">
             Save details
           </Button>
