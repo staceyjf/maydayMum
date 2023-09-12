@@ -1,33 +1,9 @@
-import { useState, useEffect } from 'react';
-import * as usersAPI from '../../utilities/accounts-api';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 // import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 
-function AccountPage({user, setUser}) {
-  const [fullUserProfile, setFullUserProfile ] = useState({});
-  const [isLoading, setIsLoading] = useState(true); // 
-
-  useEffect(function() {
-    async function fetchData() {
-      try {
-        if (user.role === 'parent') {
-          const parentData = await usersAPI.getParentData();
-          setFullUserProfile(parentData); // 
-        } else {
-          const nannyData = await usersAPI.getNannyData();
-          setFullUserProfile(nannyData);
-        }
-        setIsLoading(false); // FullUserProfile has successfully loaded, render account components
-      } catch (error) {  
-        console.error("Error with API call:", error);
-        setIsLoading(false); 
-      }
-      setIsLoading(false);
-    }
-    fetchData();
-  }, [user.role]);
+function AccountPage({isLoading, fullUserProfile, setFullUserProfile}) {
 
   return (
     <>
