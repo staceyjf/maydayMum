@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const Parent = require('./parent');
+const Nanny = require('./nanny');
 
 const SALT_ROUNDS = 6;
 
@@ -26,8 +28,8 @@ const userSchema = new Schema({
         required: true
     },
     isAdmin: { type: Boolean, default: false },
-    parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, // referenced collection 
-    nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
+    // parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, // referenced collection 
+    // nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
     }, {
     timestamps: true, 
     toJSON: { 

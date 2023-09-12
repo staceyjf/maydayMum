@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { updateNannyProfile } from '../../../utilities/accounts-api';
+import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
+import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
+import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 
 function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
-  // console.log(userData)
 
   function handleUserChange(evt) { // handles user document
     const updatedUser = {
@@ -23,7 +23,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     });
   };
   
-  function handleChange(evt) { // handles nanny document
+  function handleChange(evt) { // handles nanny/parent document
     setUserData({ 
         ...userData, 
         [evt.target.name]: evt.target.value,
@@ -39,7 +39,19 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     });
   };
   
-  async function handleSubmit(evt) { 
+  async function handleParentSubmit(evt) { 
+    evt.preventDefault(); 
+    try { 
+      const user = await updateParentProfile(userData);
+      setFullUserProfile(user);      
+      console.log('this is the value of user post the server call', user)
+      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
+  };
+
+  async function handleNannySubmit(evt) { 
     evt.preventDefault(); 
     try { 
       const user = await updateNannyProfile(userData);
@@ -55,7 +67,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     <form
       autoComplete="off"
       noValidate
-      onSubmit={handleSubmit}
+      onSubmit={(userData.user.role === 'parent') ? handleParentSubmit : handleNannySubmit }
     >
       <Card>
         <CardHeader
@@ -133,8 +145,10 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 />
               </Grid>
               { (userData.user.role === 'parent')
-              ? <h1>Parent coming soon</h1> 
-              : < AccountProfileNannyEl userData={userData} handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
+              ? < AccountProfileParentEl userData={userData} 
+              handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
+              : < AccountProfileNannyEl userData={userData} 
+              handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
               }
             </Grid>
           </Box>
@@ -143,6 +157,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
         <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Typography variant="h6">
           {successMessage}
+          {error}
           </Typography>
           <Button type="submit" variant="contained">
             Save details

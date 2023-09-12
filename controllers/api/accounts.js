@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt');
 module.exports = {
     getNannyData,
     getParentData,
-    updateParentProfile,
-    updateNannyProfile
+    updateNannyProfile,
+    updateParentProfile
 };
 
 // get Nanny profile with associated user details
@@ -45,8 +45,9 @@ async function updateNannyProfile(req, res) {
 
 // get parent profile with associated user details
 async function updateParentProfile(req, res) {
+    console.log()
     const updatedParent = await Parent.findOneAndUpdate(
-    { _id: req.user._id },
+    { _id: req.body._id },
     { $set: req.body }, // Assuming your payload has the updated data for the user profile
     { new: true } // return the updated user document
     ).populate('user');

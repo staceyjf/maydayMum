@@ -15,6 +15,6 @@ export async function updateNannyProfile(userData) {
    return sendRequest(`${BASE_URL}/nanny-profile`, 'POST', userData);
  }
 
-export async function updateParentProfile(accountData) {
-   return sendRequest(`${BASE_URL}/parent-profile`, 'POST', accountData);
+export async function updateParentProfile(userData) {
+   return sendRequest(`${BASE_URL}/parent-profile`, 'POST', userData);
  }

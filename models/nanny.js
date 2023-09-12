@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./user');
+const Booking = require('./booking');
 const availabilitySchema = require('./availability');
 
 const nannySchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    availability: [availabilitySchema],
     bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
+    availability: [availabilitySchema],
     image: {
         type: String,
         get: v => `${root}${v}`

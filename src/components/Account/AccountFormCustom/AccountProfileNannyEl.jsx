@@ -45,8 +45,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
         }
         label="WWC Cleared"
       />
-      </Grid>
-           
+      </Grid>     
     </>
 )};
 

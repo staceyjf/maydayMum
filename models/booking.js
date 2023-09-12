@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Parent = require('./parent');
 const Nanny = require('./nanny');
-const User = require('./user');
 
 const bookingSchema = new Schema({
-    parent: {type: Schema.Types.ObjectId, ref: 'User'}, //is this correct ?
+    parent: {type: Schema.Types.ObjectId, ref: 'User'}, 
     nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'}
     }, {
     timestamps: true,
