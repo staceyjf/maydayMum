@@ -3,7 +3,7 @@ import { updateNannyProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, 
   Divider, FormControlLabel, TextField, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
+function AccountNannyProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
@@ -186,7 +186,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     </>
 )};
 
-export default AccountProfileDetails
+export default AccountNannyProfileDetails
 
 {/* <Grid
   xs={12}

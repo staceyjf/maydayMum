@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     getNannyData,
+    getParentData,
     updateParentProfile,
     updateNannyProfile
 };
@@ -16,13 +17,20 @@ async function getNannyData(req, res) {
     res.json(nanny);
 };
 
+// get full user profile with associated parentSchema
+async function getParentData(req, res) {
+    const parent = await User.findById(req.user._id);
+    console.log('getParentData is sending back this', parent);
+    res.json(parent);
+};
+
 // update Nanny profile from Account Page
 async function updateNannyProfile(req, res) {
     const updatedNanny = await Nanny.findOneAndUpdate(
     { _id: req.body._id},
     { $set: req.body },
     { new: true } // return the updated nanny document
-    );
+    ).populate('user');
 
     await User.findOneAndUpdate( //updated the user document
         { _id: req.user._id }, 
