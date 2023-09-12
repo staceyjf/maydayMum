@@ -72,14 +72,14 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 xs={12}
                 md={6}
               >
-                <TextField
+                {/* <TextField
                   fullWidth
                   label="First name"
                   name="firstName"
                   onChange={handleUserChange}
                   required
                   value={userData.user.firstName}
-                />
+                /> */}
               </Grid>
               <Grid
                 xs={12}
@@ -132,7 +132,10 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   value={userData.user.location}
                 />
               </Grid>
-              < AccountProfileNannyEl userData={userData} handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
+              { (userData.user.role === 'parent')
+              ? <h1>Parent coming soon</h1> 
+              : < AccountProfileNannyEl userData={userData} handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
+              }
             </Grid>
           </Box>
         </CardContent>

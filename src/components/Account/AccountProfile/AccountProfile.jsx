@@ -1,7 +1,7 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
 function AccountProfile({fullUserProfile}) {
-  // console.log('this is the account profile component fulluserprofile', fullUserProfile);
+  console.log('this is the account profile component fulluserprofile', fullUserProfile);
 
   return (
     <>
@@ -22,12 +22,12 @@ function AccountProfile({fullUserProfile}) {
               width: 80
             }}
           />
-          <Typography
+          {/* <Typography
             gutterBottom
             variant="h5"
           >
             {fullUserProfile.user.fullName}
-          </Typography>
+          </Typography> */}
           <Typography
             color="text.secondary"
             variant="body2"
