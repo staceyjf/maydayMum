@@ -42,7 +42,6 @@ function App() {
 
   return (
     <main className="App">
-    {/* conditionally render based on user - this has the NavBar only for logged in users*/}
     { user ?
         <>
           <NavBar user={user} setUser={setUser}/>
@@ -51,7 +50,7 @@ function App() {
               <Route index element={<AboutUsPage />} />
               <Route path="/accounts" element={<AccountPage isLoading={isLoading} fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>} />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
-              <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
+              <Route path="/team/find-a-nanny" element={<FindANannyPage isLoading={isLoading} fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>} />
               <Route path="/team/bookings" element={<BookingsPage />} />
                {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />

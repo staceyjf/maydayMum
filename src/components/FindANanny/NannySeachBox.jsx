@@ -1,6 +1,6 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-function NannyList({fullUserProfile}) {
+function AccountProfile({fullUserProfile}) {
   console.log('this is the account profile component fulluserprofile', fullUserProfile);
 
   return (
@@ -14,14 +14,6 @@ function NannyList({fullUserProfile}) {
             flexDirection: 'column'
           }}
         >
-          <Avatar
-            src={fullUserProfile.image}
-            sx={{
-              height: 80,
-              mb: 2,
-              width: 80
-            }}
-          />
           <Typography
             gutterBottom
             variant="h5"
@@ -49,4 +41,4 @@ function NannyList({fullUserProfile}) {
   </>
 )};
 
-export default NannyList
+export default AccountProfile

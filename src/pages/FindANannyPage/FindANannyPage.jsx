@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import * as usersAPI from '../../utilities/accounts-api';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-// import { NannyList } from '../../components/FindANanny/NannyList';
+import NannyList from '../../components/FindANanny/NannyList';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
 
 const now = new Date();
 
-function NannyProfilePage({user, setUser}) {
-  const [fullUserProfile, setFullUserProfile ] = useState({});
-
+function NannyProfilePage({isLoading, fullUserProfile, setFullUserProfile}) {
+  
     return (
       <>
+      {isLoading 
+      ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
+      : ( // Render the account components when isLoading is false
         <Box
           component="main"
           sx={{
@@ -21,8 +22,8 @@ function NannyProfilePage({user, setUser}) {
           <Container maxWidth="lg">
             <Stack spacing={3}>
               <div>
-                <Typography variant="h4">
-                  Account Details
+                <Typography variant="h5">
+                  Find Amazing Local Nannies across the Northern Beaches
                 </Typography>
               </div>
               <div>
@@ -42,13 +43,14 @@ function NannyProfilePage({user, setUser}) {
                     md={6}
                     lg={8}
                   >
-                    {/* <AccountProfileDetails fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/> */}
+                    <NannyList fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>
                   </Grid>
                 </Grid>
               </div>
             </Stack>
           </Container>
         </Box>
+       )}
       </>
     )
   }

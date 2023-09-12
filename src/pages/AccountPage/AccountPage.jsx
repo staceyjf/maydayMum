@@ -7,9 +7,9 @@ function AccountPage({isLoading, fullUserProfile, setFullUserProfile}) {
 
   return (
     <>
-    {isLoading ? (
-      <div>Loading...</div> //need to add something in to indicate that this is happening 
-    ) : ( // Render the account components when isLoading is false
+    {isLoading 
+    ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
+    : ( // Render the account components when isLoading is false
       <Box
         component="main"
         sx={{
