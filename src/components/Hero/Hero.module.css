@@ -1,7 +1,7 @@
 .heroBox {
   width: 100%;
   display: flex;
-  min-height: 600px; 
+  min-height: 100vh; 
   align-items: center;
   justify-content: flex-end; 
   background-image: url('./aboutUsImg.jpg');

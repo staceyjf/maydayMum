@@ -11,7 +11,7 @@ module.exports = {
 // get Nanny profile with associated user details
 async function getNannyData(req, res) {
     const nanny = await Nanny.addNannyToUser(req.user._id).populate('user');
-    console.log('Server sending back nanny info', nanny);
+    console.log('getNannyData is sending back this', nanny);
     res.json(nanny);
 };
 
@@ -22,6 +22,6 @@ async function updateParentProfile(req, res) {
     { $set: req.body }, // Assuming your payload has the updated data for the user profile
     { new: true } // return the updated user document
     );
-    console.log('Server sending back updated updatedParent info', updatedParent);
+    console.log('updateParentprofile is sending back this', updatedParent);
     res.json(updatedParent);
 };

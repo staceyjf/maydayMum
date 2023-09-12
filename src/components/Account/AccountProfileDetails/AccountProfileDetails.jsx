@@ -4,59 +4,58 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextF
 // import aboutUsImg from './aboutUsImg.jpg'
 // import styles from './Hero.module.css'; // bring in specific styling to hero
 
-function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
-  console.log('this is the fullUserprofile', fullUserProfile);
+function AccountProfileDetails({fullUserProfile}) {
+  console.log('when accountprofile loads, fulluserprofile is set to this', fullUserProfile);
 
-  const [userData, setUserData] = useState({
-    firstName: '',
-    surname: '',
-    location: '',
-    phoneNumber: '',
-    email: '',
-    parent: {
-      numberOfChildren: 1,
-      childrenAge: [1],
-      bookings: [],
-    },
-    error: '',
-  });
+  const [userData, setUserData] = useState({...fullUserProfile}
+    // firstName: '',
+    // surname: '',
+    // location: '',
+    // phoneNumber: '',
+    // email: '',
+    // parent: {
+    //   numberOfChildren: 1,
+    //   childrenAge: [1],
+    //   bookings: [],
+    // },
+    // error: '',
+  );
   const [error, setError] = useState(''); 
 
   const childrenCount = [1,2,3,4,5];
 
-  //wait for fallUserProfile to load then 
-  // set fullUserProfile as the initial state for UserData. handleChange should overwrite it when
-  // user start typing into the form
-  useEffect(function() {
-    async function updateFormData() {
-      const loadedData = await fullUserProfile;
-      setUserData(loadedData); // Set userData to the received fullUserProfile
-    }
-    updateFormData();
-  }, []); // dependancy fullUserProfile changing
+console.log('this is userdata once we set it to initialise to fulluserprofile', userData);
 
+  function handleUserChange(evt) { 
+    setUserData({ 
+        ...userData, 
+       user: {[evt.target.name]: evt.target.value},
+        error:'' 
+    });    
+    console.log(evt.target.value)
+  };
+  
   function handleChange(evt) { 
     setUserData({ 
         ...userData, 
         [evt.target.name]: evt.target.value,
         error:'' 
-    });
+    });    
+    console.log(evt.target.value)
   };
 
   async function handleSubmit(evt) { 
-    evt.preventDefault(); 
-    try { 
-      const user = await updateParentProfile(userData);
-      setFullUserProfile(user); 
-    } catch { 
-      setError('Update failed - please try again'); 
-    } 
+    // evt.preventDefault(); 
+    // try { 
+    //   const user = await updateParentProfile(userData);
+    //   setFullUserProfile(user); 
+    // } catch { 
+    //   setError('Update failed - please try again'); 
+    // } 
   };
 
   return (
     <>
-    {/* <h1>{fullUserProfile.parent.numberOfChildren}</h1> */}
-    <h1>{fullUserProfile.role}</h1>
     <form
       autoComplete="off"
       noValidate
@@ -82,9 +81,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   helperText="Please specify the first name"
                   label="First name"
                   name="firstName"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.firstName}
+                  value={userData.user.firstName}
                 />
               </Grid>
               <Grid
@@ -95,9 +94,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Last name"
                   name="surname"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.surname}
+                  value={userData.user.surname}
                 />
               </Grid>
               <Grid
@@ -108,9 +107,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Email Address"
                   name="email"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.email}
+                  value={userData.user.email}
                 />
               </Grid>
               <Grid
@@ -121,8 +120,8 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Phone Number"
                   name="phoneNumber"
-                  onChange={handleChange}
-                  value={userData.phoneNumber}
+                  onChange={handleUserChange}
+                  value={userData.user.phoneNumber}
                 />
               </Grid>
               <Grid
@@ -133,16 +132,16 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Address"
                   name="location"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.location}
+                  value={userData.user.location}
                 />
               </Grid>
               <Grid
                 xs={12}
                 md={6}
               >
-                <TextField
+                {/* <TextField
                   fullWidth
                   label="Select no of Children"
                   name="parent.numberOfChildren"
@@ -150,7 +149,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={userData.parent.numberOfChildren} 
+                  value={userData.user.parent.numberOfChildren} 
                 >
                   {childrenCount.map((option) => (
                     <option
@@ -160,7 +159,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                       {option}
                     </option>
                   ))}
-                </TextField>
+                </TextField> */}
               </Grid>
             </Grid>
           </Box>

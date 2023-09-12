@@ -1,23 +1,7 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
 function AccountProfile({fullUserProfile, setFullUserProfile}) {
-
-
-   /* -----Event Handlers ---- */
-  // // adding the order to the cart via the add btn
-  // async function handleAddToOrder(itemId) {
-  //   // Call the addItemToCart function in ordersAPI, 
-  //   // passing to it the itemId, and assign the resolved promise to a variable named cart.
-  //   const updatedCart = await ordersAPI.addItemToCart(itemId);
-  //   // Update the cart state with the updated cart received from the server
-  //   setCart(updatedCart);
-  // }
-
-  // // programmatically routing via client side 
-  // async function handleCheckout() {
-  //   await ordersAPI.checkout();
-  //   navigate('/orders');
-  // }
+  console.log('this is the account profile component fulluserprofile', fullUserProfile);
 
   return (
     <>
@@ -42,7 +26,7 @@ function AccountProfile({fullUserProfile, setFullUserProfile}) {
             gutterBottom
             variant="h5"
           >
-            {fullUserProfile.fullName}
+            {fullUserProfile.user.fullName}
           </Typography>
           <Typography
             color="text.secondary"

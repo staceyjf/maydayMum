@@ -1,7 +1,7 @@
 // theme.js
 import { createTheme } from "@mui/material/styles";
 
-let theme = (mode) =>
+let outerTheme = (mode) =>
   createTheme({
     palette: {
       primary: {
@@ -55,4 +55,4 @@ let theme = (mode) =>
    },
 });
 
-export default theme;
+export default outerTheme;
