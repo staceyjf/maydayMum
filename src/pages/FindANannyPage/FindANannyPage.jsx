@@ -2,7 +2,7 @@ import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/
 import NannyList from '../../components/FindANanny/NannyList';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
 
-function NannyProfilePage({isLoading, fullUserProfile, setFullUserProfile}) {
+function NannyProfilePage({isLoading, nannies, fullUserProfile, setFullUserProfile}) {
   
     return (
       <>
@@ -40,7 +40,11 @@ function NannyProfilePage({isLoading, fullUserProfile, setFullUserProfile}) {
                     md={8}
                     lg={10}
                   >
-                    <NannyList fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>
+                    <NannyList 
+                      nannies={nannies} 
+                      fullUserProfile={fullUserProfile} 
+                      setFullUserProfile={setFullUserProfile}
+                    />
                   </Grid>
                 </Grid>
               </div>

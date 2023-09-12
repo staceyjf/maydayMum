@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate  } from 'react-router-dom';
 import * as usersAPI  from '../../utilities/users-service';
 import * as accountsAPI from '../../utilities/accounts-api';
+import * as teamAPI from '../../utilities/team-api';
+
 // Page components
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
 import AccountPage from '../AccountPage/AccountPage';
@@ -21,38 +23,43 @@ function App() {
   const [nannies, setNannies ] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true);  
   const [isLoadingAllData, setIsLoadingAllData] = useState(true); 
-
-  useEffect(function() {
-    async function fetchProfileData() {
-      try {
-        if (user.role === 'parent') {
-          const parentData = await accountsAPI.getParentData();
-          setFullUserProfile(parentData); // 
-        } else {
-          const nannyData = await accountsAPI.getNannyData();
-          setFullUserProfile(nannyData);
+  
+  useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
+    if (user) {
+      async function fetchProfileData() {
+        try {
+          if (user.role === 'parent') {
+            const parentData = await accountsAPI.getParentData();
+            setFullUserProfile(parentData);
+          } else {
+            const nannyData = await accountsAPI.getNannyData();
+            setFullUserProfile(nannyData);
+          }
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error with calling full user data", error);
+          setIsLoading(false);
         }
-        setIsLoading(false); // FullUserProfile has successfully loaded, safe to render
-      } catch (error) {  
-        console.error("Error with calling full user data", error);
-        setIsLoading(false); 
       }
-      setIsLoading(false);
-    }
-    fetchProfileData();
 
+      fetchProfileData();
+    }
+  }, [user]);
+
+  useEffect(function () {
+    if (user) {  // ensuring that the user has logged in / signed up before running fetchData()
     async function fetchAllNannies() {
       try {
-        const nannies = await accountsAPI.getAllNannies();
-        setNannies(nannies);
-      } catch (error) {
-        console.error("Error with calling full all nanny data", error);
+        const allNannies = await teamAPI.getAllNannies(); 
+        setNannies(allNannies); 
         setIsLoadingAllData(false);
+      } catch (error) {
+        console.error("Error with calling all nanny data", error);
       }
-      setIsLoadingAllData(false);
     }
-    fetchAllNannies();
-  }, [user.role]);
+    fetchAllNannies(); 
+  }
+}, [user]);
 
   return (
     <main className="App">
@@ -62,9 +69,18 @@ function App() {
             <Routes>
                {/* index route */}
               <Route index element={<AboutUsPage />} />
-              <Route path="/accounts" element={<AccountPage isLoading={isLoading} fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>} />
+              <Route path="/accounts" element={<AccountPage 
+                isLoading={isLoading} 
+                fullUserProfile={fullUserProfile} 
+                setFullUserProfile={setFullUserProfile}/>} 
+              />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
-              <Route path="/team/find-a-nanny" element={<FindANannyPage isLoadingAllData={isLoadingAllData} nannies={nannies} fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>} />
+              <Route path="/team/find-a-nanny" element={<FindANannyPage 
+                isLoadingAllData={isLoadingAllData} 
+                nannies={nannies} 
+                fullUserProfile={fullUserProfile} 
+                setFullUserProfile={setFullUserProfile}
+              />} />
               <Route path="/team/bookings" element={<BookingsPage />} />
                {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />

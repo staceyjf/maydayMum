@@ -1,23 +1,22 @@
 import NannyCard from './NannyCard';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-function NannyList({fullUserProfile, isLoadingAllData, nannies}) {
-
-  const nanny = nannies.map((n ,idx)) => (
-  <NannyCard
-    nanny={n}
-    idx={idx}
-  />);
-
+function NannyList({ fullUserProfile, isLoadingAllData, nannies }) {
+  
+  const nanny = nannies.map((n, idx) => (
+    <NannyCard
+      nanny={n}
+      key={idx}
+    />
+  ));
 
   return (
     <>
-    {isLoadingAllData 
-    ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
-    : ( // Render the account components when isLoading is false
-      {nanny}
+      {isLoadingAllData ? (<div>Loading...</div>) : (
+        <div>{nanny}</div>
       )}
-  </>
-)};
+    </>
+  );
+}
 
-export default NannyList
+export default NannyList;
