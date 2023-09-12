@@ -1,18 +1,24 @@
 import { useState } from 'react';
-import { updateParentProfile } from '../../../utilities/accounts-api';
+import { updateNannyProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, 
   Divider, FormControlLabel, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({fullUserProfile}) {
+function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
+  console.log(userData)
 
-  function handleUserChange(evt) { // handles referenced user document 
-    setUserData({ 
-        ...userData, 
-       user: {[evt.target.name]: evt.target.value},
-        error:'' 
-    });    
+  function handleUserChange(evt) {
+    const updatedUser = {
+      ...userData.user,
+      [evt.target.name]: evt.target.value
+    };
+  
+    setUserData({
+      ...userData,
+      user: updatedUser,
+      error: ''
+    });
   };
   
   function handleChange(evt) { // handles nanny document
@@ -32,13 +38,13 @@ function AccountProfileDetails({fullUserProfile}) {
   };
   
   async function handleSubmit(evt) { 
-    // evt.preventDefault(); 
-    // try { 
-    //   const user = await updateParentProfile(userData);
-    //   setFullUserProfile(user); 
-    // } catch { 
-    //   setError('Update failed - please try again'); 
-    // } 
+    evt.preventDefault(); 
+    try { 
+      const user = await updateNannyProfile(userData);
+      setFullUserProfile(user); 
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
   };
 
   return (
@@ -153,6 +159,7 @@ function AccountProfileDetails({fullUserProfile}) {
               >
                 <TextField
                   fullWidth
+                  id="standard-adornment-amount"
                   label="Nightly Rate in $"
                   name="nightRate"
                   onChange={handleChange}

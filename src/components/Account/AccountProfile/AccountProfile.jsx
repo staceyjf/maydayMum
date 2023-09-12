@@ -1,7 +1,7 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
 function AccountProfile({fullUserProfile, setFullUserProfile}) {
-  console.log('this is the account profile component fulluserprofile', fullUserProfile);
+  // console.log('this is the account profile component fulluserprofile', fullUserProfile);
   return (
     <>
     <Card>
