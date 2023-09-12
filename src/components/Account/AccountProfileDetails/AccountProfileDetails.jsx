@@ -6,9 +6,9 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox,
 function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
-  console.log(userData)
+  // console.log(userData)
 
-  function handleUserChange(evt) {
+  function handleUserChange(evt) { // handles user document
     const updatedUser = {
       ...userData.user,
       [evt.target.name]: evt.target.value
@@ -172,7 +172,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">
+          <Button type="submit" variant="contained">
             Save details
           </Button>
         </CardActions>

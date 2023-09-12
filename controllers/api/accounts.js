@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     getNannyData,
-    updateParentProfile
+    updateParentProfile,
+    updateNannyProfile
 };
 
 // get Nanny profile with associated user details
@@ -15,7 +16,26 @@ async function getNannyData(req, res) {
     res.json(nanny);
 };
 
-// get Nanny profile with associated user details
+// update Nanny profile from Account Page
+async function updateNannyProfile(req, res) {
+    console.log(req.body, req.user._id, req._id)
+    const updatedNanny = await Nanny.findOneAndUpdate(
+    { _id: req.body._id},
+    { $set: req.body },
+    { new: true } // return the updated nanny document
+    );
+
+    await User.findOneAndUpdate( //updated the user document
+        { _id: req.user._id }, 
+        { $set: req.body.user }, // do i need to access the user related info like this?
+        { new: true }
+    );
+
+    console.log('updateNannyProfile is sending back this', updatedNanny);
+    res.json(updatedNanny);
+};
+
+// get parent profile with associated user details
 async function updateParentProfile(req, res) {
     const updatedParent = await User.findOneAndUpdate(
     { _id: req.user._id },
