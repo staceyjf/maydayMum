@@ -1,7 +1,7 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-function AccountNannyProfile({fullUserProfile, setFullUserProfile}) {
-  console.log('this is the account profile component fulluserprofile', fullUserProfile);
+function AccountProfile({fullUserProfile}) {
+  // console.log('this is the account profile component fulluserprofile', fullUserProfile);
 
   return (
     <>
@@ -49,4 +49,4 @@ function AccountNannyProfile({fullUserProfile, setFullUserProfile}) {
   </>
 )};
 
-export default AccountNannyProfile
+export default AccountProfile

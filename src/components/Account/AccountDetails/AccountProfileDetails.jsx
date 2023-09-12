@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { updateNannyProfile } from '../../../utilities/accounts-api';
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, 
-  Divider, FormControlLabel, TextField, Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
+  Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 
-function AccountNannyProfileDetails({fullUserProfile, setFullUserProfile}) {
+function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
@@ -59,7 +60,7 @@ function AccountNannyProfileDetails({fullUserProfile, setFullUserProfile}) {
       <Card>
         <CardHeader
           title="Profile"
-          subheader="Edit details where needed"
+          subheader="Personal Details"
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -131,44 +132,7 @@ function AccountNannyProfileDetails({fullUserProfile, setFullUserProfile}) {
                   value={userData.user.location}
                 />
               </Grid>
-              <Grid xs={12} md={6}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="isFirstAidCertified"
-                    checked={userData.isFirstAidCertified} // set the value of checked
-                    onChange={handleCheckedChange} // runs specific change function
-                  />
-                }
-                label="First Aid Certified"
-              />
-              </Grid>
-              <Grid xs={12} md={6}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="isWccCleared"
-                    checked={userData.isWccCleared} // set the value of checked
-                    onChange={handleCheckedChange} // runs specific change function
-                  />
-                }
-                label="WWC Cleared"
-              />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  id="standard-adornment-amount"
-                  label="Nightly Rate in $"
-                  name="nightRate"
-                  onChange={handleChange}
-                  required
-                  value={userData.nightRate}
-                />
-              </Grid>
+              < AccountProfileNannyEl userData={userData} handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
             </Grid>
           </Box>
         </CardContent>
@@ -186,7 +150,7 @@ function AccountNannyProfileDetails({fullUserProfile, setFullUserProfile}) {
     </>
 )};
 
-export default AccountNannyProfileDetails
+export default AccountProfileDetails
 
 {/* <Grid
   xs={12}
