@@ -1,51 +1,22 @@
-import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
+import NannyCard from './NannyCard';
+import { Link } from "react-router-dom";
 
-function NannyList({fullUserProfile}) {
-  console.log('this is the account profile component fulluserprofile', fullUserProfile);
+function NannyList({fullUserProfile, isLoadingAllData, nannies}) {
+
+  const nanny = nannies.map((n ,idx)) => (
+  <NannyCard
+    nanny={n}
+    idx={idx}
+  />);
+
 
   return (
     <>
-    <Card>
-      <CardContent>
-        <Box
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-          <Avatar
-            src={fullUserProfile.image}
-            sx={{
-              height: 80,
-              mb: 2,
-              width: 80
-            }}
-          />
-          <Typography
-            gutterBottom
-            variant="h5"
-          >
-            {fullUserProfile.user.fullName}
-          </Typography>
-          <Typography
-            color="text.secondary"
-            variant="body2"
-          > 
-            {fullUserProfile.location} 
-          </Typography>
-        </Box>
-      </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-  </Card>
+    {isLoadingAllData 
+    ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
+    : ( // Render the account components when isLoading is false
+      {nanny}
+      )}
   </>
 )};
 

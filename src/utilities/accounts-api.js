@@ -7,9 +7,14 @@ export async function getNannyData() {
    return sendRequest(`${BASE_URL}/nanny`);
 }
 
+export async function getAllNannies() {
+   return sendRequest(`${BASE_URL}/nannies`);
+}
+
 export async function getParentData() {
    return sendRequest(`${BASE_URL}/parent`);
 }
+
 
 export async function updateNannyProfile(userData) {
    return sendRequest(`${BASE_URL}/nanny-profile`, 'POST', userData);

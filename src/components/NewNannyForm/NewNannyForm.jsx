@@ -1,9 +1,7 @@
 import { useState } from 'react'; 
 // MUI 
-import {  Avatar, Box, Button, Grid, Link, Paper, Stack, TextField, Typography} from '@mui/material';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Box, Button, Grid, Paper, TextField, Typography} from '@mui/material';
+
 
 function NewNannyForm({handleToggle, setUser}) {
   const [userData, setUserData] = useState({

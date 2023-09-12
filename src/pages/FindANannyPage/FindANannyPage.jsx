@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import NannyList from '../../components/FindANanny/NannyList';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
-
-const now = new Date();
 
 function NannyProfilePage({isLoading, fullUserProfile, setFullUserProfile}) {
   
@@ -33,15 +30,15 @@ function NannyProfilePage({isLoading, fullUserProfile, setFullUserProfile}) {
                 >
                   <Grid
                     xs={12}
-                    md={6}
-                    lg={4}
+                    md={4}
+                    lg={2}
                   >
                     {/* <AccountProfile fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/> */}
                   </Grid>
                   <Grid
                     xs={12}
-                    md={6}
-                    lg={8}
+                    md={8}
+                    lg={10}
                   >
                     <NannyList fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>
                   </Grid>
