@@ -22,12 +22,12 @@ function AccountProfile({fullUserProfile}) {
               width: 80
             }}
           />
-          {/* <Typography
+          <Typography
             gutterBottom
             variant="h5"
           >
             {fullUserProfile.user.fullName}
-          </Typography> */}
+          </Typography>
           <Typography
             color="text.secondary"
             variant="body2"

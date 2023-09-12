@@ -72,14 +72,14 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 xs={12}
                 md={6}
               >
-                {/* <TextField
+                <TextField
                   fullWidth
                   label="First name"
                   name="firstName"
                   onChange={handleUserChange}
                   required
                   value={userData.user.firstName}
-                /> */}
+                />
               </Grid>
               <Grid
                 xs={12}

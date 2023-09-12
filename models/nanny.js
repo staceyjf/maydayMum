@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const User = require('./user');
 const availabilitySchema = require('./availability');
-const Booking = require('./booking');
 
 const nannySchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User'},
