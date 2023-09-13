@@ -16,10 +16,12 @@ function AccountAvailability({userData, setUserData}) {
     // handles nanny user checkboxes (will need a seperate one for avaibility)
       console.log('this is target.name', evt.target.name)
       console.log('this is target checked', evt.target.checked)
+      
       setWeeklyAvailabilityData({
         ...weeklyAvailabilityData,
         [evt.target.name]: evt.target.checked,
-    });
+    })
+    ;
     setUserData({
       ...userData,
       weeklyAvailability: weeklyAvailabilityData

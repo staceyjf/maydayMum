@@ -22,8 +22,7 @@ function App() {
   const [fullUserProfile, setFullUserProfile ] = useState({}); // combines user with nanny or parent
   const [isLoading, setIsLoading] = useState(true);  
   // const [nannies, setNannies ] = useState([]); // all nannies
-  // const [isLoadingAllData, setIsLoadingAllData] = useState(true); 
-  
+
   useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
       async function fetchProfileData() {
@@ -43,21 +42,6 @@ function App() {
       fetchProfileData();
     }
   }, [user]);
-
-//   useEffect(function () {
-//     if (user) {  // ensuring that the user has logged in / signed up before running fetchData()
-//     async function fetchAllNannies() {
-//       try {
-//         const allNannies = await teamAPI.getAllNannies(); 
-//         setNannies(allNannies); 
-//         setIsLoadingAllData(false);
-//       } catch (error) {
-//         console.error("Error with calling all nanny data", error);
-//       }
-//     }
-//     fetchAllNannies(); 
-//   }
-// }, [user]);
 
   return (
     <main className="App">
@@ -80,8 +64,6 @@ function App() {
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
               <Route path="/team/find-a-nanny" element={
               <FindANannyPage 
-                // isLoading={isLoading} 
-                // nannies={nannies} 
                 fullUserProfile={fullUserProfile} 
                 setFullUserProfile={setFullUserProfile}
               />} />
