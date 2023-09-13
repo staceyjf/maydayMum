@@ -4,10 +4,10 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divi
 function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
   // console.log('this is target.name', evt.target.name)
   // console.log('this is target checked', evt.target.checked)
-  console.log('this is the logged in nannys availability data', nannyAvailsData);
   const [userData, setUserData] = useState({ ...nannyAvailsData });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  console.log('this is the logged in nannys availability data', userData);
 
   function handleAvailabilityChange(evt) {
     setUserData({
@@ -53,6 +53,66 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         />
                       }
                       label='Monday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Tuesday'
+                          checked={userData.Tuesday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Tuesday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Wednesday'
+                          checked={userData.Wednesday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Wednesday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Thursday'
+                          checked={userData.Thursday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Thursday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Friday'
+                          checked={userData.Friday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Friday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Saturday'
+                          checked={userData.Saturday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Saturday'
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Sunday'
+                          checked={userData.Sunday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Sunday'
                     />
                   </FormGroup>
                 </FormControl>
