@@ -3,7 +3,8 @@ import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 
-function AccountPage({isLoading, fullUserProfile, setFullUserProfile}) {
+function AccountPage({fullUserProfile, setFullUserProfile, isLoading}) {
+  console.log('this is the accountpage  fulluserprofile', fullUserProfile);
 
   return (
     <>
@@ -34,14 +35,20 @@ function AccountPage({isLoading, fullUserProfile, setFullUserProfile}) {
                   md={6}
                   lg={4}
                 >
-                  <AccountProfile fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>
+                  <AccountProfile 
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}
+                  />
                 </Grid>
                 <Grid
                   xs={12}
                   md={6}
                   lg={8}
                 >
-                  <AccountProfileDetails fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/>
+                  <AccountProfileDetails 
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}
+                  />
                 </Grid>
               </Grid>
             </div>

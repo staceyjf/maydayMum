@@ -32,7 +32,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     });    
   };
 
-  function handleCheckedChange(evt) { // handles nanny checkboxes
+  function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
     setUserData({
       ...userData,
       [evt.target.name]: evt.target.checked,

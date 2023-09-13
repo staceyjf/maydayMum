@@ -20,8 +20,8 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(usersAPI.getUser()); // associate token with the user 
   const [fullUserProfile, setFullUserProfile ] = useState({}); // combines user with nanny or parent
-  // const [nannies, setNannies ] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true);  
+  // const [nannies, setNannies ] = useState([]); // all nannies
   // const [isLoadingAllData, setIsLoadingAllData] = useState(true); 
   
   useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
@@ -38,10 +38,8 @@ function App() {
           setIsLoading(false);
         } catch (error) {
           console.error("Error with calling full user data", error);
-          setIsLoading(false);
         }
       }
-
       fetchProfileData();
     }
   }, [user]);
@@ -66,17 +64,23 @@ function App() {
     { user ?
         <>
           <NavBar user={user} setUser={setUser}/>
+          {isLoading 
+          ? ( <div>Loading...</div> ) 
+          : ( 
             <Routes>
                {/* index route */}
               <Route index element={<AboutUsPage />} />
-              <Route path="/accounts" element={<AccountPage 
-                isLoading={isLoading} 
-                fullUserProfile={fullUserProfile} 
-                setFullUserProfile={setFullUserProfile}/>} 
+              <Route path="/accounts" element={
+              <AccountPage 
+                  isLoading={isLoading} 
+                  fullUserProfile={fullUserProfile} 
+                  setFullUserProfile={setFullUserProfile}
+                />} 
               />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
-              <Route path="/team/find-a-nanny" element={<FindANannyPage 
-                // isLoadingAllData={isLoadingAllData} 
+              <Route path="/team/find-a-nanny" element={
+              <FindANannyPage 
+                // isLoading={isLoading} 
                 // nannies={nannies} 
                 fullUserProfile={fullUserProfile} 
                 setFullUserProfile={setFullUserProfile}
@@ -85,6 +89,7 @@ function App() {
                {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
+          )} 
         </> 
         :
         <AuthPage user={user} setUser={setUser} />
