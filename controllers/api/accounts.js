@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     getNannyData,
-    // getAllNannies,
     getParentData,
     updateNannyProfile,
     updateParentProfile
@@ -18,13 +17,6 @@ async function getNannyData(req, res) {
     console.log('getNannyData is sending back this', nanny);
     res.json(nanny);
 };
-
-// // get all nanny profiles
-// async function getAllNannies(req, res) {
-//     const nannies = await Nanny.find({}).populate('user');
-//     console.log('getAllNannies is sending back this', nannies);
-//     res.json(nannies);
-// };
 
 // get Parent profile with associated user details
 async function getParentData(req, res) {

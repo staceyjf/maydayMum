@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
+import AccountAvailability from '../AccountFormCustom/AccountAvailability';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
 import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
@@ -72,7 +73,10 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
       <Card>
         <CardHeader
           title="Profile"
+        />
+        <CardHeader
           subheader="Personal Details"
+          style={{ textAlign: 'left' }}
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -145,10 +149,25 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                 />
               </Grid>
               { (userData.user.role === 'parent')
-              ? < AccountProfileParentEl userData={userData} 
-              handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
-              : < AccountProfileNannyEl userData={userData} 
-              handleCheckedChange={handleCheckedChange} handleChange={handleChange}/>
+              ? 
+                < AccountProfileParentEl 
+                  userData={userData} 
+                  handleCheckedChange={handleCheckedChange} 
+                  handleChange={handleChange}
+                />
+              : 
+                <>
+                < AccountProfileNannyEl 
+                  userData={userData} 
+                  handleCheckedChange={handleCheckedChange} 
+                  handleChange={handleChange}
+                />
+                < AccountAvailability 
+                  userData={userData} 
+                  handleCheckedChange={handleCheckedChange} 
+                  handleChange={handleChange}
+                />
+                </>
               }
             </Grid>
           </Box>

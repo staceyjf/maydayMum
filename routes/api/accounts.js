@@ -9,8 +9,6 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // GET /api/accounts/nanny (get Nanny account)
 router.get('/nanny', ensureLoggedIn, accountsController.getNannyData);
-// // GET /api/accounts/nannies (get all Nanny accounts)
-// router.get('/nannies', ensureLoggedIn, accountsController.getAllNannies);
 // GET /api/accounts/parent (get parent account)
 router.get('/parent', ensureLoggedIn, accountsController.getParentData);
 // POST /api/accounts/nanny-profile (update nanny profile)
