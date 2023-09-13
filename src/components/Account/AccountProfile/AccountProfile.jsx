@@ -15,7 +15,7 @@ function AccountProfile({fullUserProfile}) {
           }}
         >
           <Avatar
-            src={fullUserProfile.image}
+            src={fullUserProfile.user.image}
             sx={{
               height: 80,
               mb: 2,

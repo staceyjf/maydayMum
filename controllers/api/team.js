@@ -10,6 +10,8 @@ module.exports = {
 
 // get all nanny profiles
 async function getAllNannies(req, res) {
+    await User.find({});
+
     const nannies = await Nanny.find({}).populate('user');
     console.log('getAllNannies is sending back this', nannies);
     res.json(nannies);

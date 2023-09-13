@@ -1,9 +1,30 @@
-import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
+// Hooks
+import { useState, useEffect } from 'react'
+// Routing
+import * as teamAPI from '../../utilities/team-api';
+// Components
 import NannyList from '../../components/FindANanny/NannyList';
+// MUI
+import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
 
-function NannyProfilePage({isLoading, nannies, fullUserProfile, setFullUserProfile}) {
-  
+function NannyProfilePage({fullUserProfile, setFullUserProfile}) {
+  const [nannies, setNannies ] = useState([]); // all nannies
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(function () {
+    async function fetchAllNannies() {
+      try {
+        const allNannies = await teamAPI.getAllNannies(); 
+        setNannies(allNannies); 
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error with calling all nanny data", error);
+      }
+    }
+    fetchAllNannies(); 
+    }, []);
+
     return (
       <>
       {isLoading 

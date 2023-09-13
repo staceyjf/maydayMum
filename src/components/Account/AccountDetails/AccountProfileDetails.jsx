@@ -44,7 +44,6 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     try { 
       const user = await updateParentProfile(userData);
       setFullUserProfile(user);      
-      console.log('this is the value of user post the server call', user)
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
@@ -56,6 +55,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     try { 
       const user = await updateNannyProfile(userData);
       setFullUserProfile(user);
+      console.log('this is the value of user post the server call', user)
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 

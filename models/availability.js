@@ -1,7 +1,7 @@
 const Schema = require('mongoose').Schema;
 
 const availabilitySchema = new Schema({
-  role: {
+  availability: {
     type: String, 
     enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     required: true
@@ -17,4 +17,3 @@ const availabilitySchema = new Schema({
 // });
 
 module.exports = availabilitySchema;
-

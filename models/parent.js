@@ -6,10 +6,6 @@ const Booking = require('./booking');
 const parentSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'},
   bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
-  image: {
-    type: String,
-    get: v => `${root}${v}`
-  },
   numberOfChildren: { type: Number, default: 1,  min: 1 },
   childrenAge: [{ type: Number,  min: 0 }]
 }, {

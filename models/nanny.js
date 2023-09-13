@@ -12,13 +12,12 @@ const nannySchema = new Schema({
         type: String,
         get: v => `${root}${v}`
       },
-    aboutDescription: String,
+    aboutDescription: { type: String, default: '' },
     nightRate: { type: Number, default: 300,  min: 0 },
     isWccCleared: { type: Boolean, default: false },
     isFirstAidCertified: { type: Boolean, default: false },
     }, {
     timestamps: true,
-    
 });
 
 // add a nanny profile to a user's profile or creating it if it doesn't exist (upsert)
@@ -29,14 +28,5 @@ nannySchema.statics.addNannyToUser = function(userId) {
     { upsert: true, new: true } // upsert option 
   );
 };
-
-// //Need to review how to do aws for images
-// //Image getter
-const bucket = process.env.S3_BUCKET;
-const root = `${process.env.S3_BASE_URL}/${bucket}`;
-// const doc = new User({ name: 'Val', picture: '/123.png' }); // should this not be Nanny.findbyId
-// const nanny = 
-// doc.image; 
-// doc.toObject({ getters: false }).image; // '/123.png'
 
 module.exports = mongoose.model('Nanny', nannySchema);

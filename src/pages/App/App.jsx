@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate  } from 'react-router-dom';
 import * as usersAPI  from '../../utilities/users-service';
 import * as accountsAPI from '../../utilities/accounts-api';
-import * as teamAPI from '../../utilities/team-api';
+// import * as teamAPI from '../../utilities/team-api';
 
 // Page components
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
@@ -20,9 +20,9 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(usersAPI.getUser()); // associate token with the user 
   const [fullUserProfile, setFullUserProfile ] = useState({}); // combines user with nanny or parent
-  const [nannies, setNannies ] = useState([]); // all nannies
+  // const [nannies, setNannies ] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true);  
-  const [isLoadingAllData, setIsLoadingAllData] = useState(true); 
+  // const [isLoadingAllData, setIsLoadingAllData] = useState(true); 
   
   useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
@@ -46,20 +46,20 @@ function App() {
     }
   }, [user]);
 
-  useEffect(function () {
-    if (user) {  // ensuring that the user has logged in / signed up before running fetchData()
-    async function fetchAllNannies() {
-      try {
-        const allNannies = await teamAPI.getAllNannies(); 
-        setNannies(allNannies); 
-        setIsLoadingAllData(false);
-      } catch (error) {
-        console.error("Error with calling all nanny data", error);
-      }
-    }
-    fetchAllNannies(); 
-  }
-}, [user]);
+//   useEffect(function () {
+//     if (user) {  // ensuring that the user has logged in / signed up before running fetchData()
+//     async function fetchAllNannies() {
+//       try {
+//         const allNannies = await teamAPI.getAllNannies(); 
+//         setNannies(allNannies); 
+//         setIsLoadingAllData(false);
+//       } catch (error) {
+//         console.error("Error with calling all nanny data", error);
+//       }
+//     }
+//     fetchAllNannies(); 
+//   }
+// }, [user]);
 
   return (
     <main className="App">
@@ -76,8 +76,8 @@ function App() {
               />
               <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
               <Route path="/team/find-a-nanny" element={<FindANannyPage 
-                isLoadingAllData={isLoadingAllData} 
-                nannies={nannies} 
+                // isLoadingAllData={isLoadingAllData} 
+                // nannies={nannies} 
                 fullUserProfile={fullUserProfile} 
                 setFullUserProfile={setFullUserProfile}
               />} />

@@ -35,17 +35,17 @@ async function getParentData(req, res) {
 
 // update Nanny profile from Account Page
 async function updateNannyProfile(req, res) {
-    const updatedNanny = await Nanny.findOneAndUpdate(
-    { _id: req.body._id},
-    { $set: req.body },
-    { new: true } // return the updated nanny document
-    ).populate('user');
-
     await User.findOneAndUpdate( //updated the user document
         { _id: req.user._id }, 
         { $set: req.body.user }, // do i need to access the user related info like this?
         { new: true }
     );
+    
+    const updatedNanny = await Nanny.findOneAndUpdate(
+    { _id: req.body._id},
+    { $set: req.body },
+    { new: true } // return the updated nanny document
+    ).populate('user');
 
     console.log('updateNannyProfile is sending back this', updatedNanny);
     res.json(updatedNanny);
@@ -53,18 +53,17 @@ async function updateNannyProfile(req, res) {
 
 // get parent profile with associated user details
 async function updateParentProfile(req, res) {
-    console.log()
-    const updatedParent = await Parent.findOneAndUpdate(
-    { _id: req.body._id },
-    { $set: req.body }, // Assuming your payload has the updated data for the user profile
-    { new: true } // return the updated user document
-    ).populate('user');
-
     await User.findOneAndUpdate( //updated the user document
     { _id: req.user._id }, 
     { $set: req.body.user }, // do i need to access the user related info like this?
     { new: true }
     );
+
+    const updatedParent = await Parent.findOneAndUpdate(
+    { _id: req.body._id },
+    { $set: req.body }, // Assuming your payload has the updated data for the user profile
+    { new: true } // return the updated user document
+    ).populate('user');
 
     console.log('updateParentprofile is sending back this', updatedParent);
     res.json(updatedParent);

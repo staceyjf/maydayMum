@@ -1,4 +1,5 @@
-import {  Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import {  Avatar, Box, Button, Card, CardActions, 
+  CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 function NannyCard({nanny}) {
   console.log('these are all our nannies', nanny);
@@ -7,21 +8,27 @@ function NannyCard({nanny}) {
     <>
     <Card>
       <CardHeader
-    //   avatar={
-    //   <Avatar
-    //         src={fullUserProfile.image}
-    //         sx={{
-    //           height: 80,
-    //           mb: 2,
-    //           width: 80
-    //         }}
-    //       />
-    //     }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016" 
+      avatar={
+      <Avatar
+            src={nanny.image}
+            sx={{
+              height: 80,
+              mb: 2,
+              width: 80
+            }}
+          />
+        }
+        title={
+          <Typography
+            variant="h5"
+            sx={{ fontSize: '24px' }} // Customize the font size here
+          >
+            {nanny.user.fullName}
+          </Typography>
+        }
+        subheader={nanny.aboutDescription}
           >
       </CardHeader>    
-      <Divider />
       <CardContent>
         <Box
           sx={{
@@ -38,18 +45,16 @@ function NannyCard({nanny}) {
           <Typography
             color="text.secondary"
             variant="body2"
-          > {}
+          > Add avaibility here 
           </Typography>
         </Box>
       </CardContent>
-    {/* <CardActions>
-      <Button
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions> */}
+      <Divider />
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <Button type="submit" variant="contained">
+          BOOK ME
+        </Button>
+      </CardActions>
   </Card>
   </>
 )};
