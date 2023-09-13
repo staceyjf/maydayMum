@@ -1,62 +1,79 @@
 import { useState } from 'react';
-import { Checkbox, FormControl, FormControlLabel, FormLabel, FormGroup, FormHelperText, Unstable_Grid2 as Grid } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, FormControl, FormControlLabel, FormLabel, FormHelperText, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountAvailability({userData, setUserData}) {
-  const [weeklyAvailabilityData, setWeeklyAvailabilityData] = useState([
-    { day: 'Monday', isAvailable: true },
-    { day: 'Tuesday', isAvailable: true },
-    { day: 'Wednesday', isAvailable: true },
-    { day: 'Thursday', isAvailable: true },
-    { day: 'Friday', isAvailable: true },
-    { day: 'Saturday', isAvailable: true },
-    { day: 'Sunday', isAvailable: true },
-  ]);
+function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
+  // console.log('this is target.name', evt.target.name)
+  // console.log('this is target checked', evt.target.checked)
+  console.log('this is the logged in nannys availability data', nannyAvailsData);
+  const [userData, setUserData] = useState({ ...nannyAvailsData });
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  function handleAvailabilityChange(evt) { 
-    // handles nanny user checkboxes (will need a seperate one for avaibility)
-      console.log('this is target.name', evt.target.name)
-      console.log('this is target checked', evt.target.checked)
-      
-      setWeeklyAvailabilityData({
-        ...weeklyAvailabilityData,
-        [evt.target.name]: evt.target.checked,
-    })
-    ;
+  function handleAvailabilityChange(evt) {
     setUserData({
       ...userData,
-      weeklyAvailability: weeklyAvailabilityData
+      [evt.target.name]: evt.target.checked,
+      error: '',
     });
-  };
+  }
+
+  async function handleAvailabilitySubmit(evt) {
+    evt.preventDefault();
+    // try {
+    //   const user = await updateNannyProfile(userData);
+    //   setFullUserProfile(user);
+    //   setSuccessMessage('Details successfully saved.');
+    // } catch {
+    //   setError('Update failed - please try again');
+    // }
+  }
 
   return (
     <>
-      <Grid
-        xs={12} md={12}
-        sx={{ textAlign: 'left',  padding: 0  }} 
+     <Box mt={2}> 
+      <form
+        autoComplete="off"
+        noValidate
+        onSubmit={handleAvailabilitySubmit}
       >
-        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel component="legend" style={{ textAlign: 'left' }}>
-              Weekly Availability
-              </FormLabel>
-            <FormHelperText>Select your weekly availability</FormHelperText>
-            <FormGroup>
-            { userData.weeklyAvailability.map((d, idx) => (
-              <FormControlLabel
-                key={idx}
-                control={
-                  <Checkbox
-                    name={d.day}
-                    checked={d.isAvailable} // set the value of checked
-                    onChange={handleAvailabilityChange} // runs specific change function
-                  />
-                }
-              label={d.day}
-              />
-            ))}
-            </FormGroup>
-        </FormControl>
-      </Grid>
+        <Card  >
+          <CardHeader title="Weekly Availability" />
+          <CardHeader subheader="Select your weekly availability" style={{ textAlign: 'left' }} />
+          <CardContent sx={{ pt: 0 }}>
+            <Box sx={{ m: -1.5 }}>
+              <Grid xs={12} md={12} sx={{ textAlign: 'left', padding: 0 }}>
+                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name='Monday'
+                          checked={userData.Monday}
+                          onChange={handleAvailabilityChange}
+                        />
+                      }
+                      label='Monday'
+                    />
+                  </FormGroup>
+                </FormControl>
+              </Grid>
+            </Box>
+          </CardContent>
+          <Divider />
+          <CardActions sx={{ justifyContent: 'flex-end' }}>
+            <Typography variant="h6">
+              {successMessage}
+              {error}
+            </Typography>
+            <Button type="submit" variant="contained">
+              UPDATE
+            </Button>
+          </CardActions>
+        </Card>
+      </form>
+      </Box>
     </>
-)};
+  );
+}
 
-export default AccountAvailability
+export default AccountAvailability;

@@ -2,9 +2,11 @@ import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/
 // import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
+import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({fullUserProfile, setFullUserProfile, isLoading}) {
-  console.log('this is the accountpage  fulluserprofile', fullUserProfile);
+function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, isLoading}) {
+  // console.log('this is the account page fulluserprofile', fullUserProfile);
+  console.log('this is the logged in nannys availability data', nannyAvailsData);
 
   return (
     <>
@@ -39,6 +41,13 @@ function AccountPage({fullUserProfile, setFullUserProfile, isLoading}) {
                     fullUserProfile={fullUserProfile} 
                     setFullUserProfile={setFullUserProfile}
                   />
+                  {/* conditionally render nanny avaibility  */}
+                  {fullUserProfile.user.role === 'nanny' && (
+                    <AccountAvailability
+                      nannyAvailsData={nannyAvailsData}
+                      setNannyAvailsData={setNannyAvailsData}
+                    />
+                  )}
                 </Grid>
                 <Grid
                   xs={12}

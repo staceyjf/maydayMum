@@ -2,10 +2,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
 const Parent = require("../../models/parent");
+const Availability = require("../../models/availability"); 
+
 const bcrypt = require('bcrypt');
 
 module.exports = {
     getNannyData,
+    getNannyAvailability,
     getParentData,
     updateNannyProfile,
     updateParentProfile
@@ -16,6 +19,15 @@ async function getNannyData(req, res) {
     const nanny = await Nanny.initializeNannyProfile(req.user._id).populate('user');
     console.log('getNannyData is sending back this', nanny);
     res.json(nanny);
+};
+
+// get the logged in nannies' availability 
+async function getNannyAvailability(req, res) {
+    const availability = await Availability.initializeAvailability(req.user._id);
+    const availabilityToUser = await availability.populate('user');
+
+    console.log('getNannyAvailability is sending back this', availabilityToUser);
+    res.json(availabilityToUser);
 };
 
 // get Parent profile with associated user details

@@ -20,8 +20,8 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(usersAPI.getUser()); // associate token with the user 
   const [fullUserProfile, setFullUserProfile ] = useState({}); // combines user with nanny or parent
+  const [nannyAvailsData, setNannyAvailsData] = useState({});
   const [isLoading, setIsLoading] = useState(true);  
-  // const [nannies, setNannies ] = useState([]); // all nannies
 
   useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
@@ -33,6 +33,8 @@ function App() {
           } else {
             const nannyData = await accountsAPI.getNannyData();
             setFullUserProfile(nannyData);
+            const avaibilityData = await accountsAPI.getNannyAvailability();
+            setNannyAvailsData(avaibilityData);
           }
           setIsLoading(false);
         } catch (error) {
@@ -59,14 +61,17 @@ function App() {
                   isLoading={isLoading} 
                   fullUserProfile={fullUserProfile} 
                   setFullUserProfile={setFullUserProfile}
+                  nannyAvailsData={nannyAvailsData} 
+                  setNannyAvailsData={setNannyAvailsData}
                 />} 
               />
-              <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} />
-              <Route path="/team/find-a-nanny" element={
-              <FindANannyPage 
-                fullUserProfile={fullUserProfile} 
-                setFullUserProfile={setFullUserProfile}
-              />} />
+              {/* <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} /> */}
+              <Route path="/team/find-a-nanny" 
+                element={
+                  <FindANannyPage 
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}
+                  />} />
               <Route path="/team/bookings" element={<BookingsPage />} />
                {/* catch all route */}
               <Route path="/*" element={<Navigate to="/" />} />

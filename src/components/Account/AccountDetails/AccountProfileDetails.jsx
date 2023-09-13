@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
-import AccountAvailability from '../AccountFormCustom/AccountAvailability';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
 import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
@@ -163,10 +162,6 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   userData={userData} 
                   handleCheckedChange={handleCheckedChange} 
                   handleChange={handleChange}
-                />
-                < AccountAvailability
-                  userData={userData} 
-                  setUserData={setUserData} 
                 />
                 </>
               }
