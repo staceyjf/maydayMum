@@ -15,6 +15,8 @@ router.get('/availability', ensureLoggedIn, accountsController.getNannyAvailabil
 router.get('/parent', ensureLoggedIn, accountsController.getParentData);
 // POST /api/accounts/nanny-profile (update nanny profile)
 router.post('/nanny-profile', ensureLoggedIn, accountsController.updateNannyProfile);
+// POST /api/accounts/nanny-profile (update nanny profile)
+router.post('/nanny-availability', ensureLoggedIn, accountsController.updateNannyAvailability);
 // POST /api/accounts/parent-profile (update parent profile)
 router.post('/parent-profile', ensureLoggedIn, accountsController.updateParentProfile);
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { updateNannyAvailability } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, FormControl, FormControlLabel, FormLabel, FormHelperText, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
 function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
@@ -19,13 +20,13 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
 
   async function handleAvailabilitySubmit(evt) {
     evt.preventDefault();
-    // try {
-    //   const user = await updateNannyProfile(userData);
-    //   setFullUserProfile(user);
-    //   setSuccessMessage('Details successfully saved.');
-    // } catch {
-    //   setError('Update failed - please try again');
-    // }
+    try {
+      const Availability = await updateNannyAvailability(userData);
+      setNannyAvailsData(Availability);
+      setSuccessMessage('Details successfully saved.');
+    } catch {
+      setError('Update failed - please try again');
+    }
   }
 
   return (
