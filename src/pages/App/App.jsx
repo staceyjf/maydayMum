@@ -30,13 +30,14 @@ function App() {
           if (user.role === 'parent') {
             const parentData = await accountsAPI.getParentData();
             setFullUserProfile(parentData);
+            setIsLoading(false);
           } else {
             const nannyData = await accountsAPI.getNannyData();
             setFullUserProfile(nannyData);
             const avaibilityData = await accountsAPI.getNannyAvailability();
             setNannyAvailsData(avaibilityData);
+            setIsLoading(false);
           }
-          setIsLoading(false);
         } catch (error) {
           console.error("Error with calling full user data", error);
         }
@@ -69,8 +70,7 @@ function App() {
               <Route path="/team/find-a-nanny" 
                 element={
                   <FindANannyPage 
-                    fullUserProfile={fullUserProfile} 
-                    setFullUserProfile={setFullUserProfile}
+                    nannyAvailsData
                   />} />
               <Route path="/team/bookings" element={<BookingsPage />} />
                {/* catch all route */}

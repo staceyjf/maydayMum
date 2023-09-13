@@ -2,7 +2,7 @@ import {  Avatar, Box, Button, Card, CardActions,
   CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 function NannyCard({nanny}) {
-  // console.log('these are all our nannies', nanny);
+  console.log('these are all our nannies', nanny);
 
   return (
     <>
@@ -38,9 +38,9 @@ function NannyCard({nanny}) {
           }}
         >
           <Typography
-            gutterBottom
-            variant="h5"
-          >
+            color="text.secondary"
+            variant="body2"
+          > ${nanny.nightRate} per night
           </Typography>
           <Typography
             color="text.secondary"

@@ -1,14 +1,10 @@
-// Hooks
 import { useState, useEffect } from 'react'
-// Routing
 import * as teamAPI from '../../utilities/team-api';
-// Components
 import NannyList from '../../components/FindANanny/NannyList';
-// MUI
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
 
-function NannyProfilePage({fullUserProfile, setFullUserProfile}) {
+function NannyProfilePage({nannyAvailsData}) {
   const [nannies, setNannies ] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true); 
 
@@ -62,9 +58,8 @@ function NannyProfilePage({fullUserProfile, setFullUserProfile}) {
                     lg={10}
                   >
                     <NannyList 
-                      nannies={nannies} 
-                      fullUserProfile={fullUserProfile} 
-                      setFullUserProfile={setFullUserProfile}
+                      nannies={nannies}
+                      nannyAvailsData={nannyAvailsData}
                     />
                   </Grid>
                 </Grid>

@@ -42,13 +42,11 @@ async function updateNannyProfile(req, res) {
   await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: req.body.user },
-    { new: true }
   );
 
   const updatedNanny = await Nanny.findOneAndUpdate(
     { _id: req.body._id },
-    { $set: req.body },
-    { new: true } 
+    { $set: req.body }, 
   ).populate('user');
 
   console.log('updateNannyProfile is sending back this', updatedNanny);
@@ -57,10 +55,14 @@ async function updateNannyProfile(req, res) {
 
 // update availability from Account Page
 async function updateNannyAvailability(req, res) {
+  await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: req.body.user },
+  );
+
   const updatedAvailability = await Availability.findOneAndUpdate(
     { _id: req.body._id },
     { $set: req.body },
-    { new: true }
   ).populate('user');
 
   console.log('updateNannyAvailability is sending back this', updatedAvailability);
@@ -72,13 +74,11 @@ async function updateParentProfile(req, res) {
   await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: req.body.user },
-    { new: true }
   );
 
   const updatedParent = await Parent.findOneAndUpdate(
     { _id: req.body._id },
     { $set: req.body },
-    { new: true }
   ).populate('user');
 
   console.log('updateParentProfile is sending back this', updatedParent);
