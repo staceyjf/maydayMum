@@ -188,28 +188,3 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
 )};
 
 export default AccountProfileDetails
-
-{/* <Grid
-  xs={12}
-  md={6}
->
-  <TextField
-    fullWidth
-    label="First Aid Certified"
-    name="isFirstAidCertified"
-    onChange={handleChange}
-    required
-    select
-    SelectProps={{ native: true }}
-    value={userData.isFirstAidCertified} 
-  >
-    {childrenCount.map((option) => (
-      <option
-        key={option}
-        value={option}
-      >
-        {option}
-      </option>
-    ))}
-  </TextField>
-</Grid> */}

@@ -13,7 +13,7 @@ module.exports = {
 
 // get Nanny profile with associated user details
 async function getNannyData(req, res) {
-    const nanny = await Nanny.addUserToNanny(req.user._id).populate('user');
+    const nanny = await Nanny.initializeNannyProfile(req.user._id).populate('user');
     console.log('getNannyData is sending back this', nanny);
     res.json(nanny);
 };

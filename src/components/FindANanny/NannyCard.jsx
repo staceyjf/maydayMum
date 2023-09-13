@@ -2,7 +2,7 @@ import {  Avatar, Box, Button, Card, CardActions,
   CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 function NannyCard({nanny}) {
-  console.log('these are all our nannies', nanny);
+  // console.log('these are all our nannies', nanny);
 
   return (
     <>

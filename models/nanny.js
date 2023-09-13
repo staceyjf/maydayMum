@@ -12,7 +12,7 @@ const nannySchema = new Schema({
         enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         required: true,
       },
-      available: {
+      isAvailable: {
         type: Boolean,
         default: true, 
       },
@@ -29,11 +29,21 @@ const nannySchema = new Schema({
     timestamps: true,
 });
 
-// add a user profile to a nanny's profile or creating it if it doesn't exist (upsert)
-nannySchema.statics.addUserToNanny = function(userId) {
+// seed the initial availability 
+const initialAvailabilitySeeding = [
+  { day: 'Monday', isAvailable: false },
+  { day: 'Tuesday', isAvailable: false },
+  { day: 'Wednesday', isAvailable: false },
+  { day: 'Thursday', isAvailable: false },
+  { day: 'Friday', isAvailable: false },
+  { day: 'Saturday', isAvailable: false },
+  { day: 'Sunday', isAvailable: false },
+];
+
+nannySchema.statics.initializeNannyProfile = function(userId) {
   return this.findOneAndUpdate(
     { user: userId }, // query based user id
-    { user: userId }, // update if doesn't exist 
+    { user: userId, weeklyAvailability: initialAvailabilitySeeding }, // update if doesn't exist 
     { upsert: true, new: true } // upsert option 
   );
 };
