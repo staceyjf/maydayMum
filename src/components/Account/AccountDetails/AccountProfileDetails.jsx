@@ -33,13 +33,15 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   };
 
   function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
-    setUserData({
+      console.log('this is target.name', evt.target.name)
+      console.log('this is target checked', evt.target.checked)
+      setUserData({
       ...userData,
       [evt.target.name]: evt.target.checked,
       error: '',
     });
   };
-  
+
   async function handleParentSubmit(evt) { 
     evt.preventDefault(); 
     try { 
@@ -162,10 +164,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   handleCheckedChange={handleCheckedChange} 
                   handleChange={handleChange}
                 />
-                < AccountAvailability 
+                < AccountAvailability
                   userData={userData} 
-                  handleCheckedChange={handleCheckedChange} 
-                  handleChange={handleChange}
+                  setUserData={setUserData} 
                 />
                 </>
               }

@@ -31,13 +31,13 @@ const nannySchema = new Schema({
 
 // seed the initial availability 
 const initialAvailabilitySeeding = [
-  { day: 'Monday', isAvailable: false },
-  { day: 'Tuesday', isAvailable: false },
-  { day: 'Wednesday', isAvailable: false },
-  { day: 'Thursday', isAvailable: false },
-  { day: 'Friday', isAvailable: false },
-  { day: 'Saturday', isAvailable: false },
-  { day: 'Sunday', isAvailable: false },
+  { day: 'Monday', isAvailable: true },
+  { day: 'Tuesday', isAvailable: true },
+  { day: 'Wednesday', isAvailable: true },
+  { day: 'Thursday', isAvailable: true },
+  { day: 'Friday', isAvailable: true },
+  { day: 'Saturday', isAvailable: true },
+  { day: 'Sunday', isAvailable: true },
 ];
 
 nannySchema.statics.initializeNannyProfile = function(userId) {

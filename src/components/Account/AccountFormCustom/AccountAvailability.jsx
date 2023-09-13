@@ -1,9 +1,30 @@
+import { useState } from 'react';
 import { Checkbox, FormControl, FormControlLabel, FormLabel, FormGroup, FormHelperText, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountAvailability({userData, handleCheckedChange}) {
-  console.log(userData.weeklyAvailability)
+function AccountAvailability({userData, setUserData}) {
+  const [weeklyAvailabilityData, setWeeklyAvailabilityData] = useState([
+    { day: 'Monday', isAvailable: true },
+    { day: 'Tuesday', isAvailable: true },
+    { day: 'Wednesday', isAvailable: true },
+    { day: 'Thursday', isAvailable: true },
+    { day: 'Friday', isAvailable: true },
+    { day: 'Saturday', isAvailable: true },
+    { day: 'Sunday', isAvailable: true },
+  ]);
 
-  const availability = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  function handleAvailabilityChange(evt) { 
+    // handles nanny user checkboxes (will need a seperate one for avaibility)
+      console.log('this is target.name', evt.target.name)
+      console.log('this is target checked', evt.target.checked)
+      setWeeklyAvailabilityData({
+        ...weeklyAvailabilityData,
+        [evt.target.name]: evt.target.checked,
+    });
+    setUserData({
+      ...userData,
+      weeklyAvailability: weeklyAvailabilityData
+    });
+  };
 
   return (
     <>
@@ -15,19 +36,19 @@ function AccountAvailability({userData, handleCheckedChange}) {
             <FormLabel component="legend" style={{ textAlign: 'left' }}>
               Weekly Availability
               </FormLabel>
-            <FormHelperText>Select your weekly avaibility</FormHelperText>
+            <FormHelperText>Select your weekly availability</FormHelperText>
             <FormGroup>
-            { availability.map((day, idx) => (
+            { userData.weeklyAvailability.map((d, idx) => (
               <FormControlLabel
+                key={idx}
                 control={
                   <Checkbox
-                  key={idx}
-                    name="availability"
-                    checked={userData.availability} // set the value of checked
-                    onChange={handleCheckedChange} // runs specific change function
+                    name={d.day}
+                    checked={d.isAvailable} // set the value of checked
+                    onChange={handleAvailabilityChange} // runs specific change function
                   />
                 }
-              label={day}
+              label={d.day}
               />
             ))}
             </FormGroup>
