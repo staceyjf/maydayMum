@@ -33,8 +33,8 @@ const userSchema = new Schema({
     },
     weeklyAvailability: {type: Schema.Types.ObjectId, ref: 'Availability'},
     isAdmin: { type: Boolean, default: false },
-    // parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, // referenced collection 
-    // nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
+    parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, // referenced collection 
+    nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
     }, {
     timestamps: true, 
     toJSON: { 

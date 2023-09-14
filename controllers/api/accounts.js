@@ -16,9 +16,22 @@ module.exports = {
 
 // get Nanny profile with associated user details
 async function getNannyData(req, res) {
-  const nanny = await Nanny.initializeNannyProfile(req.user._id).populate('user');
-  console.log('getNannyData is sending back this', nanny);
-  res.json(nanny);
+  // create the nanny with the assocated user
+  const nanny = await Nanny.create({ user: req.user._id});
+
+  // update the user model with the new nanny._id
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: req.user._id }, // Use _id to query the user doc
+    { nanny: nanny._id },
+    { upsert: true, new: true }
+  );
+  console.log('this is the updated is user', updatedUser);
+
+  // send back the new nanny document with a populated nanny.user field
+  const nannyWithUser = await Nanny.findById(nanny._id).populate('user');
+
+  // console.log('getNannyData is sending back this', nannyWithUser);
+  res.json(nannyWithUser);
 }
 
 // get the logged-in nannies' availability
@@ -26,7 +39,7 @@ async function getNannyAvailability(req, res) {
   const availability = await Availability.initializeAvailability(req.user._id);
   const availabilityToUser = await availability.populate('user');
 
-  console.log('getNannyAvailability is sending back this', availabilityToUser);
+  // console.log('getNannyAvailability is sending back this', availabilityToUser);
   res.json(availabilityToUser);
 }
 
@@ -39,14 +52,16 @@ async function getParentData(req, res) {
 
 // update Nanny profile from Account Page
 async function updateNannyProfile(req, res) {
-  await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: req.body.user },
+  // Update the User doc with changes found in the data payload (nanny.user.etc)
+  await User.findOneAndUpdate( // req.user._id comes from our middleware
+    { _id: req.user._id }, // finds the User doc via the the ._id of the user doc
+    { $set: req.body.user }, // updates the user doc with changes found in the data payload (nanny.user.etc)
   );
 
+  // Find the nanny doc by its _id provided in the data payload and update it
   const updatedNanny = await Nanny.findOneAndUpdate(
-    { _id: req.body._id },
-    { $set: req.body }, 
+    { _id: req.body._id }, // find the nanny doc by it's ._id provided in the data payload
+    { $set: req.body },  // updates the nanny doc with specific fields provided by the data payload
   ).populate('user');
 
   console.log('updateNannyProfile is sending back this', updatedNanny);

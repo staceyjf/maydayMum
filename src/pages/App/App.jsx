@@ -1,8 +1,9 @@
 // Hooks
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+
 // Routing
-import { Routes, Route, Navigate  } from 'react-router-dom';
-import * as usersAPI  from '../../utilities/users-service';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import * as usersAPI from '../../utilities/users-service';
 import * as accountsAPI from '../../utilities/accounts-api';
 // import * as teamAPI from '../../utilities/team-api';
 
@@ -19,12 +20,13 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState(usersAPI.getUser()); // associate token with the user 
-  const [fullUserProfile, setFullUserProfile ] = useState({}); // combines user with nanny or parent
+  const [fullUserProfile, setFullUserProfile] = useState({}); // combines user with nanny or parent
   const [nannyAvailsData, setNannyAvailsData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);  
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(function() { // ensuring that the user has logged in / signed up before running fetchData()
+  useEffect(function () { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
+      console.log(user.role);
       async function fetchProfileData() {
         try {
           if (user.role === 'parent') {
@@ -48,39 +50,39 @@ function App() {
 
   return (
     <main className="App">
-    { user ?
+      {user ?
         <>
-          <NavBar user={user} setUser={setUser}/>
-          {isLoading 
-          ? ( <div>Loading...</div> ) 
-          : ( 
-            <Routes>
-               {/* index route */}
-              <Route index element={<AboutUsPage />} />
-              <Route path="/accounts" element={
-              <AccountPage 
-                  isLoading={isLoading} 
-                  fullUserProfile={fullUserProfile} 
-                  setFullUserProfile={setFullUserProfile}
-                  nannyAvailsData={nannyAvailsData} 
-                  setNannyAvailsData={setNannyAvailsData}
-                />} 
-              />
-              {/* <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} /> */}
-              <Route path="/team/find-a-nanny" 
-                element={
-                  <FindANannyPage 
+          <NavBar user={user} setUser={setUser} />
+          {isLoading
+            ? (<div>Loading...</div>)
+            :
+            (
+              <Routes>
+                {/* index route */}
+                <Route index element={<AboutUsPage />} />
+                <Route path="/accounts" element={
+                  <AccountPage
+                    isLoading={isLoading}
+                    fullUserProfile={fullUserProfile}
+                    setFullUserProfile={setFullUserProfile}
+                    nannyAvailsData={nannyAvailsData}
+                    setNannyAvailsData={setNannyAvailsData}
+                  />}
+                />
+                {/* <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} /> */}
+                <Route path="/team/find-a-nanny"
+                  element={<FindANannyPage
                     nannyAvailsData
                   />} />
-              <Route path="/team/bookings" element={<BookingsPage />} />
-               {/* catch all route */}
-              <Route path="/*" element={<Navigate to="/" />} />
-          </Routes>
-          )} 
-        </> 
+                <Route path="/team/bookings" element={<BookingsPage />} />
+                {/* catch all route */}
+                <Route path="/*" element={<Navigate to="/" />} />
+              </Routes>
+            )}
+        </>
         :
         <AuthPage user={user} setUser={setUser} />
-    }
+      }
 
     </main>
   );
