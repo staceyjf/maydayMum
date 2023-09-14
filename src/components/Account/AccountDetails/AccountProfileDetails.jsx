@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
-import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
+import { updatedNanny, updatedParent } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
@@ -12,23 +12,36 @@ function AccountProfileDetails({user, setUser}) {
 
   // handle the user document elements
  function handleChange(evt) { 
-  setUserData({ 
-    ...userData, 
-    [evt.target.name]: evt.target.value,
-    error: '' 
-  });    
+   setUserData({ 
+     ...userData, 
+     [evt.target.name]: evt.target.value,
+     error: '' 
+    });    
+    // console.log(userData);
 };
   
- async function handleUserSubmit(evt) { 
-  evt.preventDefault(); 
-  try { 
-    const user = await updateNannyProfile(userData);
-    setUser(user);
-    console.log('this is the value of user post the server call', user)
-    setSuccessMessage('Details successfully saved.'); // Updating the user that their details have been saved
-  } catch { 
-    setError('Update failed - please try again'); 
-  } 
+async function handleNannySubmit(evt) { 
+ evt.preventDefault(); 
+ try { 
+   const user = await updatedNanny(userData);
+   setUser(user);
+   console.log('this is the value of user post the server call', user)
+   setSuccessMessage('Details successfully saved.'); // Updating the user that their details have been saved
+ } catch { 
+   setError('Update failed - please try again'); 
+ } 
+};
+
+async function handleParentSubmit(evt) { 
+ evt.preventDefault(); 
+ try { 
+   const user = await updatedParent(userData);
+   setUser(user);
+   console.log('this is the value of user post the server call', user)
+   setSuccessMessage('Details successfully saved.'); // Updating the user that their details have been saved
+ } catch { 
+   setError('Update failed - please try again'); 
+ } 
 };
 
 // handle the nanny document elements
@@ -74,7 +87,7 @@ function AccountProfileDetails({user, setUser}) {
     <form
       autoComplete="off"
       noValidate
-      onSubmit={handleUserSubmit}
+      onSubmit={ (userData.role === 'parent') ? handleParentSubmit : handleNannySubmit}
     >
       <Card>
         <CardHeader
