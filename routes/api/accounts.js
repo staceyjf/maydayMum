@@ -18,7 +18,7 @@ router.post('/nanny-profile', ensureLoggedIn, accountsController.updateNannyProf
 // POST /api/accounts/nanny-profile (update nanny profile)
 router.post('/nanny-availability', ensureLoggedIn, accountsController.updateNannyAvailability);
 // POST /api/accounts/parent-profile (update parent profile)
-router.post('/parent-profile', ensureLoggedIn, accountsController.updatedParent);
+router.post('/parent-profile', ensureLoggedIn, accountsController.updateParentProfile);
 
 module.exports = router;
 // don't forget to mount the router in server.js

@@ -1,93 +1,75 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
-import { updatedNanny, updatedParent } from '../../../utilities/accounts-api';
+import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({user, setUser}) {
-  const [userData, setUserData] = useState({...user});
+function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
+  const [userData, setUserData] = useState({...fullUserProfile});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
 
-  // handle the user document elements
- function handleChange(evt) { 
-   setUserData({ 
-     ...userData, 
-     [evt.target.name]: evt.target.value,
-     error: '' 
-    });    
-    // console.log(userData);
-};
+  function handleUserChange(evt) { // handles user document
+    const updatedUser = {
+      ...userData.user,
+      [evt.target.name]: evt.target.value
+    };
   
-async function handleNannySubmit(evt) { 
- evt.preventDefault(); 
- try { 
-   const user = await updatedNanny(userData);
-   setUser(user);
-   console.log('this is the value of user post the server call', user)
-   setSuccessMessage('Details successfully saved.'); // Updating the user that their details have been saved
- } catch { 
-   setError('Update failed - please try again'); 
- } 
-};
-
-async function handleParentSubmit(evt) { 
- evt.preventDefault(); 
- try { 
-   const user = await updatedParent(userData);
-   setUser(user);
-   console.log('this is the value of user post the server call', user)
-   setSuccessMessage('Details successfully saved.'); // Updating the user that their details have been saved
- } catch { 
-   setError('Update failed - please try again'); 
- } 
-};
-
-// handle the nanny document elements
- function handleNannyChange(evt) { 
-  const updatedUser = {
-    ...userData.nanny,
-    [evt.target.name]: evt.target.value
+    setUserData({
+      ...userData,
+      user: updatedUser,
+      error: ''
+    });
+  };
+  
+  function handleChange(evt) { // handles nanny/parent document
+    setUserData({ 
+        ...userData, 
+        [evt.target.name]: evt.target.value,
+        error:'' 
+    });    
   };
 
-  setUserData({
-    ...userData,
-    nanny: updatedUser,
-    error: ''
-  });
-};
-
- function handleCheckedChange(evt) {
-  console.log('this is target.name', evt.target.name)
-  console.log('this is target checked', evt.target.checked)
-  setUserData({
-    ...userData,
-    [evt.target.name]: evt.target.checked,
-    error: '',
-  });
-};
-
-// handle the parent document elements
- function handleParentChange(evt) { 
-  const updatedUser = {
-    ...userData.parent,
-    [evt.target.name]: evt.target.value
+  function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
+      console.log('this is target.name', evt.target.name)
+      console.log('this is target checked', evt.target.checked)
+      setUserData({
+      ...userData,
+      [evt.target.name]: evt.target.checked,
+      error: '',
+    });
   };
 
-  setUserData({
-    ...userData,
-    parent: updatedUser,
-    error: ''
-  });
-};
+  async function handleParentSubmit(evt) { 
+    evt.preventDefault(); 
+    try { 
+      const user = await updateParentProfile(userData);
+      setFullUserProfile(user);      
+      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
+  };
+
+  async function handleNannySubmit(evt) { 
+    evt.preventDefault(); 
+    try { 
+      const user = await updateNannyProfile(userData);
+      setFullUserProfile(user);
+      console.log('this is the value of user post the server call', user)
+      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
+  };
 
   return (
     <>
     <form
       autoComplete="off"
       noValidate
-      onSubmit={ (userData.role === 'parent') ? handleParentSubmit : handleNannySubmit}
+      onSubmit={(userData.user.role === 'parent') ? handleParentSubmit : handleNannySubmit }
     >
       <Card>
         <CardHeader
@@ -111,9 +93,9 @@ async function handleParentSubmit(evt) {
                   fullWidth
                   label="First name"
                   name="firstName"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.firstName}
+                  value={userData.user.firstName}
                 />
               </Grid>
               <Grid
@@ -124,9 +106,9 @@ async function handleParentSubmit(evt) {
                   fullWidth
                   label="Last name"
                   name="surname"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.surname}
+                  value={userData.user.surname}
                 />
               </Grid>
               <Grid
@@ -137,9 +119,9 @@ async function handleParentSubmit(evt) {
                   fullWidth
                   label="Email Address"
                   name="email"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.email}
+                  value={userData.user.email}
                 />
               </Grid>
               <Grid
@@ -150,8 +132,8 @@ async function handleParentSubmit(evt) {
                   fullWidth
                   label="Phone Number"
                   name="phoneNumber"
-                  onChange={handleChange}
-                  value={userData.phoneNumber}
+                  onChange={handleUserChange}
+                  value={userData.user.phoneNumber}
                 />
               </Grid>
               <Grid
@@ -162,24 +144,25 @@ async function handleParentSubmit(evt) {
                   fullWidth
                   label="Address"
                   name="location"
-                  onChange={handleChange}
+                  onChange={handleUserChange}
                   required
-                  value={userData.location}
+                  value={userData.user.location}
                 />
               </Grid>
-              { (userData.role === 'parent')
+              { (userData.user.role === 'parent')
               ? 
                 < AccountProfileParentEl 
                   userData={userData} 
-                  handleParentChange={handleParentChange}
+                  handleCheckedChange={handleCheckedChange} 
+                  handleChange={handleChange}
                 />
               : 
                 <>
-                {/* < AccountProfileNannyEl 
+                < AccountProfileNannyEl 
                   userData={userData} 
                   handleCheckedChange={handleCheckedChange} 
                   handleChange={handleChange}
-                /> */}
+                />
                 </>
               }
             </Grid>

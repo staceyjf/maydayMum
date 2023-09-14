@@ -4,8 +4,9 @@ import AccountProfile  from '../../components/Account/AccountProfile/AccountProf
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({user, setUser, isLoading}) {
-  // console.log('this is the account page user', user);
+function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, isLoading}) {
+  // console.log('this is the account page fulluserprofile', fullUserProfile);
+  console.log('this is the logged in nannys availability data', nannyAvailsData);
 
   return (
     <>
@@ -37,15 +38,16 @@ function AccountPage({user, setUser, isLoading}) {
                   lg={4}
                 >
                   <AccountProfile 
-                    user={user} 
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}
                   />
                   {/* conditionally render nanny avaibility  */}
-                  {/* {user.role === 'nanny' && (
+                  {fullUserProfile.user.role === 'nanny' && (
                     <AccountAvailability
                       nannyAvailsData={nannyAvailsData}
                       setNannyAvailsData={setNannyAvailsData}
                     />
-                  )} */}
+                  )}
                 </Grid>
                 <Grid
                   xs={12}
@@ -53,8 +55,8 @@ function AccountPage({user, setUser, isLoading}) {
                   lg={8}
                 >
                   <AccountProfileDetails 
-                    user={user} 
-                    setUser={setUser}
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}
                   />
                 </Grid>
               </Grid>

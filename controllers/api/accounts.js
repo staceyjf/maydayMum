@@ -11,7 +11,7 @@ module.exports = {
   getParentData,
   updateNannyProfile,
   updateNannyAvailability,
-  updatedParent
+  updateParentProfile
 };
 
 // get Nanny profile with associated user details
@@ -69,18 +69,18 @@ async function updateNannyAvailability(req, res) {
   res.json(updatedAvailability);
 }
 
-// // get parent profile with associated user details
-// async function updateParentProfile(req, res) {
-//   await User.findOneAndUpdate(
-//     { _id: req.user._id },
-//     { $set: req.body.user },
-//   );
+// get parent profile with associated user details
+async function updateParentProfile(req, res) {
+  await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: req.body.user },
+  );
 
-//   const updatedParent = await Parent.findOneAndUpdate(
-//     { _id: req.body._id },
-//     { $set: req.body },
-//   ).populate('user');
+  const updatedParent = await Parent.findOneAndUpdate(
+    { _id: req.body._id },
+    { $set: req.body },
+  ).populate('user');
 
-//   console.log('updateParentProfile is sending back this', updatedParent);
-//   res.json(updatedParent);
-// }
+  console.log('updateParentProfile is sending back this', updatedParent);
+  res.json(updatedParent);
+}
