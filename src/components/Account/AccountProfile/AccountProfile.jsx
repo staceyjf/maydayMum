@@ -1,7 +1,7 @@
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-function AccountProfile({fullUserProfile}) {
-  // console.log('this is the account profile component fulluserprofile', fullUserProfile);
+function AccountProfile({user}) {
+  console.log('this is the account profile component user', user);
 
   return (
     <>
@@ -15,7 +15,7 @@ function AccountProfile({fullUserProfile}) {
           }}
         >
           <Avatar
-            src={fullUserProfile.user.image}
+            src={user.image}
             sx={{
               height: 80,
               mb: 2,
@@ -26,13 +26,13 @@ function AccountProfile({fullUserProfile}) {
             gutterBottom
             variant="h5"
           >
-            {fullUserProfile.user.fullName}
+            {user.fullName}
           </Typography>
           <Typography
             color="text.secondary"
             variant="body2"
           > 
-            {fullUserProfile.location} 
+            {user.location} 
           </Typography>
         </Box>
       </CardContent>
