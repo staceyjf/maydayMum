@@ -14,7 +14,7 @@ function Hero() {
           <Grid item sx={{
             backgroundColor: 'secondary.main',
             padding: '30px',
-            gridRow: '3 / span 6',
+            gridRow: '3 / span 4',
             gridColumn: '9 / span 4',
           }}>
           <Typography variant="h6" sx={{
@@ -23,6 +23,7 @@ function Hero() {
             textAlign: 'start',
           }}>
             Trusted childcare
+            </Typography>
           <Typography variant="h4" sx={{
             textTransform: 'uppercase',
             textAlign: 'start',
@@ -32,7 +33,6 @@ function Hero() {
             paddingTop: '5px',
           }}>
             Connect with top overnight nannies in the Northern Beaches.
-          </Typography>
           </Typography>
           <Typography variant="body1" sx={{
             textAlign: 'justify',

@@ -18,8 +18,20 @@ import {  Avatar, Box, Button, Card, CardActions,
               }}
             />
           }
+          sx={{
+            padding: 0
+          }}
           title={<Typography variant="h5">{nanny.fullName}</Typography>}
-          subheader={nanny.nanny.aboutDescription}
+          subheader={
+            <>
+              <Typography variant="body2" paragraph>
+                {nanny.nanny.aboutDescription}
+              </Typography>
+              <Typography color="text.secondary" variant="body2">
+                ${`${nanny.nanny.nightRate} per night`}
+              </Typography>
+            </>
+          }
         />
         <CardContent>
           <Box
@@ -29,10 +41,11 @@ import {  Avatar, Box, Button, Card, CardActions,
               flexDirection: 'column',
             }}
           >
-            <Typography color="text.secondary" variant="body2">
-              ${nanny.nanny.nightRate} per night
-            </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack 
+              direction="row" 
+              spacing={1}
+              padding={1}
+              >
               <Chip
                 label='First Aid Certified'
                 color="primary"
@@ -49,14 +62,13 @@ import {  Avatar, Box, Button, Card, CardActions,
               />
             </Stack>
             <Stack direction="row" spacing={1}>
-              {Object.entries(nanny.weeklyAvailability)
-                .sort() // Sort in alphabetical order
-                .filter(([day, available]) => available) // Filter by available days
-                .map(([day, available]) => (
+              {Object.entries(nanny.weeklyAvailability) // convert my availability doc (object) to an array
+                .filter(([day, available]) => available && day.includes('day')) // Filter by available days that contain 'day'
+                .map(([day, available]) => ( // iterate
                   <Chip
                     label={day}
                     color="secondary"
-                    key={day} // Added key to each Chip
+                    key={day}
                   />
                 ))}
             </Stack>

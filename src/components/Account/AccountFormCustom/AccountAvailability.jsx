@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { updateNannyAvailability } from '../../../utilities/accounts-api';
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, FormControl, FormControlLabel, FormLabel, FormHelperText, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, 
+  FormControl, FormControlLabel, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
 function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
   // console.log('this is target.name', evt.target.name)
@@ -22,7 +23,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
     evt.preventDefault();
     try {
       const Availability = await updateNannyAvailability(userData);
-      setNannyAvailsData(Availability);
+      setNannyAvailsData(Availability); //TODO: Fix this as find nanny is based on this 
       setSuccessMessage('Details successfully saved.');
     } catch {
       setError('Update failed - please try again');
