@@ -4,8 +4,9 @@ import * as userService from "../../utilities/users-service"
 // MUI
 import {  AppBar, Avatar, Button, Box, Container, IconButton, Menu, 
   MenuItem, Toolbar, Tooltip, Typography,  } from '@mui/material';
-import LogoDevIcon from "@mui/icons-material/LogoDev";
 import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "./Logo";
+import LogoSmall from "./LogoSmall";
 
 const pages = ["FIND A NANNY", "BOOKINGS"];
 const settings = ["ACCOUNT PROFILE", "LOGOUT"];
@@ -37,14 +38,15 @@ function NavBar({ user, setUser }) {
 <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <LogoDevIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Logo />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/" //TODO: UPDATE LINKS
+            href="/" 
             sx={{
               mr: 2,
+              ml: 2,
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -54,7 +56,6 @@ function NavBar({ user, setUser }) {
           >
             MaydayMum
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -95,7 +96,7 @@ function NavBar({ user, setUser }) {
               ))}
             </Menu>
           </Box>
-          <LogoDevIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LogoSmall />
           <Typography
             variant="h5"
             noWrap
