@@ -10,7 +10,9 @@ function NannyList({ nannies, }) {
   {    nannies.map((n, idx) => (
         <Box 
           key={idx}
-          m={2.5}
+          sx={{
+            marginTop: 2.5
+          }}
         > 
           <NannyCard
             nanny={n}

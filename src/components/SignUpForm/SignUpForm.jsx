@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { signUp } from '../../utilities/users-service'
 // MUI
 import {  Avatar, Box, Button, FormControlLabel, Grid, Link, Paper, Radio, RadioGroup, Stack, TextField, Typography} from '@mui/material';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import signupImg from './signupImg.jpg'
 
@@ -78,7 +76,7 @@ function SignUpForm({handleToggle, setUser, setIsExistingUser}) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main', color: 'white' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">

@@ -19,7 +19,8 @@ function AccountProfile({fullUserProfile}) {
             sx={{
               height: 80,
               mb: 2,
-              width: 80
+              width: 80,
+              color: '#fff',
             }}
           />
           <Typography

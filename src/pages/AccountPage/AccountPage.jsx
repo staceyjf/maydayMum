@@ -2,7 +2,6 @@ import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
-import { StayPrimaryLandscape } from '@mui/icons-material';
 
 function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, isLoading}) {
 
@@ -17,7 +16,6 @@ function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setN
         sx={{
           flexGrow: 1,
           py: 8,
-          backgroundColor: 'primary.light'
         }}
       >
         <Container maxWidth="lg">

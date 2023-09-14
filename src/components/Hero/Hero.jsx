@@ -5,18 +5,18 @@ function Hero() {
 
     return (
         <Box className={styles.heroBox}> 
- <Grid container sx={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(12, 1fr)',
-        gridTemplateRows: 'repeat(12, 1fr)',
-        height: '100vh',
-      }}>
-        <Grid item sx={{
-          backgroundColor: '#5c793f',
-          padding: '30px',
-          gridRow: '3 / span 6',
-          gridColumn: '9 / span 4',
-        }}>
+          <Grid container sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(12, 1fr)',
+            gridTemplateRows: 'repeat(12, 1fr)',
+            height: '100vh',
+          }}>
+          <Grid item sx={{
+            backgroundColor: 'secondary.main',
+            padding: '30px',
+            gridRow: '3 / span 6',
+            gridColumn: '9 / span 4',
+          }}>
           <Typography variant="h6" sx={{
             textTransform: 'uppercase',
             color: 'white',

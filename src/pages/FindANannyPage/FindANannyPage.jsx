@@ -30,13 +30,13 @@ function NannyProfilePage({nannyAvailsData}) {
           component="main"
           sx={{
             flexGrow: 1,
-            py: 8
+            paddingTop: 8
           }}
         >
           <Container maxWidth="lg">
             <Stack spacing={3}>
               <div>
-                <Typography variant="h5">
+                <Typography variant="h4">
                   Find Amazing Local Nannies across the Northern Beaches
                 </Typography>
               </div>

@@ -1,34 +1,20 @@
-// theme.js
 import { createTheme } from "@mui/material/styles";
 
 let outerTheme = (mode) =>
   createTheme({
     palette: {
+      type: 'light',
       primary: {
-        mode: 'light',
-        main: '#5C3F79',
-        light: '#7C6593',
-        dark: '#402C54',
+        main: '#494c7d',
         contrastText: '#fff',
       },
       secondary: {
-        main: '#5c793f',
-        light: '#7C9365',
-        dark: '#40542C',
+        main: '#2a9461',
         contrastText: '#fff',
-      }, 
-      text: {
-        primary: 'rgba(0,0,0,0.96)',
-        secondary: 'rgba(0,0,0,0.6)',
       },
-    },
-    typography: {
-      // fontFamily: 'Georgia',
-      h3: {
-        fontSize: '2rem',
-      },
-      h6: {
-        fontSize: '0.75rem',
+      background: {
+        default: 'rgba(92, 121, 63, 0.04)',
+        paper: '#fff',
       },
     },
     props: {
@@ -40,19 +26,32 @@ let outerTheme = (mode) =>
       MuiRadioGroup: {
         styleOverrides: {
           root: {
-            color: 'rgba(0,0,0,0.6)', 
-          },},},
-      MuiFormControlLabel: { 
+            color: 'rgba(0,0,0,0.6)',
+          },
+        },
+      },
+      MuiFormControlLabel: {
         styleOverrides: {
           label: {
-            color: 'rgba(0, 0, 0, 0.6)', 
-          },},},
+            color: 'rgba(0, 0, 0, 0.6)',
+          },
+        },
+      },
       MuiGrid: {
         styleOverrides: {
           item: {
             margin: 0,
-          },},},
-   },
-});
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            padding: '10px', 
+          },
+        },
+      },
+    },
+  });
 
 export default outerTheme;
