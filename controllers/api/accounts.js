@@ -31,8 +31,8 @@ async function getNannyAvailability(req, res) {
 // get Parent profile with associated user details
 async function getParentData(req, res) {
   const nannyWithParent = await Parent.findOne({ user: req.user._id }).populate('user');
-  console.log('getParentData is sending back this', parent);
-  res.json(parent);
+  console.log('getParentData is sending back this', nannyWithParent);
+  res.json(nannyWithParent);
 }
 
 // update Nanny profile from Account Page
