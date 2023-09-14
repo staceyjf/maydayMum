@@ -3,9 +3,9 @@ import sendRequest from './send-request'
 // the base path of the Express route 
 const BASE_URL = '/api/accounts';
 
-export async function getNannyData() {
-   return sendRequest(`${BASE_URL}/nanny`);
-}
+// export async function getNannyData() {
+//    return sendRequest(`${BASE_URL}/nanny`);
+// }
 
 export async function getNannyAvailability() {
    return sendRequest(`${BASE_URL}/availability`);

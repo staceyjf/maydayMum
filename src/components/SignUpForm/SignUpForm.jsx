@@ -20,7 +20,7 @@ function Copyright(props) {
     );
   }
 
-function SignUpForm({handleToggle, setUser}) {
+function SignUpForm({handleToggle, setUser, setIsExistingUser}) {
   const [userData, setUserData] = useState({
     firstName: '',
     surname: '',
@@ -44,7 +44,7 @@ function SignUpForm({handleToggle, setUser}) {
     evt.preventDefault(); 
     try { 
       const user = await signUp(userData)
-      setUser(user); 
+      setUser(user);
     } catch { 
       setError('Sign up failed - Try Again'); 
     } 

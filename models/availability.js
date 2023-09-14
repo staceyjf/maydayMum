@@ -12,12 +12,12 @@ const availabilitySchema = new Schema({
     Sunday: { type: Boolean, default: true }
 });
 
-availabilitySchema.statics.initializeAvailability = function(userId) {
-    return this.findOneAndUpdate(
-      { user: userId }, // query based user id
-      { user: userId }, // update if doesn't exist 
-      { upsert: true, new: true } // upsert option 
-    );
-  };
+// availabilitySchema.statics.initializeAvailability = function(userId) {
+//     return this.findOneAndUpdate(
+//       { user: userId }, // query based user id
+//       { user: userId }, // update if doesn't exist 
+//       { upsert: true, new: true } // upsert option 
+//     );
+//   };
 
 module.exports = mongoose.model('Availability', availabilitySchema);

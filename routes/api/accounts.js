@@ -7,13 +7,13 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // All paths start with '/api/accounts' (defined server.js
 
+// // GET /api/accounts/nanny (get Nanny account)
+// router.get('/nanny', ensureLoggedIn, accountsController.getNannyData);
 // GET /api/accounts/nanny (get Nanny account)
-router.get('/nanny', ensureLoggedIn, accountsController.getNannyData);
-// GET /api/accounts/nanny (get Nanny account)
-router.get('/availability', ensureLoggedIn, accountsController.getNannyAvailability);
+// router.get('/availability', ensureLoggedIn, accountsController.getNannyAvailability);
 // GET /api/accounts/parent (get parent account)
-router.get('/parent', ensureLoggedIn, accountsController.getParentData);
-// POST /api/accounts/nanny-profile (update nanny profile)
+// router.get('/parent', ensureLoggedIn, accountsController.getParentData);
+// // POST /api/accounts/nanny-profile (update nanny profile)
 router.post('/nanny-profile', ensureLoggedIn, accountsController.updateNannyProfile);
 // POST /api/accounts/nanny-profile (update nanny profile)
 router.post('/nanny-availability', ensureLoggedIn, accountsController.updateNannyAvailability);

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Routing
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useResolvedPath } from 'react-router-dom';
 import * as usersAPI from '../../utilities/users-service';
 import * as accountsAPI from '../../utilities/accounts-api';
 // import * as teamAPI from '../../utilities/team-api';
@@ -10,7 +10,6 @@ import * as accountsAPI from '../../utilities/accounts-api';
 // Page components
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
 import AccountPage from '../AccountPage/AccountPage';
-import NewNannyProfilePage from '../NewNannyProfilePage/NewNannyProfilePage';
 import FindANannyPage from '../FindANannyPage/FindANannyPage';
 import BookingsPage from '../BookingsPage/BookingsPage';
 import AuthPage from '../AuthPage/AuthPage';
@@ -24,20 +23,21 @@ function App() {
   const [nannyAvailsData, setNannyAvailsData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(function () { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
-      console.log(user.role);
+      console.log(user)
       async function fetchProfileData() {
         try {
           if (user.role === 'parent') {
-            const parentData = await accountsAPI.getParentData();
-            setFullUserProfile(parentData);
+            // const parentData = await accountsAPI.getParentData();
+            setFullUserProfile(user);
             setIsLoading(false);
           } else {
-            const nannyData = await accountsAPI.getNannyData();
-            setFullUserProfile(nannyData);
-            const avaibilityData = await accountsAPI.getNannyAvailability();
-            setNannyAvailsData(avaibilityData);
+            // const nannyData = await accountsAPI.getNannyData();
+            // const avaibilityData = await accountsAPI.getNannyAvailability(); // don't need to make another call TODO: FIX
+            // setNannyAvailsData(user.weeklyAvaibility);
+            setFullUserProfile(user);
             setIsLoading(false);
           }
         } catch (error) {
@@ -46,7 +46,7 @@ function App() {
       }
       fetchProfileData();
     }
-  }, [user]);
+  }, [user]); // only needs to run once
 
   return (
     <main className="App">
@@ -60,7 +60,7 @@ function App() {
               <Routes>
                 {/* index route */}
                 <Route index element={<AboutUsPage />} />
-                <Route path="/accounts" element={
+                {/* <Route path="/accounts" element={
                   <AccountPage
                     isLoading={isLoading}
                     fullUserProfile={fullUserProfile}
@@ -68,12 +68,11 @@ function App() {
                     nannyAvailsData={nannyAvailsData}
                     setNannyAvailsData={setNannyAvailsData}
                   />}
-                />
-                {/* <Route path="/users/create-a-nanny-profile" element={<NewNannyProfilePage />} /> */}
-                <Route path="/team/find-a-nanny"
+                /> */}
+                {/* <Route path="/team/find-a-nanny"
                   element={<FindANannyPage
                     nannyAvailsData
-                  />} />
+                  />} /> */}
                 <Route path="/team/bookings" element={<BookingsPage />} />
                 {/* catch all route */}
                 <Route path="/*" element={<Navigate to="/" />} />
@@ -81,7 +80,10 @@ function App() {
             )}
         </>
         :
-        <AuthPage user={user} setUser={setUser} />
+        <AuthPage 
+          user={user} 
+          setUser={setUser} 
+        />
       }
 
     </main>

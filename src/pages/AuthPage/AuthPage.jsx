@@ -16,11 +16,18 @@ function AuthPage({user, setUser}) {
         
         {clicked ? (
           <>
-            <LoginForm user={user} setUser={setUser} handleToggle={handleToggle}/>
+            <LoginForm 
+              user={user} 
+              setUser={setUser} 
+              handleToggle={handleToggle}
+            />
           </>
         ) : (
           <>
-            <SignUpForm setUser={setUser} handleToggle={handleToggle}/>
+            <SignUpForm 
+              setUser={setUser} 
+              handleToggle={handleToggle}
+            />
           </>
         )}
       </>

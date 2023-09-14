@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
+const Availability = require("../../models/availability");
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -11,19 +12,38 @@ module.exports = {
 // will pass on a token to the users-api.jsx
 async function create(req, res) {
     try {
-        // add our user to the db via req.body
-        const user = await User.create(req.body);
-        // create the token
-        const token = createJWT(user);
-        // can use .json to send back a string 
-        // (method to send a JSON response from a server to a client)
+        const user = await User.create(req.body); // create the user
+
+        // if nanny
+        if (user.role === 'nanny') {
+            const nannyProfile = await Nanny.create({ user: user._id }); // create nanny profile
+            const availability = await Availability.create({ user: user._id }); // create availability
+            const fullUserProfile = await User.findOneAndUpdate( //update user
+            { _id: user._id }, 
+            { nanny: nannyProfile._id, weeklyAvailability: availability._id }, 
+            { new: true } 
+            ).populate('nanny').populate('weeklyAvailability');
+        const token = createJWT(fullUserProfile); // send back complete user
+        console.log('this is the updated user with nanny & weekly avalis', fullUserProfile);
         res.json(token);
+
+        // if parent
+        } else if (user.role === 'parent') { 
+            const parentProfile = await Parent.create({ user: user._id });
+            const fullUserProfile = await User.findOneAndUpdate(
+            { _id: user._id }, 
+            { parent: parentProfile._id }, 
+            { new: true } 
+            ).populate('nanny').populate('weeklyAvailability');;
+            const token = createJWT(fullUserProfile);
+            console.log('this is the updated user with parent', fullUserProfile);
+            res.json(token);
+        };
     } catch (err) {
         res.status(400).json(err);
     }
 };
 
-// create a helper function (aren't exported) to ensure DRY
 function createJWT(user) {
     return jwt.sign(// create the token using the jwt's sign()
     // data payload
@@ -33,7 +53,6 @@ function createJWT(user) {
     ); 
 };
 
-// will pass on a token to the users-api.jsx
 async function login(req, res) {
     try {
         // find our user in the database

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const Parent = require('./parent');
 const Nanny = require('./nanny');
+const Availability = require('./availability');
 
 const SALT_ROUNDS = 6;
 

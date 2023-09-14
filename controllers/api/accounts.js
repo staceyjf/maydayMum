@@ -6,49 +6,49 @@ const Availability = require("../../models/availability");
 const bcrypt = require('bcrypt');
 
 module.exports = {
-  getNannyData,
-  getNannyAvailability,
-  getParentData,
+  // getNannyData,
+  // getNannyAvailability,
+  // getParentData,
   updateNannyProfile,
   updateNannyAvailability,
   updateParentProfile
 };
 
-// get Nanny profile with associated user details
-async function getNannyData(req, res) {
-  // create the nanny with the assocated user
-  const nanny = await Nanny.create({ user: req.user._id});
+// // get Nanny profile with associated user details
+// async function getNannyData(req, res) {
+//   // create the nanny with the assocated user
+//   const nanny = await Nanny.create({ user: req.user._id});
 
-  // update the user model with the new nanny._id
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: req.user._id }, // Use _id to query the user doc
-    { nanny: nanny._id },
-    { upsert: true, new: true }
-  );
-  console.log('this is the updated is user', updatedUser);
+//   // update the user model with the new nanny._id
+//   const updatedUser = await User.findOneAndUpdate(
+//     { _id: req.user._id }, // Use _id to query the user doc
+//     { nanny: nanny._id },
+//     { upsert: true, new: true }
+//   );
+//   console.log('this is the updated is user', updatedUser);
 
-  // send back the new nanny document with a populated nanny.user field
-  const nannyWithUser = await Nanny.findById(nanny._id).populate('user');
+//   // send back the new nanny document with a populated nanny.user field
+//   const nannyWithUser = await Nanny.findById(nanny._id).populate('user');
 
-  // console.log('getNannyData is sending back this', nannyWithUser);
-  res.json(nannyWithUser);
-}
+//   // console.log('getNannyData is sending back this', nannyWithUser);
+//   res.json(nannyWithUser);
+// }
 
-// get the logged-in nannies' availability
-async function getNannyAvailability(req, res) {
-  const availability = await Availability.initializeAvailability(req.user._id);
-  const availabilityToUser = await availability.populate('user');
+// // get the logged-in nannies' availability
+// async function getNannyAvailability(req, res) {
+//   const availability = await Availability.initializeAvailability(req.user._id);
+//   const availabilityToUser = await availability.populate('user');
 
-  // console.log('getNannyAvailability is sending back this', availabilityToUser);
-  res.json(availabilityToUser);
-}
+//   // console.log('getNannyAvailability is sending back this', availabilityToUser);
+//   res.json(availabilityToUser);
+// }
 
-// get Parent profile with associated user details
-async function getParentData(req, res) {
-  const parent = await Parent.addParentToUser(req.user._id).populate('user');
-  console.log('getParentData is sending back this', parent);
-  res.json(parent);
-}
+// // get Parent profile with associated user details
+// async function getParentData(req, res) {
+//   const parent = await Parent.addParentToUser(req.user._id).populate('user');
+//   console.log('getParentData is sending back this', parent);
+//   res.json(parent);
+// }
 
 // update Nanny profile from Account Page
 async function updateNannyProfile(req, res) {
