@@ -32,10 +32,10 @@ const userSchema = new Schema({
         enum: ['parent', 'nanny'],
         required: true
     },
-    weeklyAvailability: {type: Schema.Types.ObjectId, ref: 'Availability'},
     isAdmin: { type: Boolean, default: false },
-    parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, // referenced collection 
-    nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} // referenced collection 
+    weeklyAvailability: {type: Schema.Types.ObjectId, ref: 'Availability'},
+    parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, 
+    nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} 
     }, {
     timestamps: true, 
     toJSON: { 
@@ -48,12 +48,8 @@ const userSchema = new Schema({
 }
 );
 
-// using Mongoose middleware - pre-save hook - every time the document is saved, the password would be hashed
 userSchema.pre('save', async function(next) {
-    // 'this' is the user document. No arrow functions
-    // using the isModified() to check if the password has been modified
     if (!this.isModified('password')) return next();
-        // Replace the password with the computed hash
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
     return next();
     });
@@ -64,7 +60,6 @@ userSchema.virtual('fullName').get(function() {
     return `${capitalisedFirstName} ${capitalisedSurname}`;
 });
 
-
 // //Need to review how to do aws for images
 // //Image getter
 const bucket = process.env.S3_BUCKET;
@@ -74,5 +69,4 @@ const root = `${process.env.S3_BASE_URL}/${bucket}`;
 // doc.image; 
 // doc.toObject({ getters: false }).image; // '/123.png'
 
-// to create the document we need the following args name of model as a string, the schema
 module.exports = mongoose.model('User', userSchema);

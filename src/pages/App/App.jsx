@@ -19,11 +19,30 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(usersAPI.getUser()); // associate token with the user 
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => { // ensuring that the user has logged in / signed up before running fetchData()
+  
+  useEffect(function () { // ensuring that the user has logged in / signed up before running fetchData()
     if (user) {
-      // console.log(user);
-      setIsLoading(false);
+      console.log('this is the user.role', user)
+      async function fetchProfileData() {
+        try {
+          if (user.role === 'parent') {
+            const parentData = await accountsAPI.getParentData();
+            setFullUserProfile(parentData);
+            setIsLoading(false);
+          } else {
+            const nannyData = await accountsAPI.getNannyData();
+            const avaibilityData = await accountsAPI.getNannyAvailability(); // don't need to make another call TODO: FIX
+            console.log('this is the user nannydata', nannyData)
+            console.log('this is the user avaibility', avaibilityData)
+            setFullUserProfile(nannyData);
+            setNannyAvailsData(avaibilityData);
+            setIsLoading(false);
+          }
+        } catch (error) {
+          console.error("Error with calling full user data", error);
+        }
+      }
+      fetchProfileData();
     }
   }, [user]); 
   
@@ -39,8 +58,8 @@ function App() {
               <Routes>
                 {/* index route */}
                 <Route index element={<AboutUsPage />} />
-                <Route path="/accounts" 
-                  element={<AccountPage
+                <Route path="/accounts" element={
+                  <AccountPage
                     isLoading={isLoading}
                     user={user}
                     setUser={setUser}
@@ -48,8 +67,6 @@ function App() {
                 />
                 <Route path="/team/find-a-nanny"
                   element={<FindANannyPage
-                    user={user}
-                    setUser={setUser}
                   />} />
                 <Route path="/team/bookings" element={<BookingsPage />} />
                 {/* catch all route */}

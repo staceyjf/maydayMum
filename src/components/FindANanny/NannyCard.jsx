@@ -2,7 +2,7 @@ import {  Avatar, Box, Button, Card, CardActions,
   CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 function NannyCard({nanny}) {
-  console.log('these are all our nannies', nanny);
+  console.log('this is a single nanny', nanny);
 
   return (
     <>
@@ -23,10 +23,10 @@ function NannyCard({nanny}) {
             variant="h5"
             sx={{ fontSize: '24px' }} // Customize the font size here
           >
-            {nanny.user.fullName}
+            {nanny.fullName}
           </Typography>
         }
-        subheader={nanny.aboutDescription}
+        subheader={nanny.nanny.aboutDescription}
           >
       </CardHeader>    
       <CardContent>
@@ -40,7 +40,7 @@ function NannyCard({nanny}) {
           <Typography
             color="text.secondary"
             variant="body2"
-          > ${nanny.nightRate} per night
+          > ${nanny.nanny.nightRate} per night
           </Typography>
           <Typography
             color="text.secondary"

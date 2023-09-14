@@ -12,13 +12,4 @@ const parentSchema = new Schema({
   timestamps: true
 });
 
-// // add a parent profile to a user's profile or creating it if it doesn't exist (upsert)
-// parentSchema.statics.addParentToUser = function(userId) {
-//   return this.findOneAndUpdate(
-//     { user: userId, }, // query based user id
-//     { user: userId }, // update if doesn't exist 
-//     { upsert: true, new: true } // upsert option 
-//   );
-// };
-
 module.exports = mongoose.model('Parent', parentSchema);

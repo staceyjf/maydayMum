@@ -50,7 +50,9 @@ function NannyProfilePage({nannyAvailsData}) {
                     md={4}
                     lg={2}
                   >
-                    {/* <AccountProfile fullUserProfile={fullUserProfile} setFullUserProfile={setFullUserProfile}/> */}
+                    {/* <AccountProfile 
+                    fullUserProfile={fullUserProfile} 
+                    setFullUserProfile={setFullUserProfile}/> */}
                   </Grid>
                   <Grid
                     xs={12}
@@ -59,7 +61,6 @@ function NannyProfilePage({nannyAvailsData}) {
                   >
                     <NannyList 
                       nannies={nannies}
-                      nannyAvailsData={nannyAvailsData}
                     />
                   </Grid>
                 </Grid>
