@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
+const Parent = require('../../models/parent');
 const Availability = require("../../models/availability");
 const bcrypt = require('bcrypt');
 
@@ -34,7 +35,7 @@ async function create(req, res) {
             { _id: user._id }, 
             { parent: parentProfile._id }, 
             { new: true } 
-            ).populate('nanny').populate('weeklyAvailability');;
+            ).populate('parent');
             const token = createJWT(fullUserProfile);
             console.log('this is the updated user with parent', fullUserProfile);
             res.json(token);
