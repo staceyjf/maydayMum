@@ -1,9 +1,5 @@
 .heroBox {
   width: 100%;
-  display: flex;
-  min-height: 100vh; 
-  align-items: center;
-  justify-content: flex-end; 
   background-image: url('./aboutUsImg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,24 +7,36 @@
 }
 
 .gridContainer {
-  display: flex;
-  justify-content: flex-end;
-  max-width: 1300px; 
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); 
+  grid-template-rows: repeat(12, 1fr); 
+  height: 100vh; 
 }
 
-.gridBox {
+.gridItem {
   background-color: #5c793f;
-  padding: 20px;
-  max-width: 250px;
+  padding: 30px;
+  grid-row: 3 / span 6; 
+  grid-column: 9 / span 4;
 }
 
 .title {
   text-transform: uppercase;
+  text-align: start;
+  font-size: 2vmax;
 }
 
 .subtitle {
-  opacity: 0.4;
+  opacity: 0.6;
   /* padding-bottom: 30px; */
   text-transform: uppercase;
+  color: white;
+  text-align: start;
+}
+
+.p {
+  text-align: justify;
+  color: white;
+  opacity: 0.5;
+  padding-top: 5px;
 }

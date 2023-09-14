@@ -5,13 +5,21 @@ function Hero() {
 
     return (
         <Box className={styles.heroBox}> 
-        <Grid container spacing={6} className={styles.gridContainer}>
-          <Grid item xs={12} md={7} className={styles.gridBox}>
-            <Typography variant="h6" className={styles.subtitle}>
+        <Grid container className={styles.gridContainer}>
+          <Grid item className={styles.gridItem}>
+            <Typography className={styles.subtitle}>
               Trusted childcare
             </Typography>
-            <Typography variant="h3" fontWeight={500} className={styles.title}>
+            <Typography className={styles.title}>
               Connect with top overnight nannies in the Northern Beaches.
+            </Typography>
+            <Typography className={styles.p}>
+              Welcome to Mayday Mum – your trusted Northern Beaches destination for overnight 
+              nannying services. We understand that every parent needs a helping hand, 
+              especially during those long nights. Our fixed nightly fee covers a full 12 hours of 
+              dedicated support, so you can rest easy knowing your little ones are in caring hands. 
+              Join our Mayday Mum family today, and let us make your nights more peaceful and 
+              your mornings brighter.
             </Typography>
           </Grid>
         </Grid>
