@@ -52,10 +52,10 @@ function AccountPage({user, setUser, isLoading}) {
                   md={6}
                   lg={8}
                 >
-                  {/* <AccountProfileDetails 
+                  <AccountProfileDetails 
                     user={user} 
                     setUser={setUser}
-                  /> */}
+                  />
                 </Grid>
               </Grid>
             </div>
