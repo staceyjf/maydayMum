@@ -40,7 +40,7 @@ function NavBar({ user, setUser }) {
         <Toolbar disableGutters>
           <Logo />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/" 
@@ -106,15 +106,15 @@ function NavBar({ user, setUser }) {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontWeight: 700,
-              letterSpacing: ".3rem",
+              fontWeight: 600,
+              letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
             MaydayMum
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}>
             {pages.map((page) => (
                 <Link
                     key={page}
