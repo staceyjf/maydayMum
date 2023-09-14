@@ -5,38 +5,3 @@
   background-size: cover;
   background-position: center center;
 }
-
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr); 
-  grid-template-rows: repeat(12, 1fr); 
-  height: 100vh; 
-}
-
-.gridItem {
-  background-color: #5c793f;
-  padding: 30px;
-  grid-row: 3 / span 6; 
-  grid-column: 9 / span 4;
-}
-
-.title {
-  text-transform: uppercase;
-  text-align: start;
-  font-size: 2vmax;
-}
-
-.subtitle {
-  opacity: 0.6;
-  /* padding-bottom: 30px; */
-  text-transform: uppercase;
-  color: white;
-  text-align: start;
-}
-
-.p {
-  text-align: justify;
-  color: white;
-  opacity: 0.5;
-  padding-top: 5px;
-}

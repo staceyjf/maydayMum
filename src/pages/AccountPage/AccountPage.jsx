@@ -1,31 +1,34 @@
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-// import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
+import { StayPrimaryLandscape } from '@mui/icons-material';
 
 function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, isLoading}) {
-  // console.log('this is the account page fulluserprofile', fullUserProfile);
-  console.log('this is the logged in nannys availability data', nannyAvailsData);
+
 
   return (
     <>
     {isLoading 
-    ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
-    : ( // Render the account components when isLoading is false
+    ? ( <div>Loading...</div> ) 
+    : ( 
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 8,
+          backgroundColor: 'primary.light'
         }}
       >
         <Container maxWidth="lg">
           <Stack spacing={3}>
             <div>
-              <Typography variant="h4">
-                Account Details
-              </Typography>
+            <Typography variant="h3">
+              Account Details
+            </Typography>
+            <Typography variant="h5">
+              Manage your personal information and account settings.
+            </Typography>
             </div>
             <div>
               <Grid
