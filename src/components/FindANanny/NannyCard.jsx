@@ -11,16 +11,16 @@ import {  Avatar, Box, Button, Card, CardActions,
             <Avatar
               src={nanny.image}
               sx={{
-                height: 80,
+                height: 100,
                 mb: 2,
-                width: 80,
-                color: 'white', // Corrected 'color' to 'backgroundColor'
+                width: 100,
+                color: 'white',
               }}
             />
           }
           title={<Typography variant="h5">{nanny.fullName}</Typography>}
           subheader={nanny.nanny.aboutDescription}
-        ></CardHeader>
+        />
         <CardContent>
           <Box
             sx={{
@@ -29,22 +29,36 @@ import {  Avatar, Box, Button, Card, CardActions,
               flexDirection: 'column',
             }}
           >
-            <Typography 
-              color="text.secondary" 
-              variant="body2"
-            >
+            <Typography color="text.secondary" variant="body2">
               ${nanny.nanny.nightRate} per night
             </Typography>
             <Stack direction="row" spacing={1}>
+              <Chip
+                label='First Aid Certified'
+                color="primary"
+                style={{
+                  display: nanny.nanny.isFirstAidCertified ? 'inherit' : 'none',
+                }}
+              />
+              <Chip
+                label='WWW Clearance'
+                color="primary"
+                style={{
+                  display: nanny.nanny.isWccCleared ? 'inherit' : 'none',
+                }}
+              />
+            </Stack>
+            <Stack direction="row" spacing={1}>
               {Object.entries(nanny.weeklyAvailability)
-              .sort() // sort to alphabetic order
-              .filter(([day, available]) => available) // Filter by available days
-              .map(([day, available]) => ( 
+                .sort() // Sort in alphabetical order
+                .filter(([day, available]) => available) // Filter by available days
+                .map(([day, available]) => (
                   <Chip
                     label={day}
-                    color="secondary" 
+                    color="secondary"
+                    key={day} // Added key to each Chip
                   />
-              ))}
+                ))}
             </Stack>
           </Box>
         </CardContent>
@@ -59,4 +73,3 @@ import {  Avatar, Box, Button, Card, CardActions,
   }
   
   export default NannyCard;
-  
