@@ -1,5 +1,7 @@
 # Mayday MuM
 
+To see the deployed site: https://mayday-mum-adf0c5504124.herokuapp.com/accounts
+
 <div align="center">
 
 </div>
@@ -7,8 +9,10 @@
 <div align="left">
 <br>
 This web-based application provides a centralized database that: 
+
 - utilizes a MongoDB via Mongoose
 - is built with React and Node.js via Express
+
 
 The application performs user centric CRUD (Create, Read, Update) operations following REST-ful conventions for managing resources.
 
