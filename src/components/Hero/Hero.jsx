@@ -4,7 +4,9 @@ import styles from './Hero.module.css'; // bring in specific styling to hero
 function Hero() {
 
     return (
-    <Box className={styles.heroBox}>
+    <Box className={styles.heroBox} 
+      sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}} 
+      hidden={{ xs: true, md: false }}>
           <Grid container sx={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
@@ -16,7 +18,6 @@ function Hero() {
             padding: '30px',
             gridRow: '3 / span 4',
             gridColumn: '9 / span 4',
-            flexGrow: 1, display: { xs: "none", md: "flex" },
           }}>
           <Typography variant="h6" sx={{
             textTransform: 'uppercase',
