@@ -23,7 +23,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
     evt.preventDefault();
     try {
       const Availability = await updateNannyAvailability(userData);
-      setNannyAvailsData(Availability); //TODO: Fix this as find nanny is based on this 
+      setNannyAvailsData(Availability); 
       setSuccessMessage('Details successfully saved.');
     } catch {
       setError('Update failed - please try again');
