@@ -41,6 +41,7 @@ async function updateNannyProfile(req, res) {
   await User.findOneAndUpdate( // req.user._id comes from our middleware
     { _id: req.user._id }, // finds the User doc via the the ._id of the user doc
     { $set: req.body.user }, // updates the user doc with changes found in the data payload (nanny.user.etc)
+    {returnDocument: 'after'} 
   );
 
   // Find the nanny doc by its _id provided in the data payload and update it
@@ -58,11 +59,13 @@ async function updateNannyAvailability(req, res) {
   await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: req.body.user },
+    {returnDocument: 'after'}
   );
 
   const updatedAvailability = await Availability.findOneAndUpdate(
     { _id: req.body._id },
     { $set: req.body },
+    {returnDocument: 'after'}
   ).populate('user');
 
   console.log('updateNannyAvailability is sending back this', updatedAvailability);
@@ -74,11 +77,13 @@ async function updateParentProfile(req, res) {
   await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: req.body.user },
+    {returnDocument: 'after'}
   );
 
   const updatedParent = await Parent.findOneAndUpdate(
     { _id: req.body._id },
     { $set: req.body },
+    {returnDocument: 'after'}
   ).populate('user');
 
   console.log('updateParentProfile is sending back this', updatedParent);

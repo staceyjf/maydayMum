@@ -1,6 +1,6 @@
 # Mayday MuM
 
-To see the deployed site: https://mayday-mum-adf0c5504124.herokuapp.com/accounts
+To see the deployed site: https://mayday-mum-adf0c5504124.herokuapp.com/
 
 <div align="center">
 

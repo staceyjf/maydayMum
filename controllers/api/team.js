@@ -9,14 +9,6 @@ module.exports = {
     getAllNannies,
 };
 
-// // get all nanny profiles
-// async function getAllNannies(req, res) {
-//     const nannies = await User.find({}).populate('user'); 
-//     // using exec() to ensure each user is associated to their nanny profile 
-//     console.log('getAllNannies is sending back this', nannies);
-//     res.json(nannies);
-// };
-
 // get all nanny profiles
 async function getAllNannies(req, res) {
     const nannies = await User.find({ role: 'nanny'}).populate('nanny').populate('weeklyAvailability');

@@ -22,7 +22,7 @@ async function create(req, res) {
             const fullUserProfile = await User.findOneAndUpdate( //update user
             { _id: user._id }, 
             { nanny: nannyProfile._id, weeklyAvailability: availability._id }, 
-            { new: true } 
+            {returnDocument: 'after'}
             ).populate('nanny').populate('weeklyAvailability');
         const token = createJWT(fullUserProfile); // send back complete user
         console.log('this is the updated user with nanny & weekly avalis', fullUserProfile);
@@ -34,7 +34,7 @@ async function create(req, res) {
             const fullUserProfile = await User.findOneAndUpdate(
             { _id: user._id }, 
             { parent: parentProfile._id }, 
-            { new: true } 
+            {returnDocument: 'after'}
             ).populate('parent');
             const token = createJWT(fullUserProfile);
             console.log('this is the updated user with parent', fullUserProfile);
