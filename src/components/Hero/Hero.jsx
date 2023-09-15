@@ -5,8 +5,8 @@ function Hero() {
 
     return (
     <Box className={styles.heroBox} 
-      sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}} 
-      hidden={{ xs: true, md: false }}>
+      sx={{ flexGrow: 1, 
+      display: { xs: "none", md: "flex" }}} >
           <Grid container sx={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
