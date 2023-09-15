@@ -15,8 +15,7 @@ function Hero() {
             backgroundColor: 'secondary.main',
             padding: '30px',
             gridRow: '3 / span 4',
-            gridColumn: '9 / span 4',
-            flexGrow: 1, display: { xs: "none", md: "flex" }
+            gridColumn: '9 / span 4'
           }}>
           <Typography variant="h6" sx={{
             textTransform: 'uppercase',
