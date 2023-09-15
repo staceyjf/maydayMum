@@ -48,6 +48,7 @@ async function updateNannyProfile(req, res) {
   const updatedNanny = await Nanny.findOneAndUpdate(
     { _id: req.body._id }, // find the nanny doc by it's ._id provided in the data payload
     { $set: req.body },  // updates the nanny doc with specific fields provided by the data payload
+    {returnDocument: 'after'}
   ).populate('user');
 
   console.log('updateNannyProfile is sending back this', updatedNanny);
