@@ -24,7 +24,7 @@ function SettingMenu({ setUser, setAnchorElUser }) {
         let linkUrl;
 
         if (setting === "LOGOUT") {
-          linkUrl = "/";
+          linkUrl = "/users/log-in";
         } else {
           linkUrl = setting === "ACCOUNT PROFILE" ? "accounts" : "users";
           linkUrl += `/${setting.toLowerCase().replace(/\s+/g, "-")}`;
@@ -35,7 +35,7 @@ function SettingMenu({ setUser, setAnchorElUser }) {
             <Typography textAlign="center">
               {setting === "LOGOUT" ? (
                 <a
-                  href="/"
+                  href={linkUrl}
                   style={{ textDecoration: "none", color: "black" }}
                   onClick={handleLogOut}
                 >
