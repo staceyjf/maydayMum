@@ -9,17 +9,26 @@ function AccountProfileDetails({user, setUser}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
+  // console.log(userData.role )
 
+  function handleFieldChange(evt) { // handle field changes to nanny / parent 
+    let updatedUser; 
 
-  function handleUserChange(evt) { // handles user document
-    const updatedUser = {
-      ...userData.user,
-      [evt.target.name]: evt.target.value
-    };
+    if (userData.role === 'parent') {
+      updatedUser = {
+        ...userData.parent,
+        [evt.target.name]: evt.target.value
+      };
+    } else if (userData.role === 'nanny') { // Use curly braces for the else if statement
+      updatedUser = {
+        ...userData.nanny,
+        [evt.target.name]: evt.target.value
+      };
+    }
   
     setUserData({
       ...userData,
-      user: updatedUser,
+      parent: updatedUser,
       error: ''
     });
   };
@@ -168,14 +177,14 @@ function AccountProfileDetails({user, setUser}) {
                 < AccountProfileParentEl 
                   userData={userData} 
                   handleCheckedChange={handleCheckedChange} 
-                  handleChange={handleChange}
+                  handleFieldChange={handleFieldChange}
                 />
               : 
                 <>
                 < AccountProfileNannyEl 
                   userData={userData} 
                   handleCheckedChange={handleCheckedChange} 
-                  handleChange={handleChange}
+                  handleFieldChange={handleFieldChange}
                 />
                 </>
               }

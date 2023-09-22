@@ -16,7 +16,13 @@ module.exports = {
 };
 
 async function updateUser(req, res) {
-  console.log(req.user._id)
+  //
+  await Parent.findOneAndUpdate(
+    { user: req.user._id }, 
+    { $set: req.body.parent },
+    {returnDocument: 'after'}
+  )
+
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: req.body },
@@ -24,9 +30,6 @@ async function updateUser(req, res) {
   ).populate('parent')
   .populate('nanny')
   .populate('weeklyAvailability');
-
-  await Parent.findOneAndUpdate({ _id: req.body._id }, { $set: req.body }, {returnDocument: 'after'}
-  )
 
   console.log('updateUser is sending back this', updatedUser);
   res.json(updatedUser);
