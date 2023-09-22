@@ -20,7 +20,6 @@ async function getNannyData(req, res) {
   console.log('getNannyData is sending back this', nannyWithUser);
   res.json(nannyWithUser);
 }
-
 // get the logged-in nannies' availability
 async function getNannyAvailability(req, res) {
   const availabilityToUser = await Availability.findOne({ user: req.user._id }).populate('user');
@@ -31,7 +30,7 @@ async function getNannyAvailability(req, res) {
 // get Parent profile with associated user details
 async function getParentData(req, res) {
   const nannyWithParent = await Parent.findOne({ user: req.user._id }).populate('user');
-  console.log('getParentData is sending back this', nannyWithParent);
+  // console.log('getParentData is sending back this', nannyWithParent);
   res.json(nannyWithParent);
 }
 

@@ -57,7 +57,10 @@ function createJWT(user) {
 async function login(req, res) {
     try {
         // find our user in the database
-        const user = await User.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email})
+                                .populate('parent')
+                                .populate('nanny')
+                                .populate('weeklyAvailability');
         if (!user) throw new Error(); 
         
         // compare the passwords via bcrypt match()

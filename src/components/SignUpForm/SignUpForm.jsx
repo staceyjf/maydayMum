@@ -44,7 +44,7 @@ function SignUpForm({handleToggle, setUser, setIsExistingUser}) {
     try { 
       const user = await signUp(userData)
       setUser(user);
-      navigate('/accounts/account-profile');
+      navigate('/');
     } catch { 
       setError('Sign up failed - Try Again'); 
     } 

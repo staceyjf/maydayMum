@@ -3,7 +3,7 @@ import AccountProfile  from '../../components/Account/AccountProfile/AccountProf
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, isLoading}) {
+function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, user, setUser, isLoading}) {
 
 
   return (

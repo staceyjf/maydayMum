@@ -44,7 +44,7 @@ function LoginForm({handleToggle, setUser}) {
       try { 
           const user = await usersService.login(credentials); 
           setUser(user); 
-          navigate('/accounts/account-profile');
+          navigate('/');
       } catch { 
           setError('Log In Failed - Try Again'); 
       } 

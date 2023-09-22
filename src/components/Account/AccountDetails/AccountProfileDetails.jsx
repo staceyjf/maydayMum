@@ -10,6 +10,7 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
 
+
   function handleUserChange(evt) { // handles user document
     const updatedUser = {
       ...userData.user,

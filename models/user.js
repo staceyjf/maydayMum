@@ -10,10 +10,7 @@ const SALT_ROUNDS = 6;
 const userSchema = new Schema({
     firstName: {type: String, required: true},
     surname: {type: String, required: true},
-    image: {
-        type: String,
-        get: v => `${root}${v}`
-      },
+    image: {type: String },
     location: { type: String, default: '' },
     phoneNumber: { type: String, default: '' },
     email: {
@@ -59,14 +56,5 @@ userSchema.virtual('fullName').get(function() {
     const capitalisedSurname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
     return `${capitalisedFirstName} ${capitalisedSurname}`;
 });
-
-// //Need to review how to do aws for images
-// //Image getter
-const bucket = process.env.S3_BUCKET;
-const root = `${process.env.S3_BASE_URL}/${bucket}`;
-// const doc = new User({ name: 'Val', picture: '/123.png' }); // should this not be Nanny.findbyId
-// const nanny = 
-// doc.image; 
-// doc.toObject({ getters: false }).image; // '/123.png'
 
 module.exports = mongoose.model('User', userSchema);

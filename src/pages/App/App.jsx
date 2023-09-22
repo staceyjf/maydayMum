@@ -16,9 +16,11 @@ function App() {
   const [nannyAvailsData, setNannyAvailsData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  
   async function fetchProfileData() {
     try {
       if (user.role === 'parent') {
+        console.log(user);
         const parentData = await accountsAPI.getParentData();
         setFullUserProfile(parentData);
         setIsLoading(false);
@@ -36,7 +38,6 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      console.log(user.role);
       fetchProfileData();
     }
   }, [user]);
@@ -57,6 +58,8 @@ function App() {
           element={
             <AccountPage
               isLoading={isLoading}
+              user={user}
+              setUser={setUser}
               fullUserProfile={fullUserProfile}
               setFullUserProfile={setFullUserProfile}
               nannyAvailsData={nannyAvailsData}
