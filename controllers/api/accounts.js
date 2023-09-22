@@ -6,6 +6,7 @@ const Availability = require("../../models/availability");
 const bcrypt = require('bcrypt');
 
 module.exports = {
+  updateUser,
   getNannyData,
   getNannyAvailability,
   getParentData,
@@ -13,6 +14,23 @@ module.exports = {
   updateNannyAvailability,
   updateParentProfile
 };
+
+async function updateUser(req, res) {
+  console.log(req.user._id)
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: req.body },
+    {returnDocument: 'after'}
+  ).populate('parent')
+  .populate('nanny')
+  .populate('weeklyAvailability');
+
+  await Parent.findOneAndUpdate({ _id: req.body._id }, { $set: req.body }, {returnDocument: 'after'}
+  )
+
+  console.log('updateUser is sending back this', updatedUser);
+  res.json(updatedUser);
+}
 
 // get Nanny profile with associated user details
 async function getNannyData(req, res) { 

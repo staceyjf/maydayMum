@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
-import { updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
+import { updateUser, updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
-  const [userData, setUserData] = useState({...fullUserProfile});
+function AccountProfileDetails({user, setUser}) {
+  const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -24,17 +24,17 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     });
   };
   
-  function handleChange(evt) { // handles nanny/parent document
+  function handleChange(evt) { 
     setUserData({ 
         ...userData, 
         [evt.target.name]: evt.target.value,
         error:'' 
-    });    
+    })  
   };
 
   function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
-      console.log('this is target.name', evt.target.name)
-      console.log('this is target checked', evt.target.checked)
+      // console.log('this is target.name', evt.target.name)
+      // console.log('this is target checked', evt.target.checked)
       setUserData({
       ...userData,
       [evt.target.name]: evt.target.checked,
@@ -42,35 +42,48 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
     });
   };
 
-  async function handleParentSubmit(evt) { 
+  async function handleSubmit(evt) { 
+    console.log(userData);  
     evt.preventDefault(); 
     try { 
-      const user = await updateParentProfile(userData);
-      setFullUserProfile(user);      
+      const userUpdate = await updateUser(userData);
+      setUser(userUpdate);
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
     } 
   };
 
-  async function handleNannySubmit(evt) { 
-    evt.preventDefault(); 
-    try { 
-      const user = await updateNannyProfile(userData);
-      setFullUserProfile(user);
-      console.log('this is the value of user post the server call', user)
-      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-    } catch { 
-      setError('Update failed - please try again'); 
-    } 
-  };
+
+  // async function handleParentSubmit(evt) { 
+  //   evt.preventDefault(); 
+  //   try { 
+  //     const user = await updateParentProfile(userData);
+  //     setUser(user);      
+  //     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+  //   } catch { 
+  //     setError('Update failed - please try again'); 
+  //   } 
+  // };
+
+  // async function handleNannySubmit(evt) { 
+  //   evt.preventDefault(); 
+  //   try { 
+  //     const user = await updateNannyProfile(userData);
+  //     setUser(user);
+  //     console.log('this is the value of user post the server call', user)
+  //     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+  //   } catch { 
+  //     setError('Update failed - please try again'); 
+  //   } 
+  // };
 
   return (
     <>
     <form
       autoComplete="off"
       noValidate
-      onSubmit={(userData.user.role === 'parent') ? handleParentSubmit : handleNannySubmit }
+      onSubmit={handleSubmit}
     >
       <Card>
         <CardHeader
@@ -94,9 +107,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="First name"
                   name="firstName"
-                  onChange={handleUserChange}
+                  onChange={handleChange}
                   required
-                  value={userData.user.firstName}
+                  value={userData.firstName}
                 />
               </Grid>
               <Grid
@@ -107,9 +120,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Last name"
                   name="surname"
-                  onChange={handleUserChange}
+                  onChange={handleChange}
                   required
-                  value={userData.user.surname}
+                  value={userData.surname}
                 />
               </Grid>
               <Grid
@@ -120,9 +133,9 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Email Address"
                   name="email"
-                  onChange={handleUserChange}
+                  onChange={handleChange}
                   required
-                  value={userData.user.email}
+                  value={userData.email}
                 />
               </Grid>
               <Grid
@@ -133,8 +146,8 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Phone Number"
                   name="phoneNumber"
-                  onChange={handleUserChange}
-                  value={userData.user.phoneNumber}
+                  onChange={handleChange}
+                  value={userData.phoneNumber}
                 />
               </Grid>
               <Grid
@@ -145,12 +158,12 @@ function AccountProfileDetails({fullUserProfile, setFullUserProfile}) {
                   fullWidth
                   label="Address"
                   name="location"
-                  onChange={handleUserChange}
+                  onChange={handleChange}
                   required
-                  value={userData.user.location}
+                  value={userData.location}
                 />
               </Grid>
-              { (userData.user.role === 'parent')
+              { (userData.role === 'parent')
               ? 
                 < AccountProfileParentEl 
                   userData={userData} 

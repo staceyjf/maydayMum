@@ -4,8 +4,6 @@ import AccountProfileDetails from '../../components/Account/AccountDetails/Accou
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
 function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, user, setUser, isLoading}) {
-
-
   return (
     <>
     {isLoading 
@@ -56,8 +54,8 @@ function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setN
                   lg={8}
                 >
                   <AccountProfileDetails 
-                    fullUserProfile={fullUserProfile} 
-                    setFullUserProfile={setFullUserProfile}
+                  user={user}
+                  setUser={setUser}
                   />
                 </Grid>
               </Grid>

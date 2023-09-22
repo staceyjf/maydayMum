@@ -20,7 +20,6 @@ function App() {
   async function fetchProfileData() {
     try {
       if (user.role === 'parent') {
-        console.log(user);
         const parentData = await accountsAPI.getParentData();
         setFullUserProfile(parentData);
         setIsLoading(false);

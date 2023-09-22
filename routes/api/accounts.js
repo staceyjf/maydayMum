@@ -7,6 +7,8 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // All paths start with '/api/accounts' (defined server.js
 
+router.post('/update', ensureLoggedIn, accountsController.updateUser);
+// POST /api/accounts/nanny-profile (update nanny profile)
 // GET /api/accounts/nanny (get Nanny account)
 router.get('/nanny', ensureLoggedIn, accountsController.getNannyData);
 // GET /api/accounts/nanny (get Nanny account)
