@@ -16,7 +16,7 @@ function App() {
   const [nannyAvailsData, setNannyAvailsData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProfileData = async () => {
+  async function fetchProfileData() {
     try {
       if (user.role === 'parent') {
         const parentData = await accountsAPI.getParentData();
@@ -43,25 +43,31 @@ function App() {
 
   return (
     <main className="App">
-      <NavBar user={user} setUser={setUser} />
-        <Routes>
-          <Route index element={<AboutUsPage />} />
-          <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
-          <Route path="/team/bookings" element={<BookingsPage />} />
-          <Route
-              path="/accounts/account-profile"
-              element={
-                <AccountPage
-                  isLoading={isLoading}
-                  fullUserProfile={fullUserProfile}
-                  setFullUserProfile={setFullUserProfile}
-                  nannyAvailsData={nannyAvailsData}
-                  setNannyAvailsData={setNannyAvailsData}
-                />}/>
-          <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser}/>}/>
-          <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser}/>}/>
-          <Route path="/*" element={<Navigate to="/" />} />
-        </Routes>
+      {/* Conditionally render NavBar based on the route */}
+      {['/users/log-in', '/users/sign-up'].includes(window.location.pathname) ? null : (
+        <NavBar user={user} setUser={setUser} />
+      )}
+
+      <Routes>
+        <Route index element={<AboutUsPage />} />
+        <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
+        <Route path="/team/bookings" element={<BookingsPage />} />
+        <Route
+          path="/accounts/account-profile"
+          element={
+            <AccountPage
+              isLoading={isLoading}
+              fullUserProfile={fullUserProfile}
+              setFullUserProfile={setFullUserProfile}
+              nannyAvailsData={nannyAvailsData}
+              setNannyAvailsData={setNannyAvailsData}
+            />
+          }
+        />
+        <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
+        <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
     </main>
   );
 }
