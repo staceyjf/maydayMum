@@ -1,23 +1,12 @@
 import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
 import {
-  Menu,
   MenuItem,
   Typography,
 } from '@mui/material';
 
-
-function SettingMenu({setUser, setAnchorElUser}) {
-  const settings = ["ACCOUNT PROFILE", "LOGIN", "SIGN UP", "LOGOUT"];
-  let linkUrl = '';
-
-  settings.map((setting) => {
-      if (setting === "LOGOUT") {
-          linkUrl = "/";
-      } else {
-          linkUrl = setting === "ACCOUNT PROFILE" ? "accounts" : "users";
-          linkUrl += `/${setting.toLowerCase().replace(/\s+/g, "-")}`;
-      }});
+function SettingMenu({ setUser, setAnchorElUser }) {
+  const settings = ["ACCOUNT PROFILE", "LOG IN", "SIGN UP", "LOGOUT"];
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -30,27 +19,39 @@ function SettingMenu({setUser, setAnchorElUser}) {
 
   return (
     <>
-    {settings.map((setting) => (
-      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-        <Typography textAlign="center">
-          {setting === "LOGOUT" ? (
-            <a
-            href="/"
-            style={{ textDecoration: "none", color: "black" }}
-            onClick={handleLogOut}
-            >
-              {setting}
-            </a>
-          ) : (
-            <Link to={linkUrl} style={{ textDecoration: "none", color: "black" }}>
-              {setting}
-            </Link>
-          )}
-        </Typography>
-      </MenuItem>
-    ))}
+    {/* dynmaically updating the link to the right route */}
+      {settings.map((setting) => {
+        let linkUrl;
+
+        if (setting === "LOGOUT") {
+          linkUrl = "/";
+        } else {
+          linkUrl = setting === "ACCOUNT PROFILE" ? "accounts" : "users";
+          linkUrl += `/${setting.toLowerCase().replace(/\s+/g, "-")}`;
+        }
+
+        return (
+          <MenuItem key={setting} onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">
+              {setting === "LOGOUT" ? (
+                <a
+                  href="/"
+                  style={{ textDecoration: "none", color: "black" }}
+                  onClick={handleLogOut}
+                >
+                  {setting}
+                </a>
+              ) : (
+                <Link to={linkUrl} style={{ textDecoration: "none", color: "black" }}>
+                  {setting}
+                </Link>
+              )}
+            </Typography>
+          </MenuItem>
+        );
+      })}
     </>
   );
-};
-  
-export default SettingMenu
+}
+
+export default SettingMenu;

@@ -1,5 +1,5 @@
-// import the named export - look at Pure Component as an alternative
 import { useState } from 'react'; 
+import { useNavigate } from "react-router-dom";
 import { signUp } from '../../utilities/users-service'
 // MUI
 import {  Avatar, Box, Button, FormControlLabel, Grid, Link, Paper, Radio, RadioGroup, Stack, TextField, Typography} from '@mui/material';
@@ -28,6 +28,7 @@ function SignUpForm({handleToggle, setUser, setIsExistingUser}) {
     confirm: '',
     error: '',
   });
+  const navigate = useNavigate();
   const [error, setError] = useState(''); 
 
   function handleChange(evt) { 
@@ -43,6 +44,7 @@ function SignUpForm({handleToggle, setUser, setIsExistingUser}) {
     try { 
       const user = await signUp(userData)
       setUser(user);
+      navigate('/accounts/account-profile');
     } catch { 
       setError('Sign up failed - Try Again'); 
     } 

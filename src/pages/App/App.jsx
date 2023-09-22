@@ -49,7 +49,7 @@ function App() {
           <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
           <Route path="/team/bookings" element={<BookingsPage />} />
           <Route
-              path="/accounts"
+              path="/accounts/account-profile"
               element={
                 <AccountPage
                   isLoading={isLoading}
@@ -58,8 +58,8 @@ function App() {
                   nannyAvailsData={nannyAvailsData}
                   setNannyAvailsData={setNannyAvailsData}
                 />}/>
-          <Route path="/login" element={<AuthPage />}/>
-          <Route path="/signup" element={<AuthPage />}/>
+          <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser}/>}/>
+          <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser}/>}/>
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
     </main>

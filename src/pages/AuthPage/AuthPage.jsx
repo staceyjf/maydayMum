@@ -11,7 +11,7 @@ function AuthPage({user, setUser}) {
 
  return (
    <main>
-      {user ? (
+      {clicked ? (
         <>
           <LoginForm 
             user={user} 

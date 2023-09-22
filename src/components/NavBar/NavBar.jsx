@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service";
 import {
   AppBar,
   Avatar,
@@ -38,11 +37,6 @@ function NavBar({ user, setUser }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  function handleLogOut() {
-    userService.logOut();
-    setUser(null);
-  }
 
   return (
     <AppBar position="static">

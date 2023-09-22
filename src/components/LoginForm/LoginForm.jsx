@@ -1,12 +1,10 @@
 import { useState } from 'react'; 
+import { useNavigate } from "react-router-dom";
 import * as usersService from '../../utilities/users-service'; 
-// MUI 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -32,6 +30,7 @@ function LoginForm({handleToggle, setUser}) {
       email: '', 
       password: '' 
   }); 
+  const navigate = useNavigate();
   const [error, setError] = useState(''); 
 
   function handleChange(evt) { 
@@ -45,6 +44,7 @@ function LoginForm({handleToggle, setUser}) {
       try { 
           const user = await usersService.login(credentials); 
           setUser(user); 
+          navigate('/accounts/account-profile');
       } catch { 
           setError('Log In Failed - Try Again'); 
       } 
@@ -141,63 +141,3 @@ function LoginForm({handleToggle, setUser}) {
   }
 
 export default LoginForm;
-
-// import { useState } from 'react'; 
-// import * as usersService from '../../utilities/users-service'; 
-
-// function LoginForm({ setUser }) {
-//     const [credentials, setCredentials] = useState({ email: '', password: '' }); 
-//     const [error, setError] = useState(''); 
-
-//     function handleChange(evt) { 
-//         setCredentials({ 
-//             ...credentials, [evt.target.name]: evt.target.value 
-//         }); 
-//         setError(''); }
-
-//     async function handleSubmit(evt) { 
-//         // Prevent form from being submitted to the server 
-//         evt.preventDefault(); 
-//         try { // The promise returned by the signUp service method 
-//             // will resolve to the user object included in the 
-//             // payload of the JSON Web Token (JWT) 
-//             const user = await usersService.login(credentials); 
-//             setUser(user); 
-//         } catch { 
-//             setError('Log In Failed - Try Again'); 
-//         } 
-//     } 
-
-//     return (
-//         <>
-//         <div className="form-container">
-//             <form autoComplete="off" onSubmit={handleSubmit}> 
-//                 Email <input type="text" name="email" value={credentials.email} onChange={handleChange} required /> 
-//                 Password <input type="password" name="password" value={credentials.password} onChange={handleChange} required /> 
-//                 <button type="submit">LOG IN </button>
-//             </form>
-//         </div>
-//         <p className="error-message">&nbsp;{error}</p>
-//         </>
-//     ); 
-// }
-
-
-
-    // const handleSubmit = (event) => {
-    //   event.preventDefault();
-    //   const data = new FormData(event.currentTarget);
-    //   console.log({
-    //     email: data.get('email'),
-    //     password: data.get('password'),
-    //   });
-    // };
-
-
-     
-        
-
-        
-
-
-
