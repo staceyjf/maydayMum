@@ -19,7 +19,7 @@ function AccountProfileDetails({user, setUser}) {
         ...userData.parent,
         [evt.target.name]: evt.target.value
       };
-    } else if (userData.role === 'nanny') { // Use curly braces for the else if statement
+    } else if (userData.role === 'nanny') { 
       updatedUser = {
         ...userData.nanny,
         [evt.target.name]: evt.target.value
@@ -52,17 +52,18 @@ function AccountProfileDetails({user, setUser}) {
   };
 
   async function handleSubmit(evt) { 
-    console.log(userData);  
     evt.preventDefault(); 
     try { 
       const userUpdate = await updateUser(userData);
+      console.log('this is userUpdate', userUpdate);  
       setUser(userUpdate);
+      setUserData(userUpdate);
+      console.log('this is user', user);  
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
     } 
   };
-
 
   // async function handleParentSubmit(evt) { 
   //   evt.preventDefault(); 
