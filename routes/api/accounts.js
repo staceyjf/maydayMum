@@ -12,11 +12,8 @@ router.post('/update', ensureLoggedIn, accountsController.updateUser);
 // GET /api/accounts/nanny (get Nanny account)
 router.get('/availability', ensureLoggedIn, accountsController.getNannyAvailability);
 // POST /api/accounts/nanny-profile (update nanny profile)
-router.post('/nanny-profile', ensureLoggedIn, accountsController.updateNannyProfile);
-// POST /api/accounts/nanny-profile (update nanny profile)
 router.post('/nanny-availability', ensureLoggedIn, accountsController.updateNannyAvailability);
-// POST /api/accounts/parent-profile (update parent profile)
-router.post('/parent-profile', ensureLoggedIn, accountsController.updateParentProfile);
+
 
 module.exports = router;
 // don't forget to mount the router in server.js
