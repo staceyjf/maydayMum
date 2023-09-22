@@ -7,16 +7,14 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   updateUser,
-  getNannyData,
   getNannyAvailability,
-  getParentData,
   updateNannyProfile,
   updateNannyAvailability,
   updateParentProfile
 };
 
+// update user post interaction
 async function updateUser(req, res) {
-  //
   await Parent.findOneAndUpdate(
     { user: req.user._id }, 
     { $set: req.body.parent },
@@ -35,24 +33,11 @@ async function updateUser(req, res) {
   res.json(updatedUser);
 }
 
-// get Nanny profile with associated user details
-async function getNannyData(req, res) { 
-  const nannyWithUser = await Nanny.findOne({ user: req.user._id }).populate('user');
-  console.log('getNannyData is sending back this', nannyWithUser);
-  res.json(nannyWithUser);
-}
 // get the logged-in nannies' availability
 async function getNannyAvailability(req, res) {
   const availabilityToUser = await Availability.findOne({ user: req.user._id }).populate('user');
   console.log('getNannyAvailability is sending back this', availabilityToUser);
   res.json(availabilityToUser);
-}
-
-// get Parent profile with associated user details
-async function getParentData(req, res) {
-  const nannyWithParent = await Parent.findOne({ user: req.user._id }).populate('user');
-  // console.log('getParentData is sending back this', nannyWithParent);
-  res.json(nannyWithParent);
 }
 
 // update Nanny profile from Account Page

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
-import { updateUser, updateNannyProfile, updateParentProfile } from '../../../utilities/accounts-api';
+import { updateUser } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
@@ -9,9 +9,10 @@ function AccountProfileDetails({user, setUser}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
-  // console.log(userData.role )
 
-  function handleFieldChange(evt) { // handle field changes to nanny / parent 
+  console.log('this is user in account', user)
+
+  function handleFieldChange(evt) { // handles field changes to nanny / parent 
     let updatedUser; 
 
     if (userData.role === 'parent') {
@@ -24,7 +25,7 @@ function AccountProfileDetails({user, setUser}) {
         ...userData.nanny,
         [evt.target.name]: evt.target.value
       };
-    }
+    } 
   
     setUserData({
       ...userData,
@@ -55,38 +56,15 @@ function AccountProfileDetails({user, setUser}) {
     evt.preventDefault(); 
     try { 
       const userUpdate = await updateUser(userData);
-      console.log('this is userUpdate', userUpdate);  
+      // console.log('this is userUpdate', userUpdate)
       setUser(userUpdate);
-      setUserData(userUpdate);
-      console.log('this is user', user);  
+      // console.log('this is userData', userData);  
+      // console.log('this is user', user);  
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
     } 
   };
-
-  // async function handleParentSubmit(evt) { 
-  //   evt.preventDefault(); 
-  //   try { 
-  //     const user = await updateParentProfile(userData);
-  //     setUser(user);      
-  //     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-  //   } catch { 
-  //     setError('Update failed - please try again'); 
-  //   } 
-  // };
-
-  // async function handleNannySubmit(evt) { 
-  //   evt.preventDefault(); 
-  //   try { 
-  //     const user = await updateNannyProfile(userData);
-  //     setUser(user);
-  //     console.log('this is the value of user post the server call', user)
-  //     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-  //   } catch { 
-  //     setError('Update failed - please try again'); 
-  //   } 
-  // };
 
   return (
     <>

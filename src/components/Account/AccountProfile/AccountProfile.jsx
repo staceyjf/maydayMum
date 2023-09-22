@@ -1,9 +1,9 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-function AccountProfile({fullUserProfile}) {
+function AccountProfile({user}) {
   // console.log('this is the account profile component fulluserprofile', fullUserProfile);
-  const [image, setImage] = useState('');
+  // const [image, setImage] = useState('');
 
   // function uploadImage(image) {
   //   const data = new FormData()
@@ -56,7 +56,7 @@ function AccountProfile({fullUserProfile}) {
           }}
         >
           <Avatar
-            src={fullUserProfile.user.image}
+            src={user.image}
             sx={{
               height: 80,
               mb: 2,
@@ -68,13 +68,13 @@ function AccountProfile({fullUserProfile}) {
             gutterBottom
             variant="h5"
           >
-            {fullUserProfile.user.fullName}
+            {user.fullName}
           </Typography>
           <Typography
             color="text.secondary"
             variant="body2"
           > 
-            {fullUserProfile.location} 
+            {user.location} 
           </Typography>
         </Box>
       </CardContent>

@@ -3,7 +3,9 @@ import AccountProfile  from '../../components/Account/AccountProfile/AccountProf
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setNannyAvailsData, user, setUser, isLoading}) {
+function AccountPage({nannyAvailsData, setNannyAvailsData, user, setUser, isLoading}) {
+  console.log('this is user on the account page', user);
+
   return (
     <>
     {isLoading 
@@ -37,11 +39,11 @@ function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setN
                   lg={4}
                 >
                   <AccountProfile 
-                    fullUserProfile={fullUserProfile} 
-                    setFullUserProfile={setFullUserProfile}
+                    user={user}
+                    setUser={setUser}
                   />
                   {/* conditionally render nanny avaibility  */}
-                  {fullUserProfile.user.role === 'nanny' && (
+                  {user.role === 'nanny' && (
                     <AccountAvailability
                       nannyAvailsData={nannyAvailsData}
                       setNannyAvailsData={setNannyAvailsData}
@@ -54,8 +56,8 @@ function AccountPage({fullUserProfile, setFullUserProfile, nannyAvailsData, setN
                   lg={8}
                 >
                   <AccountProfileDetails 
-                  user={user}
-                  setUser={setUser}
+                    user={user}
+                    setUser={setUser}
                   />
                 </Grid>
               </Grid>

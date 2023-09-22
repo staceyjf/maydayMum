@@ -12,20 +12,16 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState(usersAPI.getUser());
-  const [fullUserProfile, setFullUserProfile] = useState({});
   const [nannyAvailsData, setNannyAvailsData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  
+  console.log('this is user on the app page', user);
+
   async function fetchProfileData() {
     try {
       if (user.role === 'parent') {
-        const parentData = await accountsAPI.getParentData();
-        setFullUserProfile(parentData);
         setIsLoading(false);
       } else {
-        const nannyData = await accountsAPI.getNannyData();
-        setFullUserProfile(nannyData);
         const availabilityData = await accountsAPI.getNannyAvailability();
         setNannyAvailsData(availabilityData);
         setIsLoading(false);
@@ -59,8 +55,6 @@ function App() {
               isLoading={isLoading}
               user={user}
               setUser={setUser}
-              fullUserProfile={fullUserProfile}
-              setFullUserProfile={setFullUserProfile}
               nannyAvailsData={nannyAvailsData}
               setNannyAvailsData={setNannyAvailsData}
             />
