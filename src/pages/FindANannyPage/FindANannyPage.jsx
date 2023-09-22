@@ -4,7 +4,7 @@ import NannyList from '../../components/FindANanny/NannyList';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 // import { SearchBar } from '../../components/FindANanny/SearchBar';
 
-function NannyProfilePage({nannyAvailsData}) {
+function NannyProfilePage() {
   const [nannies, setNannies ] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true); 
 

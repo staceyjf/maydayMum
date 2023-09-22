@@ -9,7 +9,7 @@ import Logo from "./Logo";
 import LogoSmall from "./LogoSmall";
 
 const pages = ["FIND A NANNY", "BOOKINGS"];
-const settings = ["ACCOUNT PROFILE", "LOGOUT"];
+const settings = ["ACCOUNT PROFILE", "LOGIN", "LOGOUT"];
 
 function NavBar({ user, setUser }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);

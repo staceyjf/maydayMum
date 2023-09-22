@@ -3,7 +3,6 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 import SignUpForm from '../../components/SignUpForm/SignUpForm'
 
 function AuthPage({user, setUser}) {
-  // 'clicked' state variable - data-related
   const [clicked, setClicked] = useState(true);
 
   function handleToggle() {
@@ -12,25 +11,22 @@ function AuthPage({user, setUser}) {
 
  return (
    <main>
-     <>
-        
-        {clicked ? (
-          <>
-            <LoginForm 
-              user={user} 
-              setUser={setUser} 
-              handleToggle={handleToggle}
-            />
-          </>
-        ) : (
-          <>
-            <SignUpForm 
-              setUser={setUser} 
-              handleToggle={handleToggle}
-            />
-          </>
-        )}
-      </>
+      {clicked ? (
+        <>
+          <LoginForm 
+            user={user} 
+            setUser={setUser} 
+            handleToggle={handleToggle}
+          />
+        </>
+      ) : (
+        <>
+          <SignUpForm 
+            setUser={setUser} 
+            handleToggle={handleToggle}
+          />
+        </>
+      )}
    </main>
  )
 }

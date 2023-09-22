@@ -4,13 +4,10 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divi
   FormControl, FormControlLabel, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
 function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
-  // console.log('this is target.name', evt.target.name)
-  // console.log('this is target checked', evt.target.checked)
   const [userData, setUserData] = useState({ ...nannyAvailsData });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  console.log('this is the logged in nannys availability data', userData);
-
+ 
   function handleAvailabilityChange(evt) {
     setUserData({
       ...userData,
