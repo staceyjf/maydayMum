@@ -11,21 +11,17 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState(usersAPI.getUser());
-  const [nannyAvailsData, setNannyAvailsData] = useState({});
+  const [initalUser, setInitalUser] = useState(usersAPI.getUser());
+  const [user, setUser] = useState(initalUser);
   const [isLoading, setIsLoading] = useState(true);
 
   console.log('this is user on the app page', user);
 
   async function fetchProfileData() {
     try {
-      if (user.role === 'parent') {
+      if (user) {
         setIsLoading(false);
-      } else {
-        const availabilityData = await accountsAPI.getNannyAvailability();
-        setNannyAvailsData(availabilityData);
-        setIsLoading(false);
-      }
+      } 
     } catch (error) {
       console.error("Error with calling full user data", error);
     }
@@ -55,8 +51,6 @@ function App() {
               isLoading={isLoading}
               user={user}
               setUser={setUser}
-              nannyAvailsData={nannyAvailsData}
-              setNannyAvailsData={setNannyAvailsData}
             />
           }
         />

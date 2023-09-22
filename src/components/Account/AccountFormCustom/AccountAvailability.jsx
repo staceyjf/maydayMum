@@ -1,39 +1,48 @@
-import { useState } from 'react';
-import { updateNannyAvailability } from '../../../utilities/accounts-api';
+import { useState } from 'react'
+import { updateUser } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, 
   FormControl, FormControlLabel, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
-  const [userData, setUserData] = useState({ ...nannyAvailsData });
+function AccountAvailability({user, setUser}) {
+  const [userData, setUserData] = useState({...user});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
- 
-  function handleAvailabilityChange(evt) {
-    setUserData({
-      ...userData,
+
+  function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
+  const updatedUser = {
+      ...userData.weeklyAvailability,
       [evt.target.name]: evt.target.checked,
-      error: '',
-    });
-  }
-
-  async function handleAvailabilitySubmit(evt) {
-    evt.preventDefault();
-    try {
-      const Availability = await updateNannyAvailability(userData);
-      setNannyAvailsData(Availability); 
-      setSuccessMessage('Details successfully saved.');
-    } catch {
-      setError('Update failed - please try again');
     }
-  }
 
+  setUserData({
+    ...userData,
+    parent: updatedUser,
+    error: ''
+  });
+};
+
+async function handleSubmit(evt) { 
+  evt.preventDefault(); 
+  try { 
+    const userUpdate = await updateUser(userData);
+    // console.log('this is userUpdate', userUpdate)
+    setUser(userUpdate);
+    // console.log('this is userData', userData);  
+    // console.log('this is user', user);  
+    setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+  } catch { 
+    setError('Update failed - please try again'); 
+  } 
+};
+
+ 
   return (
     <>
      <Box mt={2}> 
       <form
         autoComplete="off"
         noValidate
-        onSubmit={handleAvailabilitySubmit}
+        onSubmit={handleSubmit}
       >
         <Card  >
           <CardHeader title="Weekly Availability" />
@@ -48,7 +57,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Monday'
                           checked={userData.Monday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Monday'
@@ -58,7 +67,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Tuesday'
                           checked={userData.Tuesday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Tuesday'
@@ -68,7 +77,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Wednesday'
                           checked={userData.Wednesday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Wednesday'
@@ -78,7 +87,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Thursday'
                           checked={userData.Thursday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Thursday'
@@ -88,7 +97,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Friday'
                           checked={userData.Friday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Friday'
@@ -98,7 +107,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Saturday'
                           checked={userData.Saturday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Saturday'
@@ -108,7 +117,7 @@ function AccountAvailability({nannyAvailsData, setNannyAvailsData}) {
                         <Checkbox
                           name='Sunday'
                           checked={userData.Sunday}
-                          onChange={handleAvailabilityChange}
+                          onChange={handleCheckedChange}
                         />
                       }
                       label='Sunday'
