@@ -1,41 +1,51 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service" 
-// MUI
-import {  AppBar, Avatar, Button, Box, Container, IconButton, Menu, 
-  MenuItem, Toolbar, Tooltip, Typography,  } from '@mui/material';
-import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "./Logo";
-import LogoSmall from "./LogoSmall";
-
-const pages = ["FIND A NANNY", "BOOKINGS"];
-const settings = ["ACCOUNT PROFILE", "LOGIN", "LOGOUT"];
+import * as userService from "../../utilities/users-service";
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Box,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import SettingsMenu from './SettingsMenu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Logo from './Logo';
+import LogoSmall from './LogoSmall';
 
 function NavBar({ user, setUser }) {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const pages = ["FIND A NANNY", "BOOKINGS"];
   
-    const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-    function handleLogOut() {
-        userService.logOut();
-        setUser(null);
-    }
-    return(
-<AppBar position="static">
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  function handleLogOut() {
+    userService.logOut();
+    setUser(null);
+  }
+
+  return (
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />
@@ -43,7 +53,7 @@ function NavBar({ user, setUser }) {
             variant="h5"
             noWrap
             component="a"
-            href="/" 
+            href="/"
             sx={{
               mr: 2,
               ml: 2,
@@ -88,8 +98,11 @@ function NavBar({ user, setUser }) {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link style={{ textDecoration: "none", color: "black"}}  to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`}>
-                        {page}
+                    <Link
+                      style={{ textDecoration: "none", color: "black" }}
+                      to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      {page}
                     </Link>
                   </Typography>
                 </MenuItem>
@@ -101,7 +114,7 @@ function NavBar({ user, setUser }) {
             variant="h5"
             noWrap
             component="a"
-            href="/" 
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -116,26 +129,26 @@ function NavBar({ user, setUser }) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}>
             {pages.map((page) => (
-                <Link
-                    key={page}
-                    to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`} 
-                    style={{ textDecoration: "none", color: "inherit", display: "block" }}
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Button
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {page}
-                    </Button>
-                </Link>
+              <Link
+                key={page}
+                to={`/team/${page.toLowerCase().replace(/\s+/g, "-")}`}
+                style={{ textDecoration: "none", color: "inherit", display: "block" }}
+                onClick={handleCloseNavMenu}
+              >
+                <Button
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar sx={{ color: 'white', bgcolor: 'secondary.main' }}>
-                  {user.firstName.charAt(0).toUpperCase() + user.surname.charAt(0).toUpperCase()} 
+                <Avatar sx={{ color: 'white', bgcolor: 'secondary.main' }}>
+                  {user ? user.firstName.charAt(0).toUpperCase() + user.surname.charAt(0).toUpperCase() : 'S'}
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -155,35 +168,7 @@ function NavBar({ user, setUser }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
-                        {setting === "LOGOUT" ? (
-                            <a
-                            href="/"
-                            style={{ textDecoration: "none", color: "black" }}
-                            onClick={handleLogOut}
-                            >
-                            {setting}
-                            </a>
-                        ) : (
-                            // <Link
-                            // to={`/${setting.toLowerCase().replace(/\s+/g, "-")}`}
-                            // style={{ textDecoration: "none", color: "black" }}
-                            // >
-                            // {setting}
-                            // </Link>
-                            <Link
-                            to={`/accounts`}
-                            style={{ textDecoration: "none", color: "black" }}
-                            >
-                            {setting}
-                            </Link>
-
-                        )}
-                        </Typography>
-                </MenuItem>
-              ))}
+            <SettingsMenu setUser={setUser} setAnchorElUser={setAnchorElUser}/>
             </Menu>
           </Box>
         </Toolbar>
@@ -192,4 +177,4 @@ function NavBar({ user, setUser }) {
   );
 }
 
-export default NavBar
+export default NavBar;

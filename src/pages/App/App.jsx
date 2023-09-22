@@ -44,9 +44,6 @@ function App() {
   return (
     <main className="App">
       <NavBar user={user} setUser={setUser} />
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
         <Routes>
           <Route index element={<AboutUsPage />} />
           <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
@@ -61,10 +58,10 @@ function App() {
                   nannyAvailsData={nannyAvailsData}
                   setNannyAvailsData={setNannyAvailsData}
                 />}/>
-          {/* <Route path="/user" element={<AuthPage user={user} setUser={setUser} />}/> */}
+          <Route path="/login" element={<AuthPage />}/>
+          <Route path="/signup" element={<AuthPage />}/>
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
-      )}
     </main>
   );
 }

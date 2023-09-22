@@ -5,10 +5,10 @@ const router = express.Router();
 const userController = require('../../controllers/api/users');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-// All paths start with '/api/users' (defined server.js
-
-// POST /api/users (create a user eg a sign up)
-router.post('/', userController.create);
+// All paths start with '/api/users' 
+// POST /api/users/signup 
+router.post('/signup', userController.create);
+// POST /api/users/login 
 router.post('/login', userController.login);
 
 module.exports = router;
