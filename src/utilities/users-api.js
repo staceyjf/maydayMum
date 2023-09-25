@@ -1,6 +1,6 @@
-import sendRequest from './send-request'
+import sendRequest from './send-request';
 
-// the base path of the Express route 
+// the base path 
 const BASE_URL = '/api/users';
 
 export async function signUp(userData) {

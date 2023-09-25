@@ -1,12 +1,20 @@
-const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
 const Parent = require("../../models/parent");
 const Availability = require("../../models/availability");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
 module.exports = {
-  updateUser,
+  updateUser
+};
+
+function createJWT(user) {
+  return jwt.sign(// create the token using the jwt's sign()
+      { user },
+      process.env.SECRET,
+      { expiresIn: '24h'} // token expires in different ways on time. Look at the docs
+  ); 
 };
 
 // update user post interaction
@@ -25,6 +33,8 @@ async function updateUser(req, res) {
   .populate('nanny')
   .populate('weeklyAvailability');
 
+  const token = createJWT(updatedUser); // send back complete user
+
   console.log('updateUser is sending back this', updatedUser);
-  res.json(updatedUser);
+  res.json(token);
 }

@@ -1,4 +1,5 @@
-import * as usersAPI from './users-api'
+import * as usersAPI from './users-api';
+import * as accountAPI from './accounts-api';
 
 export async function signUp(userData) {
   console.log('Sending userData to server:', userData);
@@ -14,9 +15,15 @@ export async function login(credentials) {
   return getUser();
 }
 
+// update the token
+export async function updateToken(userData) {
+  const token = await accountAPI.updateUser(userData);
+  localStorage.setItem('token', token);
+  return getUser();
+}
+
 export function logOut() {
   localStorage.removeItem('token');
-  localStorage.removeItem('user');
 }
 
 export function getToken() {
@@ -35,7 +42,7 @@ export function getToken() {
     return token;
   }
 
-  export function getUser() {
-    const token = getToken();
-    return token ? JSON.parse(atob(token.split('.')[1])).user : null;
-  }
+export function getUser() {
+  const token = getToken();
+  return token ? JSON.parse(atob(token.split('.')[1])).user : null;
+}

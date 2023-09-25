@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
 import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
-import { updateUser } from '../../../utilities/accounts-api';
+import { updateToken } from '../../../utilities/users-service';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({user, setUser, updateUserState}) {
+function AccountProfileDetails({user, setUser}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
@@ -55,9 +55,8 @@ function AccountProfileDetails({user, setUser, updateUserState}) {
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
     try { 
-      const userUpdate = await updateUser(userData);
-      setUser(userUpdate);
-      updateUserState(userUpdate);
+      const userUpdate = await updateToken(userData);
+      setUser(userUpdate); 
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 

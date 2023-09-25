@@ -10,7 +10,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true); 
   console.log('this is user on the app page', user)
  
@@ -19,9 +19,7 @@ function App() {
     async function fetchProfileData() {
       try {
         const userData = await usersAPI.getUser();
-        console.log('My useEffect is running')
         setUser(userData);
-        updateUserState(userData);
         setIsLoading(false);
       } catch (error) {
         console.error("Error with fetching user data", error);
@@ -30,11 +28,6 @@ function App() {
 
     fetchProfileData();
   }, []);
-
-  // update the user in state / session storage
-  function updateUserState(updatedData) {
-    localStorage.setItem('user', JSON.stringify(updatedData));
-  };
 
   return (
     <main className="App">
@@ -53,7 +46,6 @@ function App() {
                 <AccountPage
                   user={user}
                   setUser={setUser}
-                  updateUserState={updateUserState}
                   />
               }
             />

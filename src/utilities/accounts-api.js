@@ -1,4 +1,4 @@
-import sendRequest from './send-request'
+import sendRequest from './send-request';
 
 // the base path of the Express route 
 const BASE_URL = '/api/accounts';

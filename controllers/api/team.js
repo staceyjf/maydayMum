@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
 const Parent = require("../../models/parent");

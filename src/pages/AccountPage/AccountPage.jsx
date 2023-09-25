@@ -3,7 +3,7 @@ import AccountProfile  from '../../components/Account/AccountProfile/AccountProf
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({user, setUser, updateUserState}) {
+function AccountPage({user, setUser}) {
   console.log('this is user on the account page', user);
 
   return (
@@ -43,7 +43,6 @@ function AccountPage({user, setUser, updateUserState}) {
                     <AccountAvailability
                       user={user}
                       setUser={setUser}
-                      updateUserState={updateUserState}
                     />
                   )}
                 </Grid>
@@ -55,7 +54,6 @@ function AccountPage({user, setUser, updateUserState}) {
                   <AccountProfileDetails 
                     user={user}
                     setUser={setUser}
-                    updateUserState={updateUserState}
                   />
                 </Grid>
               </Grid>

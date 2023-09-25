@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { updateUser } from '../../../utilities/accounts-api';
+import { updateToken } from '../../../utilities/users-service';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, 
   FormControl, FormControlLabel, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountAvailability({user, setUser, updateUserState}) {
+function AccountAvailability({user, setUser}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -24,16 +24,14 @@ function AccountAvailability({user, setUser, updateUserState}) {
 async function handleSubmit(evt) { 
   evt.preventDefault(); 
   try { 
-    const userUpdate = await updateUser(userData);
-    setUser(userData);
-    updateUserState(userUpdate);  
+    const userUpdate = await updateToken(userData);
+    setUser(userUpdate);  
     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
   } catch { 
     setError('Update failed - please try again'); 
   } 
 };
 
- 
   return (
     <>
      <Box mt={2}> 
