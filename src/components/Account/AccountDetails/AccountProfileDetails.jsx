@@ -29,7 +29,7 @@ function AccountProfileDetails({user, setUser}) {
   
     setUserData({
       ...userData,
-      parent: updatedUser,
+      [userData.role]: updatedUser,
       error: ''
     });
   };

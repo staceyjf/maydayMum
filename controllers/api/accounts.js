@@ -2,7 +2,6 @@ const User = require("../../models/user");
 const Nanny = require("../../models/nanny");
 const Parent = require("../../models/parent");
 const Availability = require("../../models/availability");
-const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 module.exports = {
@@ -19,11 +18,26 @@ function createJWT(user) {
 
 // update user post interaction
 async function updateUser(req, res) {
-  await Parent.findOneAndUpdate(
-    { user: req.user._id }, 
-    { $set: req.body.parent },
-    {returnDocument: 'after'}
-  )
+
+  if (req.body.role === 'parent') {
+    await Parent.findOneAndUpdate(
+      { user: req.user._id }, 
+      { $set: req.body.parent },
+      {returnDocument: 'after'}
+    )
+  } else {
+    await Nanny.findOneAndUpdate(
+      { user: req.user._id }, 
+      { $set: req.body.nanny },
+      {returnDocument: 'after'}
+    )
+
+    await Availability.findOneAndUpdate(
+      { user: req.user._id }, 
+      { $set: req.body.weeklyAvailability },
+      {returnDocument: 'after'}
+    )
+  }
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
