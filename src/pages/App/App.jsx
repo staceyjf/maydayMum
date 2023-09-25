@@ -10,8 +10,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 
 function App() {
-  // access sessionStorage to persist the user state
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true); 
   console.log('this is user on the app page', user)
  
@@ -32,38 +31,37 @@ function App() {
 
   // update the user in state / session storage
   function updateUserState(updatedData) {
+    localStorage.setItem('user', JSON.stringify(updatedData));
     setUser(updatedData);
-    sessionStorage.setItem('user', JSON.stringify(updatedData));
   };
 
   return (
     <main className="App">
-      {isLoading 
+      {['/users/log-in', '/users/sign-up'].includes(window.location.pathname) ? null : (
+        <NavBar user={user} setUser={setUser} />
+      )}
+      {isLoading
         ? ( <div>Loading...</div> ) 
         : (
-          // Conditionally render NavBar based on the route
-          !['/users/log-in', '/users/sign-up'].includes(window.location.pathname) && (
-            <NavBar user={user} setUser={setUser} />
-          )
-        )}
-      <Routes>
-        <Route index element={<AboutUsPage />} />
-        <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
-        <Route path="/team/bookings" element={<BookingsPage />} />
-        <Route
-          path="/accounts/account-profile"
-          element={
-            <AccountPage
-              user={user}
-              setUser={setUser}
-              updateUserState={updateUserState}
+          <Routes>
+            <Route index element={<AboutUsPage />} />
+            <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
+            <Route path="/team/bookings" element={<BookingsPage />} />
+            <Route
+              path="/accounts/account-profile"
+              element={
+                <AccountPage
+                  user={user}
+                  setUser={setUser}
+                  updateUserState={updateUserState}
+                />
+              }
             />
-          }
-        />
-        <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
-        <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
-        <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
+            <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
+            <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
+            <Route path="/*" element={<Navigate to="/" />} />
+          </Routes>
+        )}
     </main>
   );
 }

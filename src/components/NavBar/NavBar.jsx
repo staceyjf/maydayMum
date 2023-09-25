@@ -143,9 +143,11 @@ function NavBar({ user, setUser }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ color: 'white', bgcolor: 'secondary.main' }}>
-                  {user ? user.firstName.charAt(0).toUpperCase() + user.surname.charAt(0).toUpperCase() : 'S'}
-                </Avatar>
+              <Avatar sx={{ color: 'white', bgcolor: 'secondary.main' }}>
+                {user && user.firstName && user.surname
+                  ? user.firstName.charAt(0).toUpperCase() + user.surname.charAt(0).toUpperCase()
+                  : 'S'}
+              </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
