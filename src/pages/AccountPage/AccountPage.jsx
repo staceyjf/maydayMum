@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
@@ -38,13 +37,13 @@ function AccountPage({user, setUser, updateUserState}) {
                 >
                   <AccountProfile 
                     user={user}
-                    setUser={setUser}
                   />
                   {/* conditionally render nanny avaibility  */}
                   {user.role === 'nanny' && (
                     <AccountAvailability
                       user={user}
                       setUser={setUser}
+                      updateUserState={updateUserState}
                     />
                   )}
                 </Grid>

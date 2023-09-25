@@ -3,7 +3,7 @@ import { updateUser } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Checkbox, Divider, 
   FormControl, FormControlLabel, FormGroup, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountAvailability({user, setUser}) {
+function AccountAvailability({user, setUser, updateUserState}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -25,10 +25,8 @@ async function handleSubmit(evt) {
   evt.preventDefault(); 
   try { 
     const userUpdate = await updateUser(userData);
-    // console.log('this is userUpdate', userUpdate)
-    setUser(userUpdate);
-    // console.log('this is userData', userData);  
-    // console.log('this is user', user);  
+    setUser(userData);
+    updateUserState(userUpdate);  
     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
   } catch { 
     setError('Update failed - please try again'); 

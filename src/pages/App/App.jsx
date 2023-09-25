@@ -10,7 +10,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(localStorage.getItem('user'));
   const [isLoading, setIsLoading] = useState(true); 
   console.log('this is user on the app page', user)
  
@@ -19,6 +19,8 @@ function App() {
     async function fetchProfileData() {
       try {
         const userData = await usersAPI.getUser();
+        console.log('My useEffect is running')
+        setUser(userData);
         updateUserState(userData);
         setIsLoading(false);
       } catch (error) {
@@ -32,7 +34,6 @@ function App() {
   // update the user in state / session storage
   function updateUserState(updatedData) {
     localStorage.setItem('user', JSON.stringify(updatedData));
-    setUser(updatedData);
   };
 
   return (
@@ -44,7 +45,6 @@ function App() {
         ? ( <div>Loading...</div> ) 
         : (
           <Routes>
-            <Route index element={<AboutUsPage />} />
             <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
             <Route path="/team/bookings" element={<BookingsPage />} />
             <Route
@@ -54,11 +54,12 @@ function App() {
                   user={user}
                   setUser={setUser}
                   updateUserState={updateUserState}
-                />
+                  />
               }
             />
             <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
             <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
+            <Route path="/"  element={<AboutUsPage />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
         )}
