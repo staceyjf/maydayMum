@@ -58,6 +58,10 @@ function AccountProfileDetails({user, setUser}) {
       const userUpdate = await updateToken(userData);
       setUser(userUpdate); 
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+       // Clear the success message after a delay (e.g., 3 seconds)
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000); 
     } catch { 
       setError('Update failed - please try again'); 
     } 
