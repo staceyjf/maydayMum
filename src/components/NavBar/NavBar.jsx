@@ -23,8 +23,6 @@ function NavBar({ user, setUser }) {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const pages = ["FIND A NANNY", "BOOKINGS"];
 
-  console.log(user)
-  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

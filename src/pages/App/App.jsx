@@ -12,7 +12,6 @@ import './App.css';
 function App() {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true); 
-  console.log('this is user on the app page', user)
  
   // Fetch initial user data
   useEffect(() => {

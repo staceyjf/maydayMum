@@ -4,7 +4,7 @@ import AccountProfileDetails from '../../components/Account/AccountDetails/Accou
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
 function AccountPage({user, setUser}) {
-  console.log('this is user on the account page', user);
+  // console.log('this is user on the account page', user);
 
   return (
     <>

@@ -9,22 +9,27 @@ function AccountAvailability({user, setUser}) {
   const [successMessage, setSuccessMessage] = useState('');
 
   function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
-  const updatedUser = {
+    // console.log('this is target.name', evt.target.name)
+    // console.log('this is target checked', evt.target.checked)    
+
+    const updatedUser = {
       ...userData.weeklyAvailability,
-      [evt.target.name]: evt.target.checked,
-    }
-
-  setUserData({
-    ...userData,
-    parent: updatedUser,
-    error: ''
-  });
-};
-
-async function handleSubmit(evt) { 
+      [evt.target.name]: evt.target.checked
+    };
+    
+    setUserData({
+      ...userData,
+      weeklyAvailability: updatedUser,
+      error: ''
+    });
+  };
+  
+  async function handleSubmit(evt) { 
   evt.preventDefault(); 
   try { 
+    console.log(userData);
     const userUpdate = await updateToken(userData);
+    console.log('this is userUpdate', userUpdate)
     setUser(userUpdate);  
     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
   } catch { 
@@ -52,7 +57,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Monday'
-                          checked={userData.Monday}
+                          checked={userData.weeklyAvailability.Monday}
                           onChange={handleCheckedChange}
                         />
                       }
@@ -62,7 +67,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Tuesday'
-                          checked={userData.Tuesday}
+                          checked={userData.weeklyAvailability.Tuesday}
                           onChange={handleCheckedChange}
                         />
                       }
@@ -72,7 +77,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Wednesday'
-                          checked={userData.Wednesday}
+                          checked={userData.weeklyAvailability.Wednesday}
                           onChange={handleCheckedChange}
                         />
                       }
@@ -82,7 +87,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Thursday'
-                          checked={userData.Thursday}
+                          checked={userData.weeklyAvailability.Thursday}
                           onChange={handleCheckedChange}
                         />
                       }
@@ -92,7 +97,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Friday'
-                          checked={userData.Friday}
+                          checked={userData.weeklyAvailability.Friday}
                           onChange={handleCheckedChange}
                         />
                       }
@@ -102,7 +107,7 @@ async function handleSubmit(evt) {
                       control={
                         <Checkbox
                           name='Saturday'
-                          checked={userData.Saturday}
+                          checked={userData.weeklyAvailability.Saturday}
                           onChange={handleCheckedChange}
                         />
                       }

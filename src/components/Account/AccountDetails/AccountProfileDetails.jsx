@@ -10,7 +10,7 @@ function AccountProfileDetails({user, setUser}) {
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
 
-  console.log('this is user in account', user)
+  // console.log('this is user in account', user)
 
   function handleFieldChange(evt) { // handles field changes to nanny / parent 
     let updatedUser; 
@@ -42,9 +42,9 @@ function AccountProfileDetails({user, setUser}) {
     })  
   };
 
-  function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
-      // console.log('this is target.name', evt.target.name)
-      // console.log('this is target checked', evt.target.checked)
+  function handleCheckedChange(evt) { // handles nanny user checkboxes
+      console.log('this is target.name', evt.target.name)
+      console.log('this is target checked', evt.target.checked)
       setUserData({
       ...userData,
       [evt.target.name]: evt.target.checked,
@@ -55,11 +55,12 @@ function AccountProfileDetails({user, setUser}) {
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
     try { 
+      console.log('this is what is sent to the server', userData)
       const userUpdate = await updateToken(userData);
+      // console.log(userUpdate);
       setUser(userUpdate); 
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-       // Clear the success message after a delay (e.g., 3 seconds)
-      setTimeout(() => {
+      setTimeout(() => {   // Clear the success message
         setSuccessMessage('');
       }, 3000); 
     } catch { 

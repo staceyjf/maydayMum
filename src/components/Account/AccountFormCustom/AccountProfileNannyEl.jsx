@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Checkbox, CardHeader, FormControlLabel, InputAdornment, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
-  // console.log(userData)
-
+function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange}) {
+  
   return (
     <>
        <CardHeader
@@ -19,9 +19,9 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
           multiline
           rows={4}
           name="aboutDescription"
-          onChange={handleChange}
+          onChange={handleFieldChange}
           required
-          value={userData.aboutDescription}
+          value={userData.nanny.aboutDescription}
         />
       </Grid>
       <Grid
@@ -34,9 +34,9 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
           // startAdornment={<InputAdornment position="start">$</InputAdornment>}
           label="Nightly Rate in $"
           name="nightRate"
-          onChange={handleChange}
+          onChange={handleFieldChange}
           required
-          value={userData.nightRate}
+          value={userData.nanny.nightRate}
         />
       </Grid>
       <Grid xs={12} md={6}>
@@ -44,7 +44,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
         control={
           <Checkbox
             name="isFirstAidCertified"
-            checked={userData.isFirstAidCertified} // set the value of checked
+            checked={userData.nanny.isFirstAidCertified} // set the value of checked
             onChange={handleCheckedChange} // runs specific change function
           />
         }
@@ -56,7 +56,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleChange}) {
         control={
           <Checkbox
             name="isWccCleared"
-            checked={userData.isWccCleared} // set the value of checked
+            checked={userData.nanny.isWccCleared} // set the value of checked
             onChange={handleCheckedChange} // runs specific change function
           />
         }

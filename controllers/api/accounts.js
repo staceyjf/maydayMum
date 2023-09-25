@@ -18,6 +18,8 @@ function createJWT(user) {
 
 // update user post interaction
 async function updateUser(req, res) {
+  console.log(req.body)
+  console.log(req.body.role)
 
   if (req.body.role === 'parent') {
     await Parent.findOneAndUpdate(
@@ -33,8 +35,8 @@ async function updateUser(req, res) {
     )
 
     await Availability.findOneAndUpdate(
-      { user: req.user._id }, 
-      { $set: req.body.weeklyAvailability },
+      { _id: req.body._id }, 
+      { $set: req.body },
       {returnDocument: 'after'}
     )
   }
