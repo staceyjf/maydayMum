@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import * as usersAPI from '../../utilities/users-service';
-import * as accountsAPI from '../../utilities/accounts-api';
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
 import AccountPage from '../AccountPage/AccountPage';
 import FindANannyPage from '../FindANannyPage/FindANannyPage';
@@ -11,35 +10,42 @@ import NavBar from '../../components/NavBar/NavBar';
 import './App.css';
 
 function App() {
-  const [initalUser, setInitalUser] = useState(usersAPI.getUser());
-  const [user, setUser] = useState(initalUser);
-  const [isLoading, setIsLoading] = useState(true);
-
-  console.log('this is user on the app page', user);
-
-  async function fetchProfileData() {
-    try {
-      if (user) {
-        setIsLoading(false);
-      } 
-    } catch (error) {
-      console.error("Error with calling full user data", error);
-    }
-  };
-
+  // access sessionStorage to persist the user state
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
+  const [isLoading, setIsLoading] = useState(true); 
+  console.log('this is user on the app page', user)
+ 
+  // Fetch initial user data
   useEffect(() => {
-    if (user) {
-      fetchProfileData();
+    async function fetchProfileData() {
+      try {
+        const userData = await usersAPI.getUser();
+        updateUserState(userData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error with fetching user data", error);
+      }
     }
-  }, [user]);
+
+    fetchProfileData();
+  }, []);
+
+  // update the user in state / session storage
+  function updateUserState(updatedData) {
+    setUser(updatedData);
+    sessionStorage.setItem('user', JSON.stringify(updatedData));
+  };
 
   return (
     <main className="App">
-      {/* Conditionally render NavBar based on the route */}
-      {['/users/log-in', '/users/sign-up'].includes(window.location.pathname) ? null : (
-        <NavBar user={user} setUser={setUser} />
-      )}
-
+      {isLoading 
+        ? ( <div>Loading...</div> ) 
+        : (
+          // Conditionally render NavBar based on the route
+          !['/users/log-in', '/users/sign-up'].includes(window.location.pathname) && (
+            <NavBar user={user} setUser={setUser} />
+          )
+        )}
       <Routes>
         <Route index element={<AboutUsPage />} />
         <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
@@ -48,9 +54,9 @@ function App() {
           path="/accounts/account-profile"
           element={
             <AccountPage
-              isLoading={isLoading}
               user={user}
               setUser={setUser}
+              updateUserState={updateUserState}
             />
           }
         />
@@ -61,5 +67,5 @@ function App() {
     </main>
   );
 }
-
+  
 export default App;

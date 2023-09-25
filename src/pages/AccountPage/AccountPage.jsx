@@ -1,16 +1,14 @@
+import { useState } from 'react';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({user, setUser, isLoading}) {
+function AccountPage({user, setUser, updateUserState}) {
   console.log('this is user on the account page', user);
 
   return (
     <>
-    {isLoading 
-    ? ( <div>Loading...</div> ) 
-    : ( 
       <Box
         component="main"
         sx={{
@@ -58,6 +56,7 @@ function AccountPage({user, setUser, isLoading}) {
                   <AccountProfileDetails 
                     user={user}
                     setUser={setUser}
+                    updateUserState={updateUserState}
                   />
                 </Grid>
               </Grid>
@@ -65,7 +64,6 @@ function AccountPage({user, setUser, isLoading}) {
           </Stack>
         </Container>
       </Box>
-    )}
     </>
   )
 }

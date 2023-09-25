@@ -5,7 +5,7 @@ import { updateUser } from '../../../utilities/accounts-api';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({user, setUser}) {
+function AccountProfileDetails({user, setUser, updateUserState}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
@@ -56,10 +56,8 @@ function AccountProfileDetails({user, setUser}) {
     evt.preventDefault(); 
     try { 
       const userUpdate = await updateUser(userData);
-      // console.log('this is userUpdate', userUpdate)
       setUser(userUpdate);
-      // console.log('this is userData', userData);  
-      // console.log('this is user', user);  
+      updateUserState(userUpdate);
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
     } catch { 
       setError('Update failed - please try again'); 
