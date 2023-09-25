@@ -42,22 +42,25 @@ function AccountProfileDetails({user, setUser}) {
     })  
   };
 
-  function handleCheckedChange(evt) { // handles nanny user checkboxes
-      console.log('this is target.name', evt.target.name)
-      console.log('this is target checked', evt.target.checked)
-      setUserData({
+  function handleCheckedChange(evt) { // handles nanny checkboxes 
+    const updatedUser = {
+      ...userData.nanny,
+      [evt.target.name]: evt.target.checked
+    };
+    
+    setUserData({
       ...userData,
-      [evt.target.name]: evt.target.checked,
-      error: '',
+      nanny: updatedUser,
+      error: ''
     });
   };
+  
 
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
     try { 
-      console.log('this is what is sent to the server', userData)
       const userUpdate = await updateToken(userData);
-      // console.log(userUpdate);
+      console.log(userUpdate);
       setUser(userUpdate); 
       setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
       setTimeout(() => {   // Clear the success message

@@ -28,6 +28,8 @@ function App() {
     fetchProfileData();
   }, []);
 
+  console.log(user)
+
   return (
     <main className="App">
       {['/users/log-in', '/users/sign-up'].includes(window.location.pathname) ? null : (

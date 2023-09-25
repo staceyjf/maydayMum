@@ -8,10 +8,7 @@ function AccountAvailability({user, setUser}) {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  function handleCheckedChange(evt) { // handles nanny user checkboxes (will need a seperate one for avaibility)
-    // console.log('this is target.name', evt.target.name)
-    // console.log('this is target checked', evt.target.checked)    
-
+  function handleCheckedChange(evt) { // handles nanny avals checkboxes
     const updatedUser = {
       ...userData.weeklyAvailability,
       [evt.target.name]: evt.target.checked
@@ -25,17 +22,19 @@ function AccountAvailability({user, setUser}) {
   };
   
   async function handleSubmit(evt) { 
-  evt.preventDefault(); 
-  try { 
-    console.log(userData);
-    const userUpdate = await updateToken(userData);
-    console.log('this is userUpdate', userUpdate)
-    setUser(userUpdate);  
-    setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-  } catch { 
-    setError('Update failed - please try again'); 
-  } 
-};
+    evt.preventDefault(); 
+    try { 
+      const userUpdate = await updateToken(userData);
+      console.log(userUpdate);
+      setUser(userUpdate); 
+      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
+      setTimeout(() => {   // Clear the success message
+        setSuccessMessage('');
+      }, 3000); 
+    } catch { 
+      setError('Update failed - please try again'); 
+    } 
+  };
 
   return (
     <>
@@ -117,7 +116,7 @@ function AccountAvailability({user, setUser}) {
                       control={
                         <Checkbox
                           name='Sunday'
-                          checked={userData.Sunday}
+                          checked={userData.weeklyAvailability.Sunday}
                           onChange={handleCheckedChange}
                         />
                       }
