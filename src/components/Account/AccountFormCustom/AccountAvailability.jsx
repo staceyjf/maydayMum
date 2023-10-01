@@ -8,6 +8,34 @@ function AccountAvailability({user, setUser}) {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+
+  // Date header
+  const options = { weekday: 'short', day: 'numeric', month: 'short' };
+
+  function getWeek() {
+    const now = new Date();  // create  a new day object
+    const currentDay = now.getDay(); // gets the current day eg Sunday reps 0
+
+    const daysUntilMonday = currentDay === 0 ? 6 : currentDay - 1; // Calculate the start of the week
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - daysUntilMonday);
+    startOfWeek.setHours(0, 0, 0, 0); // Monday starts from 
+
+    const daysUntilSunday = currentDay === 0 ? 0 : 7 - currentDay; // Calculate the end of the  week
+    const endOfWeek = new Date(now);
+    endOfWeek.setDate(now.getDate() + daysUntilSunday);
+    endOfWeek.setHours(23, 59, 59, 999); // Sunday ends at
+
+    return { startOfWeek, endOfWeek };
+  }
+
+  const { startOfWeek, endOfWeek } = getWeek();
+  const dateTimeFormat = new Intl.DateTimeFormat('en', options);
+  const formattedStartDate = dateTimeFormat.format(startOfWeek);
+  const formattedEndDate = dateTimeFormat.format(endOfWeek);
+  const formattedDateRange = `${formattedStartDate} - ${formattedEndDate}`;
+
+
   function handleCheckedChange(evt) { // handles nanny avals checkboxes
     const updatedUser = {
       ...userData.weeklyAvailability,
@@ -45,7 +73,7 @@ function AccountAvailability({user, setUser}) {
         onSubmit={handleSubmit}
       >
         <Card  >
-          <CardHeader title="Weekly Availability" />
+          <CardHeader title={`Availability for ${formattedDateRange}`} />
           <CardHeader subheader="Select your weekly availability" style={{ textAlign: 'left' }} />
           <CardContent sx={{ pt: 0 }}>
             <Box sx={{ m: -1.5 }}>
