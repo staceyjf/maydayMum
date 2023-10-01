@@ -1,4 +1,3 @@
-// bringing in the mongoose database via the connect method 
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.DATABASE_URL);

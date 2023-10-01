@@ -1,11 +1,15 @@
-import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import AccountProfile  from '../../components/Account/AccountProfile/AccountProfile';
+import { 
+  Box, 
+  Container, 
+  Stack, 
+  Typography, 
+  Unstable_Grid2 as Grid 
+} from '@mui/material';
+import AccountProfile from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
-function AccountPage({user, setUser}) {
-  // console.log('this is user on the account page', user);
-
+function AccountPage({ user, setUser }) {
   return (
     <>
       <Box
@@ -18,12 +22,12 @@ function AccountPage({user, setUser}) {
         <Container maxWidth="lg">
           <Stack spacing={3}>
             <div>
-            <Typography variant="h3">
-              Account Details
-            </Typography>
-            <Typography variant="h5">
-              Manage your personal information and account settings.
-            </Typography>
+              <Typography variant="h3">
+                Account Details
+              </Typography>
+              <Typography variant="h5">
+                Manage your personal information and account settings.
+              </Typography>
             </div>
             <div>
               <Grid
@@ -35,10 +39,10 @@ function AccountPage({user, setUser}) {
                   md={6}
                   lg={4}
                 >
-                  <AccountProfile 
+                  <AccountProfile
                     user={user}
                   />
-                  {/* conditionally render nanny avaibility  */}
+                  {/* conditionally render nanny availability  */}
                   {user.role === 'nanny' && (
                     <AccountAvailability
                       user={user}
@@ -51,7 +55,7 @@ function AccountPage({user, setUser}) {
                   md={6}
                   lg={8}
                 >
-                  <AccountProfileDetails 
+                  <AccountProfileDetails
                     user={user}
                     setUser={setUser}
                   />
@@ -62,7 +66,7 @@ function AccountPage({user, setUser}) {
         </Container>
       </Box>
     </>
-  )
+  );
 }
-   
-   export default AccountPage
+
+export default AccountPage;

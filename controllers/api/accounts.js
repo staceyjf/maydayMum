@@ -12,12 +12,13 @@ function createJWT(user) {
   return jwt.sign(// create the token using the jwt's sign()
       { user },
       process.env.SECRET,
-      { expiresIn: '24h'} // token expires in different ways on time. Look at the docs
+      { expiresIn: '24h'} // setting token expiration 
   ); 
 };
 
-// update user post interaction
+// update 'user' post account profile changes
 async function updateUser(req, res) {
+  // for a parent account
   if (req.body.role === 'parent') {
     await Parent.findOneAndUpdate(
       { user: req.user._id }, 
@@ -25,12 +26,13 @@ async function updateUser(req, res) {
       {returnDocument: 'after'}
     )
   } else {
+    // for a nanny account
     await Nanny.findOneAndUpdate(
       { user: req.user._id }, 
       { $set: req.body.nanny },
       {returnDocument: 'after'}
     )
-
+    // update their avails
     await Availability.findOneAndUpdate(
       { user: req.user._id }, 
       { $set: req.body.weeklyAvailability },

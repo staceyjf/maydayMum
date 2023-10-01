@@ -1,6 +1,6 @@
 function BookingsPage() {
     return (
-       <h1>Booking page goes here</h1>
+       <h1>Coming soon</h1>
     )
    }
    

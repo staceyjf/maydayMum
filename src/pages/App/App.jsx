@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import * as usersAPI from '../../utilities/users-service';
 import AboutUsPage from '../AboutUsPage/AboutUsPage';
 import AccountPage from '../AccountPage/AccountPage';
@@ -11,8 +11,9 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true); 
- 
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation(); // user's current location 
+
   // Fetch initial user data
   useEffect(() => {
     async function fetchProfileData() {
@@ -28,36 +29,31 @@ function App() {
     fetchProfileData();
   }, []);
 
-  console.log(user)
+  const showNavBar = !['/users/log-in', '/users/sign-up'].includes(location.pathname);
 
   return (
     <main className="App">
-      {['/users/log-in', '/users/sign-up'].includes(window.location.pathname) ? null : (
-        <NavBar user={user} setUser={setUser} />
-      )}
-      {isLoading
-        ? ( <div>Loading...</div> ) 
-        : (
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {showNavBar && <NavBar user={user} setUser={setUser} />}
           <Routes>
             <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
             <Route path="/team/bookings" element={<BookingsPage />} />
             <Route
               path="/accounts/account-profile"
-              element={
-                <AccountPage
-                  user={user}
-                  setUser={setUser}
-                  />
-              }
+              element={<AccountPage user={user} setUser={setUser} />}
             />
             <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
             <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
-            <Route path="/"  element={<AboutUsPage />} />
+            <Route path="/" element={<AboutUsPage />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
-        )}
+        </>
+      )}
     </main>
   );
 }
-  
+
 export default App;

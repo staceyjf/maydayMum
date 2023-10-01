@@ -164,7 +164,7 @@ function NavBar({ user, setUser }) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-            <SettingsMenu setUser={setUser} setAnchorElUser={setAnchorElUser}/>
+            <SettingsMenu user={user} setUser={setUser} setAnchorElUser={setAnchorElUser}/>
             </Menu>
           </Box>
         </Toolbar>
