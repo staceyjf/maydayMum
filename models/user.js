@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const Parent = require('./parent');
 const Nanny = require('./nanny');
 const Availability = require('./availability');
+const Booking = require('./booking');
 
 const SALT_ROUNDS = 6;
 
@@ -31,6 +32,7 @@ const userSchema = new Schema({
     },
     isAdmin: { type: Boolean, default: false },
     weeklyAvailability: {type: Schema.Types.ObjectId, ref: 'Availability'},
+    bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
     parent: {type: Schema.Types.ObjectId, ref: 'Parent'}, 
     nanny: {type: Schema.Types.ObjectId, ref: 'Nanny'} 
     }, {

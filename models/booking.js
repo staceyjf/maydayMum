@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Parent = require('./parent');
+// const Parent = require('./parent');
 const Nanny = require('./nanny');
+const User = require('./user');
 
 const bookingSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true}, 
@@ -33,27 +34,17 @@ bookingSchema.statics.getBooking = function(userId) {
     );
   };
   
-// orderSchema.methods.addItemToCart = async function (itemId) {
-//     const cart = this;
-//     // Check if the item already exists in the cart
-//     // mongoose equals() allows us to compare ._id object to a string (itemId) 
-//     const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
-//     if (lineItem) {
-//       // It already exists, so increase the qty
-//       lineItem.qty += 1;
-//     } else {
-//       // Get the item from the "catalog"
-//       // Note how the mongoose.model method behaves as a getter when passed one arg vs. two 
-//       // (eg like requiring it above but avoiding a potential circualr reference)
-//       const Item = mongoose.model('Item');
-//       const item = await Item.findById(itemId);
-//       // The qty of the new lineItem object being pushed in defaults to 1 (defined above in the model)
-//       // represents .push({ qty: 1, item: item})
-//       cart.lineItems.push({ item });
-//     }
-//     // return the save() method's promise
-//     // this allows us to call the await on addItemToCard
-//     return cart.save();
-//   };
+orderSchema.methods.addNannyToBooking = async function (nanny, userId) {
+    const booking = this; // binds it to the booking doc
+    console.log('Nanny:', nanny)
+    booking.nanny = nannyToBook._id; // update the nanny 
+    await booking.save();
+
+    // update the User Model
+    const user = await User.findById(userId);
+    user.bookings.push(booking._id); // Update the bookings array
+    await user.save();
+    return booking;
+  };
 
 module.exports = mongoose.model('Booking', bookingSchema);

@@ -18,6 +18,8 @@ import { addNannyToBooking } from '../../utilities/team-api';
 function NannyCard({ nanny, user, setBooking }) {
   const [error, setError] = useState(''); 
   const navigate = useNavigate();
+
+  console.log('Nanny:', nanny);
   
   async function handleAddToBooking(evt, nanny) { 
     if (!user) {

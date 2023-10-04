@@ -15,7 +15,7 @@ async function getAllNannies(req, res) {
   const nannies = await User.find({ role: 'nanny' })
     .populate('nanny')
     .populate('weeklyAvailability');
-//   console.log('getAllNannies is sending back this', nannies);
+  console.log('getAllNannies is sending back this', nannies);
   res.json(nannies);
 }
 
