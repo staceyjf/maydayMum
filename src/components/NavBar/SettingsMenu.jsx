@@ -20,7 +20,6 @@ function SettingMenu({ user, setUser, setAnchorElUser }) {
   
   function handleLogOut() {
     userService.logOut();
-    setUser(null);
   }
   
   function determineURLs(setting) {
