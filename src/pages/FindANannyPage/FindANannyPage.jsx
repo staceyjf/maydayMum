@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import NannyList from '../../components/FindANanny/NannyList';
+import { getFormattedDateRange } from '../../utilities/date-utils'; 
 import { 
   Box, 
   Container, 
@@ -12,6 +13,7 @@ import * as teamAPI from '../../utilities/team-api';
 function NannyProfilePage({ user, booking, setBooking }) {
   const [nannies, setNannies] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true);
+  const formattedDateRange = getFormattedDateRange(); // my get week range ()
 
   useEffect(function() {
     async function fetchAllNannies() {
@@ -56,7 +58,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
               </div>
               <div>
                 <Typography variant="h5">
-                 Availability for 
+                 Availability for {formattedDateRange}
                 </Typography>
               </div>
               <div>
