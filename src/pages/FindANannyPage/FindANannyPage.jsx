@@ -1,31 +1,45 @@
-import { useState, useEffect } from 'react'
-import * as teamAPI from '../../utilities/team-api';
+import { useState, useEffect } from 'react';
 import NannyList from '../../components/FindANanny/NannyList';
-import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-// import { SearchBar } from '../../components/FindANanny/SearchBar';
+import { 
+  Box, 
+  Container, 
+  Stack, 
+  Typography, 
+  Unstable_Grid2 as Grid 
+} from '@mui/material';
+import * as teamAPI from '../../utilities/team-api';
 
-function NannyProfilePage() {
-  const [nannies, setNannies ] = useState([]); // all nannies
-  const [isLoading, setIsLoading] = useState(true); 
+function NannyProfilePage({ user, booking, setBooking }) {
+  const [nannies, setNannies] = useState([]); // all nannies
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(function () {
+  useEffect(function() {
     async function fetchAllNannies() {
       try {
-        const allNannies = await teamAPI.getAllNannies(); 
-        setNannies(allNannies); 
+        const allNannies = await teamAPI.getAllNannies();
+        setNannies(allNannies);
         setIsLoading(false);
       } catch (error) {
         console.error("Error with calling all nanny data", error);
       }
     }
-    fetchAllNannies(); 
-    }, []);
+    fetchAllNannies();
 
-    return (
-      <>
-      {isLoading 
-      ? ( <div>Loading...</div> ) //need to add something in to indicate that this is happening 
-      : ( // Render the account components when isLoading is false
+    async function getBooking() {
+      const userBooking = await teamAPI.getBooking();
+      setBooking(userBooking);
+      console.log("Booking:", userBooking);
+    }
+
+    getBooking();
+  }, []);
+
+  return (
+    <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        // Render the account components when isLoading is false
         <Box
           component="main"
           sx={{
@@ -37,7 +51,12 @@ function NannyProfilePage() {
             <Stack spacing={3}>
               <div>
                 <Typography variant="h4">
-                  Find Amazing Local Nannies across the Northern Beaches
+                  Find amazing Local Nannies across the Northern Beaches
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h5">
+                 Availability for 
                 </Typography>
               </div>
               <div>
@@ -59,8 +78,11 @@ function NannyProfilePage() {
                     md={8}
                     lg={10}
                   >
-                    <NannyList 
+                    <NannyList
                       nannies={nannies}
+                      user={user}
+                      booking={booking}
+                      setBooking={setBooking}
                     />
                   </Grid>
                 </Grid>
@@ -68,9 +90,9 @@ function NannyProfilePage() {
             </Stack>
           </Container>
         </Box>
-       )}
-      </>
-    )
-  }
-   
-   export default NannyProfilePage
+      )}
+    </>
+  );
+}
+
+export default NannyProfilePage;

@@ -11,8 +11,11 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState({});
+  const [booking, setBooking] = useState({}); 
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation(); // user's current location 
+
+  console.log("Booking on app.js:", booking);
 
   // Fetch initial user data
   useEffect(() => {
@@ -39,14 +42,32 @@ function App() {
         <>
           {showNavBar && <NavBar user={user} setUser={setUser} />}
           <Routes>
-            <Route path="/team/find-a-nanny" element={<FindANannyPage />} />
-            <Route path="/team/bookings" element={<BookingsPage />} />
+            <Route path="/team/find-a-nanny" element={
+              <FindANannyPage 
+                user={user}
+                booking={booking}  
+                setBooking={setBooking}/>} 
+              />
+            <Route path="/team/booking" element={
+              <BookingsPage 
+                user={user} 
+                booking={booking} 
+                setBooking={setBooking}/>}  
+              />
             <Route
               path="/accounts/account-profile"
               element={<AccountPage user={user} setUser={setUser} />}
             />
-            <Route path="/users/log-in" element={<AuthPage user={user} setUser={setUser} />} />
-            <Route path="/users/sign-up" element={<AuthPage user={user} setUser={setUser} />} />
+            <Route path="/users/log-in" element={
+              <AuthPage 
+                user={user} 
+                setUser={setUser} />} 
+              />
+            <Route path="/users/sign-up" element={
+              <AuthPage 
+                user={user} 
+                setUser={setUser} />} 
+              />
             <Route path="/" element={<AboutUsPage />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>

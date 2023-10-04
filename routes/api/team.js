@@ -8,5 +8,10 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 // GET /api/team/nannies (get all Nanny accounts)
 router.get('/nannies', teamController.getAllNannies);
 
+// POST /api/team/booking (create a booking)
+router.get('/booking', teamController.booking);
+
+// POST /api/team/booking (update booking)
+router.get('/nannies', teamController.getAllNannies);
+
 module.exports = router;
-// don't forget to mount the router in server.js

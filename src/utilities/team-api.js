@@ -6,3 +6,11 @@ const BASE_URL = '/api/team';
 export async function getAllNannies() {
    return sendRequest(`${BASE_URL}/nannies`);
 }
+
+export async function getBooking() {
+   return sendRequest(`${BASE_URL}/booking`);
+}
+
+export async function addNannyToBooking(nanny) {
+   return sendRequest(`${BASE_URL}/bookings`, 'POST', { nanny });
+}

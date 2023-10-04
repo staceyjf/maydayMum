@@ -1,87 +1,123 @@
-import {  Avatar, Box, Button, Card, CardActions, 
-  CardContent, CardHeader, Chip,  Divider, Stack, Typography } from '@mui/material';
+import { useState } from 'react'; 
+import { useNavigate } from 'react-router-dom';
+import {  
+  Avatar, 
+  Box, 
+  Button, 
+  Card, 
+  CardActions, 
+  CardContent, 
+  CardHeader, 
+  Chip,  
+  Divider, 
+  Stack, 
+  Typography 
+} from '@mui/material';
+import { addNannyToBooking } from '../../utilities/team-api';
 
-  function NannyCard({ nanny }) {
-    console.log('this is a single nanny', nanny);
+function NannyCard({ nanny, user, setBooking }) {
+  const [error, setError] = useState(''); 
+  const navigate = useNavigate();
   
-    return (
-      <Card>
-        <CardHeader
-          avatar={
-            <Avatar
-              src={nanny.image}
-              sx={{
-                height: 100,
-                mb: 2,
-                width: 100,
-                color: 'white',
+  async function handleAddToBooking(evt, nanny) { 
+    if (!user) {
+      navigate('/users/log-in');
+    } else {
+      evt.preventDefault();  
+      try { 
+        console.log('this is user', user, 'this is nanny', nanny);
+        const addBooking = await addNannyToBooking(nanny); // passing the desired nanny
+        setBooking(addBooking);
+        navigate('/team/booking');
+      } catch { 
+        setError('Update failed - please try again'); 
+      }
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader
+        avatar={
+          <Avatar
+            src={nanny.image}
+            sx={{
+              height: 100,
+              mb: 2,
+              width: 100,
+              color: 'white',
+            }}
+          />
+        }
+        sx={{
+          padding: 0
+        }}
+        title={<Typography variant="h5">{nanny.fullName}</Typography>}
+        subheader={
+          <>
+            <Typography variant="body2" paragraph>
+              {nanny.nanny.aboutDescription}
+            </Typography>
+            <Typography color="text.secondary" variant="body2">
+              ${`${nanny.nanny.nightRate} per night`}
+            </Typography>
+          </>
+        }
+      />
+      <CardContent>
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Stack 
+            direction="row" 
+            spacing={1}
+            padding={1}
+          >
+            <Chip
+              label='First Aid Certified'
+              color="primary"
+              style={{
+                display: nanny.nanny.isFirstAidCertified ? 'inherit' : 'none',
               }}
             />
-          }
-          sx={{
-            padding: 0
-          }}
-          title={<Typography variant="h5">{nanny.fullName}</Typography>}
-          subheader={
-            <>
-              <Typography variant="body2" paragraph>
-                {nanny.nanny.aboutDescription}
-              </Typography>
-              <Typography color="text.secondary" variant="body2">
-                ${`${nanny.nanny.nightRate} per night`}
-              </Typography>
-            </>
-          }
-        />
-        <CardContent>
-          <Box
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Stack 
-              direction="row" 
-              spacing={1}
-              padding={1}
-              >
-              <Chip
-                label='First Aid Certified'
-                color="primary"
-                style={{
-                  display: nanny.nanny.isFirstAidCertified ? 'inherit' : 'none',
-                }}
-              />
-              <Chip
-                label='WWW Clearance'
-                color="primary"
-                style={{
-                  display: nanny.nanny.isWccCleared ? 'inherit' : 'none',
-                }}
-              />
-            </Stack>
-            <Stack direction="row" spacing={1}>
-              {Object.entries(nanny.weeklyAvailability) // convert my availability doc (object) to an array
-                .filter(([day, available]) => available && day.includes('day')) // Filter by available days that contain 'day'
-                .map(([day, available]) => ( // iterate
-                  <Chip
-                    label={day}
-                    color="secondary"
-                    key={day}
-                  />
-                ))}
-            </Stack>
-          </Box>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained">
-            BOOK ME
-          </Button>
-        </CardActions>
-      </Card>
-    );
-  }
-  
-  export default NannyCard;
+            <Chip
+              label='WWW Clearance'
+              color="primary"
+              style={{
+                display: nanny.nanny.isWccCleared ? 'inherit' : 'none',
+              }}
+            />
+          </Stack>
+          <Stack direction="row" spacing={1}>
+            {Object.entries(nanny.weeklyAvailability) // convert my availability (object) to an array
+              // Filter by available days that contain 'day' to remove unwanted fields
+              .filter(([day, available]) => available && day.includes('day')) 
+              .map(([day, available]) => ( // iterate
+                <Chip
+                  label={day}
+                  color="secondary"
+                  key={day}
+                />
+              ))}
+          </Stack>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={(evt) => handleAddToBooking(evt, nanny)} // Pass nanny as an argument
+        >
+          BOOK ME
+        </Button>
+      </CardActions>
+    </Card>
+  );
+}
+
+export default NannyCard;

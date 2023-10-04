@@ -1,9 +1,7 @@
 import NannyCard from './NannyCard';
 import { Box } from '@mui/material';
-// import { Link } from "react-router-dom";
 
-function NannyList({ nannies, }) {
-  console.log('this is all nannies', nannies);
+function NannyList({ nannies, user, setBooking}) {
 
   return (
     <>
@@ -16,6 +14,8 @@ function NannyList({ nannies, }) {
         > 
           <NannyCard
             nanny={n}
+            user={user}
+            setBooking={setBooking}
           />
         </Box>
         ))}
