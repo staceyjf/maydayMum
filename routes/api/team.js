@@ -11,7 +11,7 @@ router.get('/nannies', teamController.getAllNannies);
 // POST /api/team/booking (create a booking)
 router.get('/booking', teamController.booking);
 
-// POST /api/team/booking (update booking)
-router.get('/nannies', teamController.getAllNannies);
+// POST /api/team/add-nanny (update booking)
+router.post('/add-nanny', teamController.addNanny);
 
 module.exports = router;

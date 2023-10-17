@@ -12,5 +12,5 @@ export async function getBooking() {
 }
 
 export async function addNannyToBooking(nanny) {
-   return sendRequest(`${BASE_URL}/bookings`, 'POST', { nanny });
+   return sendRequest(`${BASE_URL}/add-nanny`, 'POST', nanny);
 }

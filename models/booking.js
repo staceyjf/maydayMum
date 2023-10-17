@@ -25,7 +25,7 @@ bookingSchema.virtual('orderId').get(function () {
     return this.id.slice(-6).toUpperCase();
   });
 
-// creating a booking doc 
+// creating / retrieving a booking doc for a parent
 bookingSchema.statics.getBooking = function(userId) {
     return this.findOneAndUpdate(
       { user: userId, isPaid: false },
@@ -33,17 +33,18 @@ bookingSchema.statics.getBooking = function(userId) {
       { upsert: true, new: true }
     );
   };
-  
-orderSchema.methods.addNannyToBooking = async function (nanny, userId) {
+ 
+// adds a nanny to a parent booking request  
+bookingSchema.methods.addNannyToBooking = async function (nanny, userId) {
     const booking = this; // binds it to the booking doc
-    console.log('Nanny:', nanny)
-    booking.nanny = nannyToBook._id; // update the nanny 
+    console.log('Nanny:', nanny, 'Nanny id:', nanny._id)
+    booking.nanny = nanny; // add the nanny id
     await booking.save();
 
-    // update the User Model
-    const user = await User.findById(userId);
-    user.bookings.push(booking._id); // Update the bookings array
-    await user.save();
+    // update the User parent property doc
+    // const user = await User.findById(userId);
+    // user.bookings.push(booking._id); // Update the bookings array
+    // await user.save();
     return booking;
   };
 
