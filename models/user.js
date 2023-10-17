@@ -69,10 +69,31 @@ function createJWT(user) {
     ); 
 };
 
-// // creating / retrieving a booking doc for a parent
-// userSchema.statics.createUser = function() {
-//     return 
-//   };
+// creating a user
+userSchema.statics.createFullUserProfile = async function (userData) {
+    const user = await User.create(userData);
+    let userProfile;
+
+    
+    if (user.role === 'nanny') {
+        const nannyProfile = await Nanny.create({ user: user._id }); // create nanny profile
+      const availability = await Availability.create({ user: user._id }); // create availability
+      userProfile = await User.findOneAndUpdate(
+          { _id: user._id },
+          { nanny: nannyProfile._id, weeklyAvailability: availability._id },
+          { new: true }
+          ).populate('nanny').populate('weeklyAvailability');
+        } else if (user.role === 'parent') {
+            const parentProfile = await Parent.create({ user: user._id }); // create parent profile
+            userProfile = await User.findOneAndUpdate(
+                { _id: user._id },
+                { parent: parentProfile._id },
+                { new: true }
+                ).populate('parent').populate('bookings');
+            }
+            
+    return userProfile; // send back complete user
+  };
 
 // create and export the User model
 const User = mongoose.model('User', userSchema);
