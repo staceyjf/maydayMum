@@ -33,6 +33,9 @@ async function addNanny(req, res) {
   const booking = await Booking.getBooking(req.user._id);
   console.log(booking);
   const updatedBooking = await booking.addNannyToBooking(req.body._id, req.user._id);
-  console.log('addNanny to booking is sending back this', updatedBooking);
-  res.json(updatedBooking);
+  const populatedBooking = await Booking.findById(updatedBooking._id)
+    .populate('nanny')
+    .populate('user');
+  console.log('addNanny to booking is sending back this', populatedBooking);
+  res.json(populatedBooking);
 }

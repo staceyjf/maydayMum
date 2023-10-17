@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 const Parent = require('./parent');
 const Nanny = require('./nanny');
 const Availability = require('./availability');
@@ -59,4 +60,24 @@ userSchema.virtual('fullName').get(function() {
     return `${capitalisedFirstName} ${capitalisedSurname}`;
 });
 
-module.exports = mongoose.model('User', userSchema);
+function createJWT(user) {
+    return jwt.sign(// create the token using the jwt's sign()
+    // data payload
+        { user },
+        process.env.SECRET,
+        { expiresIn: '24h'} // token expires in different ways on time. Look at the docs
+    ); 
+};
+
+// // creating / retrieving a booking doc for a parent
+// userSchema.statics.createUser = function() {
+//     return 
+//   };
+
+// create and export the User model
+const User = mongoose.model('User', userSchema);
+
+module.exports = {
+    User,
+    createJWT,
+  };

@@ -41,8 +41,8 @@ bookingSchema.methods.addNannyToBooking = async function (nanny, userId) {
     booking.nanny = nanny; // add the nanny id
     await booking.save();
 
-    // update the User parent property doc
-    // const user = await User.findById(userId);
+    // update the nanny doc
+    // const nanny = await User.findById(userId);
     // user.bookings.push(booking._id); // Update the bookings array
     // await user.save();
     return booking;

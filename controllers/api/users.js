@@ -1,5 +1,6 @@
-const jwt = require("jsonwebtoken");
-const User = require("../../models/user");
+// const jwt = require("jsonwebtoken");
+const userModel = require("../../models/user");
+const User = userModel.User; // User alias
 const Nanny = require("../../models/nanny");
 const Parent = require('../../models/parent');
 const Availability = require("../../models/availability");
@@ -24,7 +25,7 @@ async function create(req, res) {
             { nanny: nannyProfile._id, weeklyAvailability: availability._id }, 
             {returnDocument: 'after'}
             ).populate('nanny').populate('weeklyAvailability');
-        const token = createJWT(fullUserProfile); // send back complete user
+        const token = userModel.createJWT(fullUserProfile); // send back complete user
         console.log('this is the updated user with nanny & weekly avalis', fullUserProfile);
         res.json(token);
 
@@ -36,7 +37,7 @@ async function create(req, res) {
             { parent: parentProfile._id }, 
             {returnDocument: 'after'}
             ).populate('parent');
-            const token = createJWT(fullUserProfile);
+            const token = userModel.createJWT(fullUserProfile);
             console.log('this is the updated user with parent', fullUserProfile);
             res.json(token);
         };
@@ -45,14 +46,14 @@ async function create(req, res) {
     }
 };
 
-function createJWT(user) {
-    return jwt.sign(// create the token using the jwt's sign()
-    // data payload
-        { user },
-        process.env.SECRET,
-        { expiresIn: '24h'} // token expires in different ways on time. Look at the docs
-    ); 
-};
+// function userModel.createJWT(user) {
+//     return jwt.sign(// create the token using the jwt's sign()
+//     // data payload
+//         { user },
+//         process.env.SECRET,
+//         { expiresIn: '24h'} // token expires in different ways on time. Look at the docs
+//     ); 
+// };
 
 async function login(req, res) {
     try {
@@ -69,7 +70,7 @@ async function login(req, res) {
        
         // create the token
         // can use .json to send back a string 
-        res.json(createJWT(user));
+        res.json(userModel.createJWT(user));
     } catch (err) {
         res.status(400).json('Bad Credentials');
     }

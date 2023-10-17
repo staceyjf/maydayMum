@@ -45,6 +45,7 @@ function App() {
             <Route path="/team/find-a-nanny" element={
               <FindANannyPage 
                 user={user}
+                setUser={setUser}
                 booking={booking}  
                 setBooking={setBooking}/>} 
               />
