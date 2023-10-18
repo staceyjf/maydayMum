@@ -5,9 +5,7 @@ import {
    Typography, 
    Unstable_Grid2 as Grid 
  } from '@mui/material';
-import AccountProfile from '../../components/Account/AccountProfile/AccountProfile';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
-import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
    return (
@@ -26,7 +24,7 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                   Bookings
                 </Typography>
                 <Typography variant="h5">
-                  To book our wonderful nanny 
+                  Our wonder {booking.nanny.fullName} is available to book
                 </Typography>
               </div>
               <div>
@@ -36,25 +34,13 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                 >
                   <Grid
                     xs={12}
-                    md={6}
-                    lg={4}
+                    md={12}
+                    lg={12}
                   >
-                    <AccountProfile
+                    <AccountProfileDetails
                       user={user}
+                      setUser={setUser}
                     />
-                    {/* conditionally render nanny availability 
-                    {user.role === 'nanny' && (
-                      <AccountAvailability
-                        user={user}
-                        setUser={setUser}
-                      />
-                    )} */}
-                  </Grid>
-                  <Grid
-                    xs={12}
-                    md={6}
-                    lg={8}
-                  >
                     <AccountProfileDetails
                       user={user}
                       setUser={setUser}

@@ -79,9 +79,9 @@ function AccountProfileDetails({user, setUser}) {
       onSubmit={handleSubmit}
     >
       <Card>
-        <CardHeader
-          title="Profile"
-        />
+        {/* <CardHeader
+          title="My details"
+        /> */}
         <CardHeader
           subheader="Personal Details"
           style={{ textAlign: 'left' }}

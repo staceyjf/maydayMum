@@ -6,7 +6,7 @@ function AccountProfileParentEl({userData, handleFieldChange}) {
   return (
     <>
        <CardHeader
-          subheader="Parent Details"
+          subheader="Children Details"
         />
       <Grid
         xs={12}
