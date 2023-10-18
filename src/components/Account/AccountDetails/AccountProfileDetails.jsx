@@ -5,7 +5,7 @@ import { updateToken } from '../../../utilities/users-service';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileDetails({user, setUser}) {
+function AccountProfileDetails({user, setUser, showButton}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
@@ -181,9 +181,11 @@ function AccountProfileDetails({user, setUser}) {
           {successMessage}
           {error}
           </Typography>
-          <Button type="submit" variant="contained">
-            Save details
-          </Button>
+          {showButton && (
+              <Button type="submit" variant="contained">
+                Save details
+              </Button>
+            )}
         </CardActions>
       </Card>
     </form>

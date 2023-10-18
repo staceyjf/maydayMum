@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { 
    Box, 
    Container, 
@@ -8,6 +9,8 @@ import {
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
+  const [showButton, setShowButton] = useState(false);
+
    return (
       <>
         <Box
@@ -24,7 +27,7 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                   Bookings
                 </Typography>
                 <Typography variant="h5">
-                  Our wonder {booking.nanny.fullName} is available to book
+                  Our wonderful {booking.nanny.fullName} is available to book
                 </Typography>
               </div>
               <div>
@@ -40,10 +43,7 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                     <AccountProfileDetails
                       user={user}
                       setUser={setUser}
-                    />
-                    <AccountProfileDetails
-                      user={user}
-                      setUser={setUser}
+                      showButton={showButton}
                     />
                   </Grid>
                 </Grid>

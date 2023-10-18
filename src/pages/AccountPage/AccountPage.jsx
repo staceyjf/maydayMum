@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { 
   Box, 
   Container, 
@@ -10,6 +11,8 @@ import AccountProfileDetails from '../../components/Account/AccountDetails/Accou
 import AccountAvailability from '../../components/Account/AccountFormCustom/AccountAvailability';
 
 function AccountPage({ user, setUser }) {
+  const [showButton, setShowButton] = useState(true);
+  
   return (
     <>
       <Box
@@ -58,6 +61,7 @@ function AccountPage({ user, setUser }) {
                   <AccountProfileDetails
                     user={user}
                     setUser={setUser}
+                    showButton={showButton}
                   />
                 </Grid>
               </Grid>
