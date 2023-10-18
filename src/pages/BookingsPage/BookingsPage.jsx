@@ -26,7 +26,7 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                   Bookings
                 </Typography>
                 <Typography variant="h5">
-                  To book our wonderful nanny {booking.nanny}
+                  To book our wonderful nanny 
                 </Typography>
               </div>
               <div>

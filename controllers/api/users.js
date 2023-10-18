@@ -30,7 +30,8 @@ async function login(req, res) {
         const user = await User.findOne({email: req.body.email})
                                 .populate('parent')
                                 .populate('nanny')
-                                .populate('weeklyAvailability');
+                                .populate('weeklyAvailability')
+                                .populate('bookings');
         if (!user) throw new Error(); 
         
         // compare the passwords via bcrypt match()
