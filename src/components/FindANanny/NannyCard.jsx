@@ -98,7 +98,7 @@ function NannyCard({ nanny, user, setBooking }) {
             {Object.entries(nanny.weeklyAvailability) // convert my availability (object) to an array
               // Filter by available days that contain 'day' to remove unwanted fields
               .filter(([day, available]) => available && day.includes('day')) 
-              .map(([day, available]) => ( // iterate
+              .map((day) => ( // iterate
                 <Chip
                   label={day}
                   color="secondary"

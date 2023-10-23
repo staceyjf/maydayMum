@@ -1,8 +1,5 @@
-export async function getNannyData() {
-    return sendRequest(`${BASE_URL}/nanny`);
- }
-
- function uploadImage(image) {
+// account image upload
+function uploadImage(image) {
     const data = new FormData()
     data.append("file", image)
     data.append("upload_preset", "react-uploads")
@@ -14,3 +11,4 @@ export async function getNannyData() {
     .then(res => res.json())
     .catch(err => console.log(err))
   }
+

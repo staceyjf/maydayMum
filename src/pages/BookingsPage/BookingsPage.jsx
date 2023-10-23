@@ -27,9 +27,6 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                 <Typography variant="h3">
                   Bookings
                 </Typography>
-                <Typography variant="h5">
-                  Our wonderful {booking.nanny.fullName} is available to book
-                </Typography>
               </div>
               <div>
                 <Grid
