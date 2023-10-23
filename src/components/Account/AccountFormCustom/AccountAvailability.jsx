@@ -22,6 +22,7 @@ function AccountAvailability({ user, setUser }) {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const formattedDateRange = getFormattedDateRange(); // my get week range ()
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   function handleCheckedChange(evt) {
     // handles nanny availability checkboxes
@@ -65,77 +66,20 @@ function AccountAvailability({ user, setUser }) {
                 <Grid xs={12} md={12} sx={{ textAlign: 'left', padding: 0 }}>
                   <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Monday"
-                            checked={userData.weeklyAvailability.Monday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Monday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Tuesday"
-                            checked={userData.weeklyAvailability.Tuesday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Tuesday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Wednesday"
-                            checked={userData.weeklyAvailability.Wednesday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Wednesday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Thursday"
-                            checked={userData.weeklyAvailability.Thursday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Thursday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Friday"
-                            checked={userData.weeklyAvailability.Friday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Friday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Saturday"
-                            checked={userData.weeklyAvailability.Saturday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Saturday"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="Sunday"
-                            checked={userData.weeklyAvailability.Sunday}
-                            onChange={handleCheckedChange}
-                          />
-                        }
-                        label="Sunday"
-                      />
-                    </FormGroup>
+                      {daysOfWeek.map((day) => (
+                        <FormControlLabel
+                          key={day}
+                          control={
+                            <Checkbox
+                              name={day} // Removed quotes around day
+                              checked={userData.weeklyAvailability[day]}
+                              onChange={handleCheckedChange}
+                            />
+                          }
+                          label={day}
+                        />
+                      ))}
+                    </FormGroup> 
                   </FormControl>
                 </Grid>
               </Box>

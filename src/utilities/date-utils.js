@@ -21,7 +21,7 @@ function getWeek() {
 
 export function getFormattedDateRange() {
   const { startOfWeek, endOfWeek } = getWeek();
-  const options = { weekday: 'short', day: 'numeric', month: 'short' };
+  const options = { day: 'numeric', month: 'short' };
   const dateTimeFormat = new Intl.DateTimeFormat('en', options);
   const formattedStartDate = dateTimeFormat.format(startOfWeek);
   const formattedEndDate = dateTimeFormat.format(endOfWeek);
