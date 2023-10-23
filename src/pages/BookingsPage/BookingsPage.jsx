@@ -24,8 +24,11 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
           <Container maxWidth="lg">
             <Stack spacing={3}>
               <div>
-                <Typography variant="h3">
-                  Bookings
+                <Typography variant="h3" style={{ textTransform: 'uppercase' }}>
+                  Book a Night Nanny Form
+                </Typography>
+                <Typography variant="h5">
+                 Please complete the below booking form to secure your chosen nanny.
                 </Typography>
               </div>
               <div>

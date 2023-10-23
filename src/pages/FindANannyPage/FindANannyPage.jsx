@@ -52,13 +52,11 @@ function NannyProfilePage({ user, booking, setBooking }) {
           <Container maxWidth="lg">
             <Stack spacing={3}>
               <div>
-                <Typography variant="h4">
-                  Find amazing Local Nannies across the Northern Beaches
-                </Typography>
-              </div>
-              <div>
+              <Typography variant="h3" style={{ textTransform: 'uppercase' }}>
+                Night Nanny Availability 
+              </Typography>
                 <Typography variant="h5">
-                 Availability for {formattedDateRange}
+                Find amazing Local Nannies across the Northern Beaches for {formattedDateRange}
                 </Typography>
               </div>
               <div>

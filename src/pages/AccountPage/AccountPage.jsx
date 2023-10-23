@@ -25,7 +25,7 @@ function AccountPage({ user, setUser }) {
         <Container maxWidth="lg">
           <Stack spacing={3}>
             <div>
-              <Typography variant="h3">
+              <Typography variant="h3" style={{ textTransform: 'uppercase' }}>
                 Account Details
               </Typography>
               <Typography variant="h5">

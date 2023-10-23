@@ -122,12 +122,18 @@ function NannyBookingDetails({ user, setUser, booking, setBooking }) {
             </Box>
           </CardContent>
           <Divider />
-          <CardHeader subheader={`Please select which night/s you would like to book ${bookingData.nanny.fullName}`} style={{ textAlign: 'left' }} />
+          <CardHeader subheader={`Please select which night/s you would like to book`} style={{ textAlign: 'left' }} />
           <CardContent>
-            <Box sx={{ m: -1.5 }}>
+            <Box sx={{ m: -1.5, p: 0 }}>
               <Grid container spacing={3}>
                 <Grid xs={12} md={12} sx={{ textAlign: 'left', padding: 0 }}>
-                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                <Typography variant="h6" sx={{ ml: 3  }}>
+                  Nanny: <Typography variant="h7">{bookingData.nanny.fullName}</Typography>
+              </Typography>
+                <Typography variant="h6" sx={{ ml: 3  }}>
+                 Available on:
+                </Typography>
+                <FormControl sx={{ ml: 3 }} component="fieldset" variant="standard">
                     <FormGroup>
                     {Object.entries(bookingData)
                     .filter(([key]) => key.includes('day') && bookingData.nanny.weeklyAvailability[key])
@@ -157,7 +163,7 @@ function NannyBookingDetails({ user, setUser, booking, setBooking }) {
               {error}
             </Typography>
             <Button type="submit" variant="contained">
-              Save details
+              BOOK
             </Button>
           </CardActions>
         </Card>

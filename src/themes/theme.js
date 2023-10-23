@@ -23,6 +23,13 @@ let outerTheme = (mode) =>
       },
     },
     components: {
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: 'rgba(0,0,0,0.6)',
+          },
+        },
+      },
       MuiRadioGroup: {
         styleOverrides: {
           root: {
