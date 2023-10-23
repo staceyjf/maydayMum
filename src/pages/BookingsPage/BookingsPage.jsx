@@ -7,6 +7,7 @@ import {
    Unstable_Grid2 as Grid 
  } from '@mui/material';
 import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
+import NannyBookingDetails from '../../components/Bookings/NannyBookingDetails';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
   const [showButton, setShowButton] = useState(false);
@@ -40,10 +41,11 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                     md={12}
                     lg={12}
                   >
-                    <AccountProfileDetails
+                    <NannyBookingDetails
                       user={user}
                       setUser={setUser}
-                      showButton={showButton}
+                      booking={booking}
+                      setBooking={setBooking}
                     />
                   </Grid>
                 </Grid>

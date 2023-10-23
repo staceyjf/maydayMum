@@ -19,7 +19,7 @@ async function getAllNannies(req, res) {
   const nannies = await User.find({ role: 'nanny' })
     .populate('nanny')
     .populate('weeklyAvailability');
-  console.log('getAllNannies is sending back this', nannies);
+  // console.log('getAllNannies is sending back this', nannies);
   res.json(nannies);
 }
 
@@ -37,8 +37,13 @@ async function addNanny(req, res) {
   // add nanny to the booking
   const updatedBooking = await booking.addNannyToBooking(req.body._id, req.user._id); 
 
-  await updatedBooking.populate('user nanny')
+  // Populate 'nanny' first
+  await updatedBooking.populate('user nanny');
 
-  // console.log('addNanny to booking is sending back this', updatedBooking);
+  // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
+  await updatedBooking.populate('nanny.weeklyAvailability');
+
+
+  console.log('addNanny to booking is sending back this', updatedBooking);
   res.json(updatedBooking);
 }
