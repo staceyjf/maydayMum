@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import NannyList from '../../components/FindANanny/NannyList';
+import NannySearch from '../../components/FindANanny/NannySearch';
 import { getFormattedDateRange } from '../../utilities/date-utils'; 
 import { 
   Box, 
@@ -30,7 +31,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
     async function getBooking() {
       const userBooking = await teamAPI.getBooking();
       setBooking(userBooking);
-      console.log("Booking:", userBooking);
     }
 
     getBooking();
@@ -66,17 +66,21 @@ function NannyProfilePage({ user, booking, setBooking }) {
                 >
                   <Grid
                     xs={12}
-                    md={4}
-                    lg={2}
+                    md={5}
+                    lg={3}
                   >
-                    {/* <AccountProfile 
-                    fullUserProfile={fullUserProfile} 
-                    setFullUserProfile={setFullUserProfile}/> */}
+                    <NannySearch 
+                      nannies={nannies}
+                      user={user}
+                      booking={booking}
+                      setBooking={setBooking}
+                      setNannies={setNannies}
+                    />
                   </Grid>
                   <Grid
                     xs={12}
-                    md={8}
-                    lg={10}
+                    md={7}
+                    lg={9}
                   >
                     <NannyList
                       nannies={nannies}

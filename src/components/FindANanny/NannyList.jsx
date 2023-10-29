@@ -9,7 +9,7 @@ function NannyList({ nannies, user, setBooking}) {
         <Box 
           key={idx}
           sx={{
-            marginTop: 2.5
+            marginBottom: 2.5
           }}
         > 
           <NannyCard

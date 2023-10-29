@@ -17,15 +17,10 @@ import {
   Unstable_Grid2 as Grid,
 } from '@mui/material';
 
-
-
 function NannyBookingDetails({ user, setUser, booking, setBooking }) {
   const [bookingData, setBookingData] = useState({ ...booking });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
-  console.log("bookingData on NannyBookingDetails:", bookingData);
-
 
   function handleChange(evt) {
     setBookingData({
@@ -35,16 +30,7 @@ function NannyBookingDetails({ user, setUser, booking, setBooking }) {
     });
   }
 
-  function handleCheckedChange(evt) {
-    // handles availability checkboxes
-    setBookingData({
-      ...bookingData,
-      [evt.target.name]: evt.target.checked,
-      error: '',
-    });
-  }
-
-
+  //TODO: THIS NEEDS TO BE UPDATED
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -144,7 +130,7 @@ function NannyBookingDetails({ user, setUser, booking, setBooking }) {
                           <Checkbox
                             name={day}
                             checked={isAvailable}
-                            onChange={handleCheckedChange}
+                            onChange={handleChange}
                           />
                         }
                         label={day}

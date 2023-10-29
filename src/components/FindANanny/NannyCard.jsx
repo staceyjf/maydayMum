@@ -14,13 +14,15 @@ import {
   Typography 
 } from '@mui/material';
 import { addNannyToBooking } from '../../utilities/team-api';
+import { filterNannyAvailability } from '../../utilities/booking-utils';
 
 function NannyCard({ nanny, user, setBooking }) {
   const [error, setError] = useState(''); 
   const navigate = useNavigate();
 
-  console.log('Nanny:', nanny);
-  
+  const nannyAvaibilityFiltered = filterNannyAvailability(nanny)
+  console.log(nannyAvaibilityFiltered)
+
   async function handleAddToBooking(evt, nanny) { 
     if (!user) {
       navigate('/users/log-in');
@@ -36,6 +38,8 @@ function NannyCard({ nanny, user, setBooking }) {
       }
     }
   }
+
+
 
   return (
     <Card>
@@ -95,10 +99,7 @@ function NannyCard({ nanny, user, setBooking }) {
             />
           </Stack>
           <Stack direction="row" spacing={1}>
-            {Object.entries(nanny.weeklyAvailability) // convert my availability (object) to an array
-              // Filter by available days that contain 'day' to remove unwanted fields
-              .filter(([day, available]) => available && day.includes('day')) 
-              .map((day) => ( // iterate
+            {nannyAvaibilityFiltered.map((day) => ( // iterate
                 <Chip
                   label={day}
                   color="secondary"

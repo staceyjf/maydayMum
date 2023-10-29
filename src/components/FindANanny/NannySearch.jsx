@@ -1,0 +1,103 @@
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+  Typography,
+  Unstable_Grid2 as Grid,
+} from '@mui/material';
+
+function NannySearch({nannies, setNannies, user, booking, setBooking}) {
+  const [bookingData, setBookingData] = useState({ ...booking });
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  console.log('nannies:', nannies) // TO DO NEED A COPY OF NANNIES TO ACT AS THE FILTERED LIST OTHERWISE WE WONT HAVE A COPY OF THE ORGINAL API CALL
+
+  function handleCheckedChange(evt) {
+    // handles availability checkboxes
+    setBookingData({
+      ...bookingData,
+      [evt.target.name]: evt.target.checked,
+      error: '',
+    });
+  }
+
+    //TODO: THIS NEEDS TO BE UPDATED
+    async function handleSubmit(evt) {
+      evt.preventDefault();
+      try {
+        // Filter your nanny data based on the bookingData object
+        const filteredNannies = nannies.filter((nanny) => {
+          // Check if nanny is available on all selected days
+          return Object.keys(bookingData).every((day) => bookingData[day] && nanny.weeklyAvailability[day]);
+        });
+    
+        // Do something with the filtered nannies
+        console.log(filteredNannies);
+        setNannies(filteredNannies);
+      } catch {
+        setError('Update failed - please try again');
+      }
+    }
+
+    console.log("bookingData:", bookingData);
+
+    return (
+      <>
+        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+          <Card>
+            <CardHeader subheader={`Please select which night/s you would like to book`} style={{ textAlign: 'left' }} />
+            <CardContent>
+              <Box sx={{ m: -1.5, p: 0 }}>
+                <Grid container spacing={3}>
+                  <Grid xs={12} md={12} sx={{ textAlign: 'left', padding: 0 }}>
+                  <FormControl sx={{ ml: 3 }} component="fieldset" variant="standard">
+                      <FormGroup>
+                      {Object.entries(bookingData)
+                      .filter(([key]) => key.includes('day'))
+                      .map(([day, isAvailable]) => (
+                        <FormControlLabel
+                          key={day}
+                          control={
+                            <Checkbox
+                              name={day}
+                              checked={isAvailable}
+                              onChange={handleCheckedChange}
+                            />
+                          }
+                          label={day}
+                        />
+                      ))}
+                      </FormGroup>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </Box>
+            </CardContent>
+            <Divider />
+            <CardActions sx={{ justifyContent: 'flex-end' }}>
+              <Typography variant="h6">
+                {successMessage}
+                {error}
+              </Typography>
+              <Button type="submit" variant="contained">
+                SEARCH
+              </Button>
+            </CardActions>
+          </Card>
+        </form>
+      </>
+    );
+  }
+
+export default NannySearch
