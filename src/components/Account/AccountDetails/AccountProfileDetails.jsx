@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import AccountProfileNannyEl from '../AccountFormCustom/AccountProfileNannyEl';
-import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl';
+import AccountPersonalDetails from '../AccountFormCustom/AccountPersonalDetails';
 import { updateToken } from '../../../utilities/users-service';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
@@ -11,7 +10,15 @@ function AccountProfileDetails({user, setUser, showButton}) {
   const [successMessage, setSuccessMessage] = useState('');
 
   // console.log('this is user in account', user)
-
+  
+  function handleChange(evt) { 
+    setUserData({ 
+        ...userData, 
+        [evt.target.name]: evt.target.value,
+        error:'' 
+    })  
+  };
+  
   function handleFieldChange(evt) { // handles field changes to nanny / parent 
     let updatedUser; 
 
@@ -32,14 +39,6 @@ function AccountProfileDetails({user, setUser, showButton}) {
       [userData.role]: updatedUser,
       error: ''
     });
-  };
-  
-  function handleChange(evt) { 
-    setUserData({ 
-        ...userData, 
-        [evt.target.name]: evt.target.value,
-        error:'' 
-    })  
   };
 
   function handleCheckedChange(evt) { // handles nanny checkboxes 
@@ -72,124 +71,16 @@ function AccountProfileDetails({user, setUser, showButton}) {
   };
 
   return (
-    <>
-    <form
-      autoComplete="off"
-      noValidate
+    <AccountPersonalDetails
+      userData={userData}
+      onChange={handleChange}
+      onFieldChange={handleFieldChange}
+      onCheckedChange={handleCheckedChange}
       onSubmit={handleSubmit}
-    >
-      <Card>
-        {/* <CardHeader
-          title="My details"
-        /> */}
-        <CardHeader
-          subheader="Personal Details"
-          style={{ textAlign: 'left' }}
-        />
-        <CardContent sx={{ pt: 0 }}>
-          <Box sx={{ m: -1.5 }}>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="First name"
-                  name="firstName"
-                  onChange={handleChange}
-                  required
-                  value={userData.firstName}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Last name"
-                  name="surname"
-                  onChange={handleChange}
-                  required
-                  value={userData.surname}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  onChange={handleChange}
-                  required
-                  value={userData.email}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Phone Number"
-                  name="phoneNumber"
-                  onChange={handleChange}
-                  value={userData.phoneNumber}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={12}
-              >
-                <TextField
-                  fullWidth
-                  label="Address"
-                  name="location"
-                  onChange={handleChange}
-                  required
-                  value={userData.location}
-                />
-              </Grid>
-              { (userData.role === 'parent')
-              ? 
-                < AccountProfileParentEl 
-                  userData={userData} 
-                  handleCheckedChange={handleCheckedChange} 
-                  handleFieldChange={handleFieldChange}
-                />
-              : 
-                <>
-                < AccountProfileNannyEl 
-                  userData={userData} 
-                  handleCheckedChange={handleCheckedChange} 
-                  handleFieldChange={handleFieldChange}
-                />
-                </>
-              }
-            </Grid>
-          </Box>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Typography variant="h6">
-          {successMessage}
-          {error}
-          </Typography>
-          {showButton && (
-              <Button type="submit" variant="contained">
-                Save details
-              </Button>
-            )}
-        </CardActions>
-      </Card>
-    </form>
-    </>
+      successMessage={successMessage}
+      error={error}
+      showButton={showButton} 
+    />
 )};
 
 export default AccountProfileDetails

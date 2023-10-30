@@ -49,7 +49,8 @@ function App() {
               />
             <Route path="/team/booking" element={
               <BookingsPage 
-                user={user} 
+                user={user}
+                setUser={setUser} 
                 booking={booking} 
                 setBooking={setBooking}/>}  
               />

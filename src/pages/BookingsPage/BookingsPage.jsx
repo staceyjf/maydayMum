@@ -6,11 +6,9 @@ import {
    Typography, 
    Unstable_Grid2 as Grid 
  } from '@mui/material';
-import AccountProfileDetails from '../../components/Account/AccountDetails/AccountProfileDetails';
 import NannyBookingDetails from '../../components/Bookings/NannyBookingDetails';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
-  const [showButton, setShowButton] = useState(false);
 
    return (
       <>
