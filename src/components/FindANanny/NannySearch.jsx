@@ -15,13 +15,17 @@ import {
   Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
+import { searchBookingAvailability } from '../../utilities/booking-utils';
 
 function NannySearch({nannies, setNannies, user, booking, setBooking}) {
   const [bookingData, setBookingData] = useState({ ...booking });
+  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  console.log('nannies:', nannies) // TO DO NEED A COPY OF NANNIES TO ACT AS THE FILTERED LIST OTHERWISE WE WONT HAVE A COPY OF THE ORGINAL API CALL
+  const orderedDays = searchBookingAvailability(bookingData);
+
+  console.log(nannies)
 
   function handleCheckedChange(evt) {
     // handles availability checkboxes
@@ -50,8 +54,6 @@ function NannySearch({nannies, setNannies, user, booking, setBooking}) {
       }
     }
 
-    console.log("bookingData:", bookingData);
-
     return (
       <>
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -63,9 +65,7 @@ function NannySearch({nannies, setNannies, user, booking, setBooking}) {
                   <Grid xs={12} md={12} sx={{ textAlign: 'left', padding: 0 }}>
                   <FormControl sx={{ ml: 3 }} component="fieldset" variant="standard">
                       <FormGroup>
-                      {Object.entries(bookingData)
-                      .filter(([key]) => key.includes('day'))
-                      .map(([day, isAvailable]) => (
+                      {orderedDays.map(([day, isAvailable]) => (
                         <FormControlLabel
                           key={day}
                           control={

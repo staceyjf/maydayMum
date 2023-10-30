@@ -21,7 +21,6 @@ function NannyCard({ nanny, user, setBooking }) {
   const navigate = useNavigate();
 
   const nannyAvaibilityFiltered = filterNannyAvailability(nanny)
-  console.log(nannyAvaibilityFiltered)
 
   async function handleAddToBooking(evt, nanny) { 
     if (!user) {
@@ -38,8 +37,6 @@ function NannyCard({ nanny, user, setBooking }) {
       }
     }
   }
-
-
 
   return (
     <Card>

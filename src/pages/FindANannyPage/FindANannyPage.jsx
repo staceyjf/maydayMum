@@ -14,7 +14,7 @@ import * as teamAPI from '../../utilities/team-api';
 function NannyProfilePage({ user, booking, setBooking }) {
   const [nannies, setNannies] = useState([]); // all nannies
   const [isLoading, setIsLoading] = useState(true);
-  const formattedDateRange = getFormattedDateRange(); // my get week range ()
+  const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
   useEffect(function() {
     async function fetchAllNannies() {
