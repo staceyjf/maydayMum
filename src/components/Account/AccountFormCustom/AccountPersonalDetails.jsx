@@ -93,7 +93,6 @@ function AccountPersonalDetails({ userData, onChange, onFieldChange, onCheckedCh
               ? 
                 < AccountProfileParentEl 
                   userData={userData} 
-                  handleCheckedChange={onCheckedChange} 
                   handleFieldChange={onFieldChange}
                 />
               : 

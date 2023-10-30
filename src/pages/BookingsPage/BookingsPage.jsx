@@ -6,7 +6,7 @@ import {
    Typography, 
    Unstable_Grid2 as Grid 
  } from '@mui/material';
-import NannyBookingDetails from '../../components/Bookings/NannyBookingDetails';
+import BookingForm from '../../components/Bookings/BookingForm';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
 
@@ -39,7 +39,7 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
                     md={12}
                     lg={12}
                   >
-                    <NannyBookingDetails
+                    <BookingForm
                       user={user}
                       setUser={setUser}
                       booking={booking}

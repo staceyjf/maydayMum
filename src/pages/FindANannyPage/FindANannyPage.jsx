@@ -25,7 +25,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
         const allNannies = await teamAPI.getAllNannies();
         setNannies(allNannies);
         setNanniesForSearchFilter(allNannies);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error with calling all nanny data", error);
       }
@@ -38,6 +37,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
         try {
           const userBooking = await teamAPI.getBooking();
           setBooking(userBooking);
+          setIsLoading(false);
         } catch (error) {
           console.error("Error with getting booking data", error);
         }

@@ -33,17 +33,14 @@ bookingSchema.statics.getBooking = function(userId) {
       { upsert: true, new: true }
     );
   };
+
+
  
 // adds a nanny to a parent booking request  
-bookingSchema.methods.addNannyToBooking = async function (nanny, userId) {
+bookingSchema.methods.addNannyToBooking = async function (nanny) {
     const booking = this; // binds it to the booking doc
-    booking.nanny = nanny; // adding the nanny to the booking
+    booking.nanny = nanny; // adding the nanny to the bookin
     await booking.save();
-
-    // update the nanny doc
-    // const nanny = await User.findById(userId);
-    // user.bookings.push(booking._id); // Update the bookings array
-    // await user.save();
     return booking;
   };
 

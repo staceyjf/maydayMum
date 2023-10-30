@@ -15,17 +15,14 @@ import {
   Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-import { searchBookingAvailability } from '../../utilities/booking-utils';
+import { orderedAvailability } from '../../utilities/booking-utils';
 
 function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
   const [bookingData, setBookingData] = useState({ ...booking });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const orderedDays = searchBookingAvailability(bookingData);
-
-  console.log('this is nannies', nannies)
-  console.log('this is booking data', bookingData)
+  const orderedDays = orderedAvailability(bookingData);
 
   function handleCheckedChange(evt) {
     // handles availability checkboxes
@@ -58,7 +55,7 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
       <>
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Card>
-            <CardHeader subheader={`Please select which night/s you would like to book`} style={{ textAlign: 'left' }} />
+            <CardHeader subheader={`Search for nannies based on:`} style={{ textAlign: 'left' }} />
             <CardContent>
               <Box sx={{ m: -1.5, p: 0 }}>
                 <Grid container spacing={3}>

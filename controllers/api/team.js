@@ -35,7 +35,7 @@ async function booking(req, res) {
 async function addNanny(req, res) {
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
   // add nanny to the booking
-  const updatedBooking = await booking.addNannyToBooking(req.body._id, req.user._id); 
+  let updatedBooking = await booking.addNannyToBooking(req.body._id); 
 
   // Populate 'nanny' first
   await updatedBooking.populate('user nanny');

@@ -28,7 +28,7 @@ function sortTheDays(days) { // days is nested array
 
 }
 
-export function searchBookingAvailability(bookingData) {
+export function orderedAvailability(bookingData) {
   const days = Object.entries(bookingData).filter(([key]) => key.includes('day'))
 
   const orderDays = sortTheDays(days)
