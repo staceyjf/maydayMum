@@ -17,9 +17,8 @@ import {
 } from '@mui/material';
 import { searchBookingAvailability } from '../../utilities/booking-utils';
 
-function NannySearch({nannies, setNannies, user, booking, setBooking}) {
+function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
   const [bookingData, setBookingData] = useState({ ...booking });
-  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -37,7 +36,6 @@ function NannySearch({nannies, setNannies, user, booking, setBooking}) {
     });
   }
 
-    //TODO: THIS NEEDS TO BE UPDATED
     async function handleSubmit(evt) {
       evt.preventDefault();
       try {

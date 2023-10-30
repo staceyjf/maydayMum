@@ -1,11 +1,11 @@
 import NannyCard from './NannyCard';
 import { Box } from '@mui/material';
 
-function NannyList({ nannies, user, setBooking}) {
+function NannyList({ nanniesForSearchFilter, user, setBooking}) {
 
   return (
     <>
-  {    nannies.map((n, idx) => (
+  {    nanniesForSearchFilter.map((n, idx) => (
         <Box 
           key={idx}
           sx={{

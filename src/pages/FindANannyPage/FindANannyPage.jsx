@@ -13,6 +13,7 @@ import * as teamAPI from '../../utilities/team-api';
 
 function NannyProfilePage({ user, booking, setBooking }) {
   const [nannies, setNannies] = useState([]); // all nannies
+  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
@@ -21,6 +22,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
       try {
         const allNannies = await teamAPI.getAllNannies();
         setNannies(allNannies);
+        setNanniesForSearchFilter(allNannies);
         setIsLoading(false);
       } catch (error) {
         console.error("Error with calling all nanny data", error);
@@ -71,10 +73,8 @@ function NannyProfilePage({ user, booking, setBooking }) {
                   >
                     <NannySearch 
                       nannies={nannies}
-                      user={user}
                       booking={booking}
-                      setBooking={setBooking}
-                      setNannies={setNannies}
+                      setNanniesForSearchFilter={setNanniesForSearchFilter}
                     />
                   </Grid>
                   <Grid
@@ -83,7 +83,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
                     lg={9}
                   >
                     <NannyList
-                      nannies={nannies}
+                      nanniesForSearchFilter={nanniesForSearchFilter}
                       user={user}
                       booking={booking}
                       setBooking={setBooking}
