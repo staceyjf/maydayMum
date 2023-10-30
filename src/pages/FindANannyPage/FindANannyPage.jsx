@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NannyList from '../../components/FindANanny/NannyList';
 import NannySearch from '../../components/FindANanny/NannySearch';
 import { getFormattedDateRange } from '../../utilities/date-utils'; 
@@ -12,12 +13,13 @@ import {
 import * as teamAPI from '../../utilities/team-api';
 
 function NannyProfilePage({ user, booking, setBooking }) {
+  const navigate = useNavigate();
   const [nannies, setNannies] = useState([]); // all nannies
   const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
-  useEffect(function() {
+  useEffect(() => {
     async function fetchAllNannies() {
       try {
         const allNannies = await teamAPI.getAllNannies();
@@ -28,14 +30,22 @@ function NannyProfilePage({ user, booking, setBooking }) {
         console.error("Error with calling all nanny data", error);
       }
     }
-    fetchAllNannies();
-
-    async function getBooking() {
-      const userBooking = await teamAPI.getBooking();
-      setBooking(userBooking);
+  
+    if (!user) {
+      navigate('/users/log-in');
+    } else {
+      async function getBooking() {
+        try {
+          const userBooking = await teamAPI.getBooking();
+          setBooking(userBooking);
+        } catch (error) {
+          console.error("Error with getting booking data", error);
+        }
+      }
+  
+      fetchAllNannies();
+      getBooking();
     }
-
-    getBooking();
   }, []);
 
   return (
@@ -58,7 +68,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
                 Night Nanny Availability 
               </Typography>
                 <Typography variant="h5">
-                Find amazing Local Nannies across the Northern Beaches for {formattedDateRange}
+                Find amazing local nannies from across the Northern Beaches for {formattedDateRange}
                 </Typography>
               </div>
               <div>
@@ -85,7 +95,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
                     <NannyList
                       nanniesForSearchFilter={nanniesForSearchFilter}
                       user={user}
-                      booking={booking}
                       setBooking={setBooking}
                     />
                   </Grid>

@@ -23,9 +23,6 @@ function NannyCard({ nanny, user, setBooking }) {
   const nannyAvaibilityFiltered = filterNannyAvailability(nanny)
 
   async function handleAddToBooking(evt, nanny) { 
-    if (!user) {
-      navigate('/users/log-in');
-    } else {
       evt.preventDefault();  
       try { 
         console.log('this is user', user, 'this is nanny', nanny);
@@ -35,7 +32,6 @@ function NannyCard({ nanny, user, setBooking }) {
       } catch { 
         setError('Update failed - please try again'); 
       }
-    }
   }
 
   return (
