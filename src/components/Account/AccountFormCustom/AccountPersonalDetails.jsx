@@ -3,7 +3,7 @@ import AccountProfileParentEl from '../AccountFormCustom/AccountProfileParentEl'
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, 
   Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountPersonalDetails({ userData, onChange, onFieldChange, onCheckedChange, onSubmit, showButton, successMessage, error }) {
+function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, showButton, successMessage, error }) {
   return (
     <>
     <form
@@ -93,14 +93,14 @@ function AccountPersonalDetails({ userData, onChange, onFieldChange, onCheckedCh
               ? 
                 < AccountProfileParentEl 
                   userData={userData} 
-                  handleFieldChange={onFieldChange}
+                  onRoleChange={onRoleChange}
                 />
               : 
                 <>
                 < AccountProfileNannyEl 
                   userData={userData} 
-                  handleCheckedChange={onCheckedChange} 
-                  handleFieldChange={onFieldChange}
+                  handleCheckedChange={onRoleChange} 
+                  handleFieldChange={onRoleChange}
                 />
                 </>
               }

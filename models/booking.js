@@ -5,7 +5,7 @@ const Nanny = require('./nanny');
 const User = require('./user');
 
 const bookingSchema = new Schema({
-    user: {type: Schema.Types.ObjectId, ref: 'User', required: true}, 
+    user: {type: Schema.Types.ObjectId, ref: 'User'}, 
     nanny: { type: Schema.Types.ObjectId, ref: 'User' }, // using User as it contains full info for nanny
     Monday: { type: Boolean, default: false }, 
     Tuesday: { type: Boolean, default: false }, 
@@ -34,12 +34,10 @@ bookingSchema.statics.getBooking = function(userId) {
     );
   };
 
-
- 
 // adds a nanny to a parent booking request  
 bookingSchema.methods.addNannyToBooking = async function (nanny) {
     const booking = this; // binds it to the booking doc
-    booking.nanny = nanny; // adding the nanny to the bookin
+    booking.nanny = nanny; // adding the nanny to the booking
     await booking.save();
     return booking;
   };

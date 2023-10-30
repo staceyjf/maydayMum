@@ -22,7 +22,9 @@ function BookingDayForm({ bookingData, onChange, onSubmit }) {
     <>
     <form autoComplete="off" noValidate onSubmit={onSubmit}>
       <Card>
-      <CardHeader subheader={`Please select which night/s you would like to book`} style={{ textAlign: 'left' }} />
+      <CardHeader subheader={`Please select which night/s you would like to book ${bookingData.nanny.fullName} for:`} 
+                  style={{ textAlign: 'left' }} 
+        />
       <CardContent>
     <Box sx={{ m: -1.5, p: 0 }}>
     <Grid container spacing={3}>

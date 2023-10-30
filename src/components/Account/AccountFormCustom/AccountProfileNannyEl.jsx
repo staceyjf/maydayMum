@@ -8,7 +8,7 @@ import {
   Unstable_Grid2 as Grid 
 } from '@mui/material';
 
-function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange}) {
+function AccountProfileNannyEl({userData, onRoleChange}) {
   
   return (
     <>
@@ -26,7 +26,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange
           multiline
           rows={4}
           name="aboutDescription"
-          onChange={handleFieldChange}
+          onChange={onRoleChange}
           required
           value={userData.nanny.aboutDescription}
         />
@@ -41,7 +41,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange
           // startAdornment={<InputAdornment position="start">$</InputAdornment>}
           label="Nightly Rate in $"
           name="nightRate"
-          onChange={handleFieldChange}
+          onChange={onRoleChange}
           required
           value={userData.nanny.nightRate}
         />
@@ -52,7 +52,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange
           <Checkbox
             name="isFirstAidCertified"
             checked={userData.nanny.isFirstAidCertified} // set the value of checked
-            onChange={handleCheckedChange} // runs specific change function
+            onChange={onRoleChange} // runs specific change function
           />
         }
         label="First Aid Certified"
@@ -64,7 +64,7 @@ function AccountProfileNannyEl({userData, handleCheckedChange, handleFieldChange
           <Checkbox
             name="isWccCleared"
             checked={userData.nanny.isWccCleared} // set the value of checked
-            onChange={handleCheckedChange} // runs specific change function
+            onChange={onRoleChange} // runs specific change function
           />
         }
         label="WWC Cleared"

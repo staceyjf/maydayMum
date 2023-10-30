@@ -1,6 +1,6 @@
 import { CardHeader, TextField, Unstable_Grid2 as Grid } from '@mui/material';
 
-function AccountProfileParentEl({userData, handleFieldChange}) {
+function AccountProfileParentEl({userData, onRoleChange}) {
   // console.log(userData)
 
   return (
@@ -16,7 +16,7 @@ function AccountProfileParentEl({userData, handleFieldChange}) {
           fullWidth
           label="Number of Children"
           name="numberOfChildren"
-          onChange={handleFieldChange}
+          onChange={onRoleChange}
           required
           value={userData.parent.numberOfChildren}
         />

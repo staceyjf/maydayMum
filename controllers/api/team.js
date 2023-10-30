@@ -25,10 +25,10 @@ async function getAllNannies(req, res) {
 
 // create / get booking doc
 async function booking(req, res) {
-  const booking = await Booking.getBooking(req.user._id);
+  const newBooking = await Booking.create({});
 
-  console.log('booking is sending back this', booking);
-  res.json(booking);
+  console.log('booking is sending back this', newBooking);
+  res.json(newBooking);
 }
 
 // add selected nanny to parent booking doc

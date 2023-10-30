@@ -7,7 +7,7 @@ export async function getAllNannies() {
    return sendRequest(`${BASE_URL}/nannies`);
 }
 
-export async function getBooking() {
+export async function createBooking() {
    return sendRequest(`${BASE_URL}/booking`);
 }
 

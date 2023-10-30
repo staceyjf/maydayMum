@@ -47,40 +47,67 @@ function BookingForm({ user, setUser, booking, setBooking }) {
     }
   }
   
-  function handleFieldChange(evt) { // handles field changes to nanny / parent 
-    let updatedUser; 
-
-    if (userData.role === 'parent') {
-      updatedUser = {
-        ...userData.parent,
-        [evt.target.name]: evt.target.value
-      };
-    } else if (userData.role === 'nanny') { 
-      updatedUser = {
-        ...userData.nanny,
-        [evt.target.name]: evt.target.value
-      };
-    } 
+  function handleRoleDataChange(evt) {
+    const target = evt.target;
+    let updatedUser;
   
-    setUserData({
-      ...userData,
-      [userData.role]: updatedUser,
-      error: ''
-    });
-  };
+    if (userData.role === 'nanny') {
+      updatedUser = {
+        ...userData,
+        nanny: {
+          ...userData.nanny,
+          [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+        },
+        error: '',
+      };
+    } else if (userData.role === 'parent') {
+      updatedUser = {
+        ...userData,
+        parent: {
+          ...userData.parent,
+          [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+        },
+        error: '',
+      };
+    }
+  
+    setUserData(updatedUser);
+  }
 
-  function handleCheckedChange(evt) { // handles nanny checkboxes 
-    const updatedUser = {
-      ...userData.nanny,
-      [evt.target.name]: evt.target.checked
-    };
+  // function handleFieldChange(evt) { // handles field changes to nanny / parent 
+  //   let updatedUser; 
+
+  //   if (userData.role === 'parent') {
+  //     updatedUser = {
+  //       ...userData.parent,
+  //       [evt.target.name]: evt.target.value
+  //     };
+  //   } else if (userData.role === 'nanny') { 
+  //     updatedUser = {
+  //       ...userData.nanny,
+  //       [evt.target.name]: evt.target.value
+  //     };
+  //   } 
+  
+  //   setUserData({
+  //     ...userData,
+  //     [userData.role]: updatedUser,
+  //     error: ''
+  //   });
+  // };
+
+  // function handleCheckedChange(evt) { // handles nanny checkboxes 
+  //   const updatedUser = {
+  //     ...userData.nanny,
+  //     [evt.target.name]: evt.target.checked
+  //   };
     
-    setUserData({
-      ...userData,
-      nanny: updatedUser,
-      error: ''
-    });
-  };
+  //   setUserData({
+  //     ...userData,
+  //     nanny: updatedUser,
+  //     error: ''
+  //   });
+  // };
   
 
   async function handleSubmit(evt) { 
@@ -105,8 +132,8 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       <AccountPersonalDetails
         userData={userData}
         onChange={handleChange}
-        onFieldChange={handleFieldChange}
-        onCheckedChange={handleCheckedChange}
+        onFieldChange={handleRoleDataChange}
+        onCheckedChange={handleRoleDataChange}
         onSubmit={handleSubmit}
         successMessage={successMessage}
         error={error} 

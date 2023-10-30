@@ -18,42 +18,33 @@ function AccountProfileDetails({user, setUser, showButton}) {
         error:'' 
     })  
   };
-  
-  function handleFieldChange(evt) { // handles field changes to nanny / parent 
-    let updatedUser; 
 
-    if (userData.role === 'parent') {
-      updatedUser = {
-        ...userData.parent,
-        [evt.target.name]: evt.target.value
-      };
-    } else if (userData.role === 'nanny') { 
-      updatedUser = {
-        ...userData.nanny,
-        [evt.target.name]: evt.target.value
-      };
-    } 
+  function handleRoleDataChange(evt) {
+    const target = evt.target;
+    let updatedUser;
   
-    setUserData({
-      ...userData,
-      [userData.role]: updatedUser,
-      error: ''
-    });
-  };
-
-  function handleCheckedChange(evt) { // handles nanny checkboxes 
-    const updatedUser = {
-      ...userData.nanny,
-      [evt.target.name]: evt.target.checked
-    };
-    
-    setUserData({
-      ...userData,
-      nanny: updatedUser,
-      error: ''
-    });
-  };
+    if (userData.role === 'nanny') {
+      updatedUser = {
+        ...userData,
+        nanny: {
+          ...userData.nanny,
+          [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+        },
+        error: '',
+      };
+    } else if (userData.role === 'parent') {
+      updatedUser = {
+        ...userData,
+        parent: {
+          ...userData.parent,
+          [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+        },
+        error: '',
+      };
+    }
   
+    setUserData(updatedUser);
+  }
 
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
@@ -74,8 +65,7 @@ function AccountProfileDetails({user, setUser, showButton}) {
     <AccountPersonalDetails
       userData={userData}
       onChange={handleChange}
-      onFieldChange={handleFieldChange}
-      onCheckedChange={handleCheckedChange}
+      onRoleChange={handleRoleDataChange}
       onSubmit={handleSubmit}
       successMessage={successMessage}
       error={error}
