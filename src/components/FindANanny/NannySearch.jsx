@@ -25,7 +25,8 @@ function NannySearch({nannies, setNannies, user, booking, setBooking}) {
 
   const orderedDays = searchBookingAvailability(bookingData);
 
-  console.log(nannies)
+  console.log('this is nannies', nannies)
+  console.log('this is booking data', bookingData)
 
   function handleCheckedChange(evt) {
     // handles availability checkboxes
@@ -40,15 +41,16 @@ function NannySearch({nannies, setNannies, user, booking, setBooking}) {
     async function handleSubmit(evt) {
       evt.preventDefault();
       try {
-        // Filter your nanny data based on the bookingData object
+        // Filter nanny data based on the bookingData object
+        const selectedDays = Object.keys(bookingData).filter((key) => key.includes('day'));
         const filteredNannies = nannies.filter((nanny) => {
-          // Check if nanny is available on all selected days
-          return Object.keys(bookingData).every((day) => bookingData[day] && nanny.weeklyAvailability[day]);
+          // Check if nanny is available on at least one selected day eg true in bookingData & nanny info
+          return selectedDays.some((day) => bookingData[day] && nanny.weeklyAvailability[day]);
         });
     
         // Do something with the filtered nannies
-        console.log(filteredNannies);
-        setNannies(filteredNannies);
+        console.log('this is filteredNannies', filteredNannies);
+        setNanniesForSearchFilter(filteredNannies);
       } catch {
         setError('Update failed - please try again');
       }
