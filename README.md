@@ -1,6 +1,12 @@
 # Mayday MuM
 
-To see the deployed site: https://mayday-mum-adf0c5504124.herokuapp.com/
+<div align="center">
+
+  <img src="./public/homepage.png" width="700" height="400">
+
+</div>
+
+To see the deployed site: https://maydaymum.staceyfanner.com/
 
 <div align="center">
 
@@ -30,6 +36,7 @@ Join our Mayday Mum family today, and let us make your nights more peaceful and 
 - I want to be able to read my profile
 - I want to edit my profile
 - I want to see a list of all nannies to see their profile information and availability 
+- I want to book my chosen nanny
 
 ## Features
 - Log in 
@@ -38,6 +45,7 @@ Join our Mayday Mum family today, and let us make your nights more peaceful and 
 - View a list the available nannies
 - View/add/update a profile
 - Enable different views based on user's logged in status
+- Book a nanny
 </div>
 
 <div align="left">
@@ -53,7 +61,10 @@ ERD
 - user to nanny
 <br>
 1:M
- nanny to availability 
+- parent to booking
+<br>
+1:M
+- nanny to availability   
 </div>
 
 
@@ -61,7 +72,10 @@ ERD
 
 <div align="left">
 
-## Data Screengrabs
+## Screengrabs
+| Logon View                                                                     | Sign Up View                                                                                    | Account View - Parent                                                                       | Find a nanny view                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| <img src="./public/logon.png" title="Logon page"> | <img src="./public/signup.png" title="Sign up page" /> | <img src="./public/account_page.png" title="Account view page" /> | <img src="./public/nanny.png" title="Find a nanny page" /> |
 
 <div align="left">
 
