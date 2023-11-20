@@ -5,7 +5,6 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextF
 
 function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, showButton, successMessage, error }) {
   return (
-    <>
     <form
       autoComplete="off"
       noValidate
@@ -121,7 +120,6 @@ function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, sh
         </CardActions>
       </Card>
     </form>
-    </>
 )};
 
 export default AccountPersonalDetails

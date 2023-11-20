@@ -14,7 +14,6 @@ function AccountPage({ user, setUser }) {
   const [showButton, setShowButton] = useState(true);
   
   return (
-    <>
       <Box
         component="main"
         sx={{
@@ -69,7 +68,6 @@ function AccountPage({ user, setUser }) {
           </Stack>
         </Container>
       </Box>
-    </>
   );
 }
 

@@ -52,7 +52,6 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
     }
 
     return (
-      <>
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Card>
             <CardHeader subheader={`Search for nannies based on:`} style={{ textAlign: 'left' }} />
@@ -93,7 +92,6 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
             </CardActions>
           </Card>
         </form>
-      </>
     );
   }
 

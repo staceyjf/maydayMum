@@ -11,7 +11,6 @@ import BookingForm from '../../components/Bookings/BookingForm';
 function BookingsPage({ user, setUser, booking, setBooking }) {
 
    return (
-      <>
         <Box
           component="main"
           sx={{
@@ -51,7 +50,6 @@ function BookingsPage({ user, setUser, booking, setBooking }) {
             </Stack>
           </Container>
         </Box>
-      </>
     );
   }
    

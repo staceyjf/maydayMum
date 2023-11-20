@@ -55,7 +55,6 @@ function AccountAvailability({ user, setUser }) {
   }
 
   return (
-    <>
       <Box mt={2}>
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Card>
@@ -97,7 +96,6 @@ function AccountAvailability({ user, setUser }) {
           </Card>
         </form>
       </Box>
-    </>
   );
 }
 

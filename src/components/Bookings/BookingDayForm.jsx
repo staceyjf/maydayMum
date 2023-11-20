@@ -8,7 +8,6 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
 
@@ -19,7 +18,6 @@ function BookingDayForm({ bookingData, onChange, onSubmit }) {
   console.log('this is bookingData:', bookingData)
 
   return (
-    <>
     <form autoComplete="off" noValidate onSubmit={onSubmit}>
       <Card>
       <CardHeader subheader={`Please select which night/s you would like to book ${bookingData.nanny.fullName} for:`} 
@@ -53,7 +51,6 @@ function BookingDayForm({ bookingData, onChange, onSubmit }) {
   </CardContent>
   </ Card>
 </form>
-</>
 );
 }
 
