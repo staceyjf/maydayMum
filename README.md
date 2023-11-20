@@ -52,7 +52,6 @@ Join our Mayday Mum family today, and let us make your nights more peaceful and 
 
 ## Data Relationship
 <div align="center">
-ERD 
 <!-- <br>
 <img src="./public/images/datav2.png" width="400" height="400">
 <br> -->

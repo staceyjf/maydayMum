@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
 function AccountProfile({user}) {

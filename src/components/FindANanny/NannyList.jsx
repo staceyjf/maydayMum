@@ -7,7 +7,8 @@ function NannyList({ nanniesForSearchFilter, user, setBooking}) {
     <>
   {    nanniesForSearchFilter.map((n, idx) => (
         <Box 
-          key={idx}
+        // TODO: change key to something else perhaps .id of the doc
+          key={idx} 
           sx={{
             marginBottom: 2.5
           }}

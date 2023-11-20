@@ -1,4 +1,3 @@
-// const jwt = require("jsonwebtoken");
 const userModel = require("../../models/user");
 const User = userModel.User; // User alias
 const Nanny = require("../../models/nanny");
