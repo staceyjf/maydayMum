@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { updateToken } from '../../utilities/users-service';
+import { updateBooking } from '../../utilities/team-api';
 import AccountPersonalDetails from '../Account/AccountFormCustom/AccountPersonalDetails';
 import BookedNannyDetails from '../Bookings/BookedNannyDetails';
 import BookingDayForm from '../Bookings/BookingDayForm';
 
 function BookingForm({ user, setUser, booking, setBooking }) {
-  const [userData, setUserData] = useState({...user});
+  const [userData, setUserData] = useState({ ...user });
   const [bookingData, setBookingData] = useState({ ...booking });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   function handleChange(evt, data = 'userData') {
-    console.log(evt.target.name)
     if (data === 'userData') {
       setUserData({
         ...userData,
@@ -19,7 +19,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         error: '',
       });
     } else if (data === 'bookingData') {
-      setBookingData((prevBookingData) => { // new state depends on the old state
+      setBookingData((prevBookingData) => {
         const updatedBookingData = {
           ...prevBookingData,
           [evt.target.name]: evt.target.checked,
@@ -29,11 +29,11 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       });
     }
   }
-  
+
   function handleRoleDataChange(evt) {
     const target = evt.target;
     let updatedUser;
-  
+
     if (userData.role === 'nanny') {
       updatedUser = {
         ...userData,
@@ -53,48 +53,57 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         error: '',
       };
     }
-  
+
     setUserData(updatedUser);
   }
 
-  async function handleSubmit(evt) { 
-    evt.preventDefault(); 
-    try { 
-      const userUpdate = await updateToken(userData);
-      console.log(userUpdate);
-      setUser(userUpdate); 
-      setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-      setTimeout(() => {   // Clear the success message
-        setSuccessMessage('');
-      }, 3000); 
-    } catch { 
-      setError('Update failed - please try again'); 
-    } 
-  };
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    console.log('this is userData', userData)
+    console.log('this is bookingData', bookingData)
+    try {
+        const hasChanges = Object.keys(userData).some(
+          (key) => userData[key] !== user[key]
+        );
 
+        if (hasChanges) {
+          const updateUser = await updateToken(userData);
+          setUser(updateUser);
+          setSuccessMessage('User details updated');
+        } 
+        
+      const updatedBooking = await updateBooking(bookingData);
+      setBooking(updatedBooking);
+      setSuccessMessage('Booking successful');
+
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    } catch (error) {
+        setError('Booking failed - please try again');
+    }
+  }
 
   return (
     <>
-    {/* the parent */}
+      {/* the parent */}
       <AccountPersonalDetails
         userData={userData}
         onChange={handleChange}
         onRoleChange={handleRoleDataChange}
         onSubmit={handleSubmit}
         successMessage={successMessage}
-        error={error} 
+        error={error}
       />
-    {/* the booked nanny */}
-      <BookedNannyDetails
-        userData={booking.nanny}
-      />
-    {/* the booked nanny */}
+      {/* the booked nanny */}
+      <BookedNannyDetails userData={booking.nanny} />
+      {/* the booked nanny */}
       <BookingDayForm
         bookingData={bookingData}
         onChange={handleChange}
         onSubmit={handleSubmit}
         successMessage={successMessage}
-        error={error} 
+        error={error}
       />
     </>
   );

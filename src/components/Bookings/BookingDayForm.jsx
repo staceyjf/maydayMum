@@ -18,7 +18,6 @@ import {
 function BookingDayForm({ bookingData, onChange, onSubmit, successMessage, error }) {
 
   const orderedDays = orderedAvailability(bookingData);
-  console.log('this is orderedDays:', orderedDays)
   console.log('this is bookingData:', bookingData)
 
   return (

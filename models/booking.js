@@ -41,4 +41,11 @@ bookingSchema.methods.addNannyToBooking = async function (nanny) {
     return booking;
   };
 
+// finalises booking
+bookingSchema.methods.updateBooking = async function (bookingData) {
+    const booking = this; // binds it to the booking doc
+    await booking.save();
+    return booking;
+  };
+
 module.exports = mongoose.model('Booking', bookingSchema);

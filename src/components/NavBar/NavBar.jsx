@@ -21,7 +21,7 @@ import LogoSmall from './LogoSmall';
 function NavBar({ user, setUser }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const pages = ['FIND A NANNY', 'BOOKING'];
+  const pages = ['FIND A NANNY'];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

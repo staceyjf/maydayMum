@@ -12,6 +12,7 @@ module.exports = {
   getAllNannies,
   booking,
   addNanny,
+  updateBooking
 };
 
 // get all nanny profiles
@@ -36,6 +37,23 @@ async function addNanny(req, res) {
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
   // add nanny to the booking
   let updatedBooking = await booking.addNannyToBooking(req.body._id); 
+
+  // Populate 'nanny' first
+  await updatedBooking.populate('user nanny');
+
+  // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
+  await updatedBooking.populate('nanny.weeklyAvailability');
+
+
+  console.log('addNanny to booking is sending back this', updatedBooking);
+  res.json(updatedBooking);
+}
+
+// add selected nanny to parent booking doc
+async function updateBooking(req, res) {
+  const booking = await Booking.getBooking(req.user._id); // get the booking doc 
+  // add nanny to the booking
+  let updatedBooking = await booking.updateBooking(req.body); 
 
   // Populate 'nanny' first
   await updatedBooking.populate('user nanny');
