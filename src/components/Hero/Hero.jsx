@@ -1,26 +1,30 @@
-import { Box, Grid, Typography } from '@mui/material';
-import styles from './Hero.module.css'; // bring in specific styling to hero
+import { Grid, Typography } from '@mui/material';
+import aboutUsImg from './aboutUsImg.jpg'
 
 function Hero() {
   return (
-    <Box className={styles.heroBox}>
-      <Grid
-        container
+    <Grid container component="main" sx={{ height: '100vh', overflow: 'hidden', }}>
+      {/* Background image Grid */}
+      <Grid item
+        xs={12}
         sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(12, 1fr)',
-          gridTemplateRows: 'repeat(12, 1fr)',
-          height: '100vh',
+          backgroundImage: `url(${aboutUsImg})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative', // Set position to relative
+       
         }}
-      >
-        <Grid
-          item
+      />
+      {/* Text Grid */}
+      <Grid container item 
+          xs={4}
           sx={{
+            position: 'absolute', 
+            top: '30%', // Align the top edge to the middle
+            right: 0, 
             backgroundColor: 'secondary.main',
             padding: '30px',
-            display: { xs: 'none', md: 'grid' },
-            gridRow: '3 / span 4',
-            gridColumn: '8 / span 5',
           }}
         >
           <Typography variant="h6" sx={{
@@ -53,48 +57,7 @@ function Hero() {
             dedicated support, so you can rest easy knowing your little ones are in caring hands.
           </Typography>
         </Grid>
-        <Grid
-          item
-          sx={{
-            backgroundColor: 'secondary.main',
-            padding: '30px',
-            display: { xs: 'grid', md: 'none' },
-            gridRow: '5',
-            gridColumn: '2 / span 10',
-          }}
-        >
-          <Typography variant="h6" sx={{
-            textTransform: 'uppercase',
-            color: 'white',
-            textAlign: 'start',
-          }}>
-            Trusted childcare
-          </Typography>
-          <Typography variant="h4" sx={{
-            textTransform: 'uppercase',
-            textAlign: 'start',
-            fontSize: '3vmax',
-            color: 'black',
-            fontWeight: 'bold',
-            paddingTop: '5px',
-          }}>
-            Connect with top overnight nannies in the Northern Beaches.
-          </Typography>
-          <Typography variant="body1" sx={{
-            textAlign: 'justify',
-            color: 'white',
-            opacity: 0.5,
-            paddingTop: '15px',
-          }}>
-            Welcome to Mayday Mum. <br />
-            We understand that every parent needs a helping hand,
-            especially during those long nights. <br />
-            Our fixed nightly fee covers a full 12 hours of
-            dedicated support, so you can rest easy knowing your little ones are in caring hands.
-          </Typography>
-        </Grid>
       </Grid>
-    </Box>
   );
 }
 

@@ -7,7 +7,6 @@ import FindANannyPage from '../FindANannyPage/FindANannyPage';
 import BookingsPage from '../BookingsPage/BookingsPage';
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
-import './App.css';
 
 function App() {
   const [user, setUser] = useState({});
