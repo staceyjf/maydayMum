@@ -1,17 +1,21 @@
 import { orderedAvailability } from '../../utilities/booking-utils';
 import {
   Box,
+  Button,
   Card,
   CardContent,
+  CardActions,
   CardHeader,
   Checkbox,
+  Divider,
   FormControl,
   FormControlLabel,
   FormGroup,
+  Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
 
-function BookingDayForm({ bookingData, onChange, onSubmit }) {
+function BookingDayForm({ bookingData, onChange, onSubmit, successMessage, error }) {
 
   const orderedDays = orderedAvailability(bookingData);
   console.log('this is orderedDays:', orderedDays)
@@ -49,6 +53,16 @@ function BookingDayForm({ bookingData, onChange, onSubmit }) {
     </Grid>
   </Box>
   </CardContent>
+    <Divider />
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <Typography variant="h6">
+        {successMessage}
+        {error}
+        </Typography>
+          <Button type="submit" variant="contained">
+            Book
+          </Button>
+      </CardActions>
   </ Card>
 </form>
 );

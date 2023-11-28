@@ -19,7 +19,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         error: '',
       });
     } else if (data === 'bookingData') {
-      setBookingData((prevBookingData) => { // trying out functional form of the state update function
+      setBookingData((prevBookingData) => { // new state depends on the old state
         const updatedBookingData = {
           ...prevBookingData,
           [evt.target.name]: evt.target.checked,
@@ -79,8 +79,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       <AccountPersonalDetails
         userData={userData}
         onChange={handleChange}
-        onFieldChange={handleRoleDataChange}
-        onCheckedChange={handleRoleDataChange}
+        onRoleChange={handleRoleDataChange}
         onSubmit={handleSubmit}
         successMessage={successMessage}
         error={error} 
@@ -94,6 +93,8 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         bookingData={bookingData}
         onChange={handleChange}
         onSubmit={handleSubmit}
+        successMessage={successMessage}
+        error={error} 
       />
     </>
   );
