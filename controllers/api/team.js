@@ -36,14 +36,10 @@ async function booking(req, res) {
 async function addNanny(req, res) {
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
   // add nanny to the booking
-  let updatedBooking = await booking.addNannyToBooking(req.body._id); 
-
-  // Populate 'nanny' first
-  await updatedBooking.populate('user nanny');
+  let updatedBooking = await booking.addNannyToBooking(req.body._id).populate('user nanny') // Populate 'nanny' first
 
   // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
   await updatedBooking.populate('nanny.weeklyAvailability');
-
 
   console.log('addNanny to booking is sending back this', updatedBooking);
   res.json(updatedBooking);
@@ -51,18 +47,22 @@ async function addNanny(req, res) {
 
 // add selected nanny to parent booking doc
 async function updateBooking(req, res) {
-  const booking = await Booking.findById(req.body._id);
+  try {
+    const updatedBooking = await Booking.findOneAndUpdate(
+      { _id: req.body._id }, // Assuming req.body._id contains the booking ID
+      { $set: req.body },
+      {returnDocument: 'after'}
+    ).populate('user nanny')
 
-  // add updated details to the booking form 
-  const updatedBooking = await booking.updateBooking(req.body); 
-
-  // Populate 'nanny' first
-  await updatedBooking.populate('user nanny');
-
-  // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
+    // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
   await updatedBooking.populate('nanny.weeklyAvailability');
-
-
-  console.log('updatedBooking to booking is sending back this', updatedBooking);
-  res.json(updatedBooking);
+  
+    console.log('updatedBooking to booking is sending back this', updatedBooking);
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error('Error updating booking:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
+
+
