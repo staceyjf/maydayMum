@@ -8,6 +8,7 @@ import {
 import BookingForm from '../../components/Bookings/BookingForm';
 
 function BookingsPage({ user, setUser, booking, setBooking }) {
+  
 
    return (
         <Box

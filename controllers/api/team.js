@@ -26,10 +26,10 @@ async function getAllNannies(req, res) {
 
 // create / get booking doc
 async function booking(req, res) {
-  const newBooking = await Booking.create({});
+  const booking = await Booking.getBooking(req.user._id); // get the booking doc 
 
-  console.log('booking is sending back this', newBooking);
-  res.json(newBooking);
+  console.log('booking is sending back this', booking);
+  res.json(booking);
 }
 
 // add selected nanny to parent booking doc
@@ -51,9 +51,10 @@ async function addNanny(req, res) {
 
 // add selected nanny to parent booking doc
 async function updateBooking(req, res) {
-  const booking = await Booking.getBooking(req.user._id); // get the booking doc 
-  // add nanny to the booking
-  let updatedBooking = await booking.updateBooking(req.body); 
+  const booking = await Booking.findById(req.body._id);
+
+  // add updated details to the booking form 
+  const updatedBooking = await booking.updateBooking(req.body); 
 
   // Populate 'nanny' first
   await updatedBooking.populate('user nanny');
@@ -62,6 +63,6 @@ async function updateBooking(req, res) {
   await updatedBooking.populate('nanny.weeklyAvailability');
 
 
-  console.log('addNanny to booking is sending back this', updatedBooking);
+  console.log('updatedBooking to booking is sending back this', updatedBooking);
   res.json(updatedBooking);
 }

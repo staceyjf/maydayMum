@@ -43,8 +43,19 @@ bookingSchema.methods.addNannyToBooking = async function (nanny) {
 
 // finalises booking
 bookingSchema.methods.updateBooking = async function (bookingData) {
+  console.log('this is bookingdata inside the updatebooking function', bookingData)
     const booking = this; // binds it to the booking doc
-    await booking.save();
+
+    // looking for changes in the key[values]
+  Object.keys(bookingData).forEach((key) => {
+    // if the values differ update them
+    if (bookingData[key] !== booking[key]) {
+      //update value
+      booking[key] = bookingData[key];
+    }
+  })
+
+    await booking.save(); // save the booking
     return booking;
   };
 

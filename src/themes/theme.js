@@ -27,6 +27,7 @@ let outerTheme = (mode) =>
         styleOverrides: {
           root: {
             color: 'rgba(0,0,0,0.6)',
+            textAlign: 'center', 
           },
         },
       },

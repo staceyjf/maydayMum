@@ -19,6 +19,8 @@ function NannyProfilePage({ user, booking, setBooking }) {
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
+  console.log('this is  booking', booking)
+
   useEffect(() => {
     async function fetchAllNannies() {
       try {
@@ -31,22 +33,26 @@ function NannyProfilePage({ user, booking, setBooking }) {
       }
     }
   
+    async function getBooking() {
+      try {
+        const userBooking = await teamAPI.createBooking();
+        setBooking(userBooking);
+      } catch (error) {
+        console.error("Error with getting booking data", error);
+      }
+    }
+  
     if (!user) {
       navigate('/users/log-in');
     } else {
-      async function getBooking() {
-        try {
-          const userBooking = await teamAPI.createBooking();
-          setBooking(userBooking);
-        } catch (error) {
-          console.error("Error with getting booking data", error);
-        }
-      }
-  
+        // Retrieve the booking data 
+        getBooking();
+      // Fetch all nannies regardless of whether the booking exists or not
       fetchAllNannies();
-      getBooking();
     }
-  }, []);
+  
+  }, [user, navigate]);
+  
 
   return (
     <>
