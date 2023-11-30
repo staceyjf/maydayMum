@@ -35,6 +35,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
   
     async function getBooking() {
       try {
+        console.log('this is user in getBooking', user)
         const userBooking = await teamAPI.createBooking();
         setBooking(userBooking);
       } catch (error) {

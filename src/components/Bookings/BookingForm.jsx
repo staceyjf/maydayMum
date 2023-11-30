@@ -75,12 +75,18 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       const updatedBooking = await updateBooking(bookingData);
       setBooking(updatedBooking);
       setSuccessMessage('Booking successful');
+      
 
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
     } catch (error) {
         setError('Booking failed - please try again');
+
+          // Clear error message after 3 seconds
+    setTimeout(() => {
+      setError('');
+    }, 3000);
     }
   }
 

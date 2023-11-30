@@ -1,12 +1,12 @@
 const userModel = require("../../models/user");
 const User = userModel.User; // User alias
 const Booking = require("../../models/booking");
+const Availability = require("../../models/availability");
 const Nanny = require("../../models/nanny");
 const Parent = require("../../models/parent");
 const bcrypt = require('bcrypt');
-const user = require("../../models/user");
 const mongoose = require('mongoose');
-
+const { Key } = require("@mui/icons-material");
 
 module.exports = {
   getAllNannies,
@@ -26,6 +26,7 @@ async function getAllNannies(req, res) {
 
 // create / get booking doc
 async function booking(req, res) {
+  console.log('this is req.user', req.user)
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
 
   console.log('booking is sending back this', booking);
@@ -36,7 +37,9 @@ async function booking(req, res) {
 async function addNanny(req, res) {
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
   // add nanny to the booking
-  let updatedBooking = await booking.addNannyToBooking(req.body._id).populate('user nanny') // Populate 'nanny' first
+  let updatedBooking = await booking.addNannyToBooking(req.body._id)
+  
+  await updatedBooking.populate('user nanny') // Populate 'nanny' first
 
   // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
   await updatedBooking.populate('nanny.weeklyAvailability');
@@ -45,18 +48,51 @@ async function addNanny(req, res) {
   res.json(updatedBooking);
 }
 
-// add selected nanny to parent booking doc
+// finalise the booking
 async function updateBooking(req, res) {
   try {
-    const updatedBooking = await Booking.findOneAndUpdate(
-      { _id: req.body._id }, // Assuming req.body._id contains the booking ID
-      { $set: req.body },
+    // add booking doc to the bookings array in User Model
+    await User.findOneAndUpdate(
+      { _id: req.user._id }, 
+      {
+        $push: { bookings: req.body._id }, // Add booking ID to the bookings array
+      },
       {returnDocument: 'after'}
-    ).populate('user nanny')
+    )
+
+    // find the days truthy days from our bookingData object and produce an object containing the days to update 
+    const selectedDays = Object.keys(req.body).reduce((acc, key) => {
+      if (key.includes('day') && req.body[key]) { // filter out the non-day keys and look for truthy values for the days that are booked
+        acc[key] = false; // changing it to falsy so it removes that day out of availability with 
+      }
+      return acc;
+    }, {})
+
+    // Update Nanny's availability to ensure she can't be double booked 
+    await Availability.findOneAndUpdate(
+      { _id: req.body.nanny.weeklyAvailability._id }, 
+      { $set: selectedDays }, // updates the fields based on the selectedDay Object 
+      {returnDocument: 'after'}
+    )
+    
+    // update the booking model
+    const updatedBooking = await Booking.findOneAndUpdate(
+      { _id: req.body._id }, 
+      { 
+        $set: {
+          ...req.body,        //  update other relevant fields
+          isPaid: true        // change to pay
+        }
+      },
+      { returnDocument: 'after' }
+    ).populate('user nanny');
 
     // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
-  await updatedBooking.populate('nanny.weeklyAvailability');
+    await updatedBooking.populate('nanny.weeklyAvailability');
   
+    // Save the updated booking with modified nanny availability
+    await updatedBooking.save();
+
     console.log('updatedBooking to booking is sending back this', updatedBooking);
     res.json(updatedBooking);
   } catch (error) {
@@ -64,5 +100,3 @@ async function updateBooking(req, res) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-
-
