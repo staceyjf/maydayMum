@@ -12,6 +12,8 @@ import AccountAvailability from '../../components/Account/AccountFormCustom/Acco
 
 function AccountPage({ user, setUser }) {
   const [showButton, setShowButton] = useState(true);
+
+  console.log(user)
   
   return (
       <Box

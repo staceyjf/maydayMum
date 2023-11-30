@@ -19,8 +19,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
-  console.log('this is  booking', booking)
-
   useEffect(() => {
     async function fetchAllNannies() {
       try {
@@ -35,7 +33,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
   
     async function getBooking() {
       try {
-        console.log('this is user in getBooking', user)
         const userBooking = await teamAPI.createBooking();
         setBooking(userBooking);
       } catch (error) {

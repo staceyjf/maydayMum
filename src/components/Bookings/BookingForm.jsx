@@ -5,6 +5,7 @@ import { updateBooking } from '../../utilities/team-api';
 import AccountPersonalDetails from '../Account/AccountFormCustom/AccountPersonalDetails';
 import BookedNannyDetails from '../Bookings/BookedNannyDetails';
 import BookingDayForm from '../Bookings/BookingDayForm';
+import { set } from 'mongoose';
 
 function BookingForm({ user, setUser, booking, setBooking }) {
   const [userData, setUserData] = useState({ ...user });
@@ -61,8 +62,6 @@ function BookingForm({ user, setUser, booking, setBooking }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    console.log('this is userData', userData)
-    console.log('this is bookingData', bookingData)
     try {
         const hasChanges = Object.keys(userData).some(
           (key) => userData[key] !== user[key]
@@ -76,6 +75,8 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         
       const updatedBooking = await updateBooking(bookingData);
       setBooking(updatedBooking);
+      console.log('this is updated booking on the booking form page', updatedBooking)
+      setUser(updatedBooking.user)
       setSuccessMessage('Booking successful');
       navigate('/accounts/account-profile')
 
@@ -105,7 +106,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       />
       {/* the booked nanny */}
       <BookedNannyDetails userData={booking.nanny} />
-      {/* the booked nanny */}
+      {/* the booking days */}
       <BookingDayForm
         bookingData={bookingData}
         onChange={handleChange}

@@ -42,9 +42,6 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
           // Check if nanny is available on at least one selected day eg true in bookingData & nanny info
           return selectedDays.some((day) => bookingData[day] && nanny.weeklyAvailability[day]);
         });
-    
-        // Do something with the filtered nannies
-        console.log('this is filteredNannies', filteredNannies);
         setNanniesForSearchFilter(filteredNannies);
       } catch {
         setError('Update failed - please try again');

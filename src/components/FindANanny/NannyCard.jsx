@@ -25,7 +25,6 @@ function NannyCard({ nanny, user, setBooking }) {
   async function handleAddToBooking(evt, nanny) { 
       evt.preventDefault();  
       try { 
-        console.log('this is user', user, 'this is nanny', nanny);
         const addBooking = await addNannyToBooking(nanny); // passing the desired nanny
         setBooking(addBooking);
         navigate('/team/booking');
