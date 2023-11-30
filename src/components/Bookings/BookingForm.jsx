@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { updateToken } from '../../utilities/users-service';
 import { updateBooking } from '../../utilities/team-api';
 import AccountPersonalDetails from '../Account/AccountFormCustom/AccountPersonalDetails';
@@ -10,6 +11,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
   const [bookingData, setBookingData] = useState({ ...booking });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   function handleChange(evt, data = 'userData') {
     if (data === 'userData') {
@@ -75,7 +77,7 @@ function BookingForm({ user, setUser, booking, setBooking }) {
       const updatedBooking = await updateBooking(bookingData);
       setBooking(updatedBooking);
       setSuccessMessage('Booking successful');
-      
+      navigate('/accounts/account-profile')
 
       setTimeout(() => {
         setSuccessMessage('');
