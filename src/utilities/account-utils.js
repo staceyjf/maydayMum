@@ -12,3 +12,9 @@ function uploadImage(image) {
     .catch(err => console.log(err))
   }
 
+// Function to get booked days from a booking object
+export function getBookedDays(booking) {
+    return Object.entries(booking)
+      .filter(([day, isBooked]) => isBooked && day !== 'id' && day !== '_id')
+      .map(([day]) => day);
+  }

@@ -8,9 +8,7 @@ function AccountProfileDetails({user, setUser, showButton}) {
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
-
-  // console.log('this is user in account', user)
-  
+    
   function handleChange(evt) { 
     setUserData({ 
         ...userData, 

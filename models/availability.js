@@ -10,6 +10,6 @@ const availabilitySchema = new Schema({
     Friday: { type: Boolean, default: true },
     Saturday: { type: Boolean, default: true },
     Sunday: { type: Boolean, default: true }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Availability', availabilitySchema);

@@ -75,8 +75,9 @@ function BookingForm({ user, setUser, booking, setBooking }) {
         
       const updatedBooking = await updateBooking(bookingData);
       setBooking(updatedBooking);
-      console.log('this is updated booking on the booking form page', updatedBooking)
-      setUser(updatedBooking.user)
+      // const userUpdate = await updateToken(updatedBooking.user);
+      // console.log('this is the user post updating the token', userUpdate);
+      setUser(updatedBooking);
       setSuccessMessage('Booking successful');
       navigate('/accounts/account-profile')
 

@@ -11,12 +11,8 @@ function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, sh
       onSubmit={onSubmit}
     >
       <Card>
-        {/* <CardHeader
-          title="My details"
-        /> */}
         <CardHeader
           subheader="Personal Details"
-          style={{ textAlign: 'left' }}
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>

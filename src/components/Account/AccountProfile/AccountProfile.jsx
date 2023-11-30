@@ -17,32 +17,6 @@ function AccountProfile({user}) {
   //   .catch(err => console.log(err))
   // }
 
-  // async function handleSubmit(evt) {
-  //   try {
-  //       await uploadImage(image).then((data) => {
-  //           // newNote.image = data.url;
-  //       });
-  //       setImage('');
-  //   } catch (err) {
-  //       console.log(err);
-  //   }
-  //   // addNote(newNote);
-  //   // console.log(newNote)
-  //   // navigate("/notes")
-  // }
-
-  // async function handleNannySubmit(evt) { 
-  //   evt.preventDefault(); 
-  //   try { 
-  //     const user = await updateNannyProfile(userData);
-  //     setFullUserProfile(user);
-  //     console.log('this is the value of user post the server call', user)
-  //     setSuccessMessage('Details successfully saved. '); // Updating the user that their details have been saved
-  //   } catch { 
-  //     setError('Update failed - please try again'); 
-  //   } 
-  // };
-
   return (
     <>
     <Card>
