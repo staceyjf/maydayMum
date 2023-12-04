@@ -31,6 +31,10 @@ async function login(req, res) {
                                 .populate('nanny')
                                 .populate('weeklyAvailability')
                                 .populate('bookings');
+
+        // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
+        await user.populate('bookings.nanny');
+                              
         if (!user) throw new Error(); 
         
         // compare the passwords via bcrypt match()

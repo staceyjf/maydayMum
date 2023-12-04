@@ -7,6 +7,7 @@ function AccountProfileParentEl({ userData, onRoleChange }) {
 
   console.log(userData)
 
+  
   return (
     <>
       <CardHeader
@@ -34,15 +35,16 @@ function AccountProfileParentEl({ userData, onRoleChange }) {
           </Typography>
           <List>
             {userData.bookings.map((booking) => {
+              const bookedDay = getBookedDays(booking)
               return (
                 <ListItem key={booking._id}>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <SquareIcon />
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText 
                     style={{ textAlign: 'left' }}
-                    primary={booking.orderId} 
-                    secondary={booking.orderId} 
+                    primary={"Booking no: " + booking.orderId}
+                    secondary={"Booked nanny: " + booking.nanny.fullName + "  Booked for: " + bookedDay} 
                   />
                 </ListItem>
               );
