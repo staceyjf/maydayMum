@@ -30,17 +30,14 @@ function AccountProfileParentEl({ userData, onRoleChange }) {
       />
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-        <Typography sx={{ ml: 2,  textAlign: 'left' }} variant="h6" component="div">
-            Booking ref
-          </Typography>
           <List>
             {userData.bookings.map((booking) => {
               const bookedDay = getBookedDays(booking)
               return (
                 <ListItem key={booking._id}>
-                  {/* <ListItemIcon>
+                  <ListItemIcon>
                     <SquareIcon />
-                  </ListItemIcon> */}
+                  </ListItemIcon>
                   <ListItemText 
                     style={{ textAlign: 'left' }}
                     primary={"Booking no: " + booking.orderId}

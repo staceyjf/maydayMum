@@ -1,36 +1,36 @@
-import { useState } from 'react'; 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {  
-  Avatar, 
-  Box, 
-  Button, 
-  Card, 
-  CardActions, 
-  CardContent, 
-  CardHeader, 
-  Chip,  
-  Divider, 
-  Stack, 
-  Typography 
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  Divider,
+  Stack,
+  Typography,
 } from '@mui/material';
 import { addNannyToBooking } from '../../utilities/team-api';
 import { filterNannyAvailability } from '../../utilities/booking-utils';
 
 function NannyCard({ nanny, user, setBooking }) {
-  const [error, setError] = useState(''); 
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const nannyAvaibilityFiltered = filterNannyAvailability(nanny)
+  const nannyAvaibilityFiltered = filterNannyAvailability(nanny);
 
-  async function handleAddToBooking(evt, nanny) { 
-      evt.preventDefault();  
-      try { 
-        const addBooking = await addNannyToBooking(nanny); // passing the desired nanny
-        setBooking(addBooking);
-        navigate('/team/booking');
-      } catch { 
-        setError('Update failed - please try again'); 
-      }
+  async function handleAddToBooking(evt, nanny) {
+    evt.preventDefault();
+    try {
+      const addBooking = await addNannyToBooking(nanny); // passing the desired nanny
+      setBooking(addBooking);
+      navigate('/team/booking');
+    } catch {
+      setError('Update failed - please try again');
+    }
   }
 
   return (
@@ -48,15 +48,15 @@ function NannyCard({ nanny, user, setBooking }) {
           />
         }
         sx={{
-          padding: 0
+          padding: 0,
         }}
         title={<Typography variant="h5">{nanny.fullName}</Typography>}
         subheader={
           <>
-            <Typography variant="body2" paragraph>
+            <Typography variant="body2" paragraph sx={{ textAlign: 'center' }}>
               {nanny.nanny.aboutDescription}
             </Typography>
-            <Typography color="text.secondary" variant="body2">
+            <Typography color="text.secondary" variant="body2" sx={{ textAlign: 'center' }}>
               ${`${nanny.nanny.nightRate} per night`}
             </Typography>
           </>
@@ -70,20 +70,16 @@ function NannyCard({ nanny, user, setBooking }) {
             flexDirection: 'column',
           }}
         >
-          <Stack 
-            direction="row" 
-            spacing={1}
-            padding={1}
-          >
+          <Stack direction="row" spacing={1} padding={1}>
             <Chip
-              label='First Aid Certified'
+              label="First Aid Certified"
               color="primary"
               style={{
                 display: nanny.nanny.isFirstAidCertified ? 'inherit' : 'none',
               }}
             />
             <Chip
-              label='WWW Clearance'
+              label="WWW Clearance"
               color="primary"
               style={{
                 display: nanny.nanny.isWccCleared ? 'inherit' : 'none',
@@ -91,13 +87,10 @@ function NannyCard({ nanny, user, setBooking }) {
             />
           </Stack>
           <Stack direction="row" spacing={1}>
-            {nannyAvaibilityFiltered.map((day) => ( // iterate
-                <Chip
-                  label={day}
-                  color="secondary"
-                  key={day}
-                />
-              ))}
+            {nannyAvaibilityFiltered.map((day) => (
+              // iterate
+              <Chip label={day} color="secondary" key={day} />
+            ))}
           </Stack>
         </Box>
       </CardContent>

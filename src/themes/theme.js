@@ -26,8 +26,13 @@ let outerTheme = (mode) =>
       MuiTypography: {
         styleOverrides: {
           root: {
-            color: 'rgba(0,0,0,0.6)',
-            textAlign: 'center', 
+            color: 'rgba(0,0,0,0.6)', 
+          },
+          h3: {
+            textAlign: 'center',
+          },
+          h5: {
+            textAlign: 'center',
           },
         },
       },
@@ -55,7 +60,7 @@ let outerTheme = (mode) =>
       MuiCard: {
         styleOverrides: {
           root: {
-            padding: '10px', 
+            padding: '10px',
           },
         },
       },

@@ -84,6 +84,10 @@ function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, sh
                   value={userData.location}
                 />
               </Grid>
+              <Grid
+                xs={12}
+                md={12}
+              >
               { (userData.role === 'parent')
               ? 
                 < AccountProfileParentEl 
@@ -99,6 +103,7 @@ function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, sh
                 />
                 </>
               }
+               </Grid>
             </Grid>
           </Box>
         </CardContent>
