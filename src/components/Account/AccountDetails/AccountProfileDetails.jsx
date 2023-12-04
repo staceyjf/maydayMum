@@ -20,6 +20,7 @@ function AccountProfileDetails({user, setUser, showButton}) {
   function handleRoleDataChange(evt) {
     const target = evt.target;
     let updatedUser;
+    console.log(userData);
   
     if (userData.role === 'nanny') {
       updatedUser = {

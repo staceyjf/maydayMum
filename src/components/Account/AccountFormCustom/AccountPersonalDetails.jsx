@@ -93,13 +93,13 @@ function AccountPersonalDetails({ userData, onChange, onRoleChange, onSubmit, sh
                 < AccountProfileParentEl 
                   userData={userData} 
                   onRoleChange={onRoleChange}
+                  showButton={showButton} 
                 />
               : 
                 <>
                 < AccountProfileNannyEl 
                   userData={userData} 
-                  handleCheckedChange={onRoleChange} 
-                  handleFieldChange={onRoleChange}
+                  onRoleChange={onRoleChange}
                 />
                 </>
               }

@@ -13,6 +13,8 @@ import AccountAvailability from '../../components/Account/AccountFormCustom/Acco
 function AccountPage({ user, setUser }) {
   const [showButton, setShowButton] = useState(true);
 
+  console.log('this is user post a booking', user)
+
   return (
       <Box
         component="main"

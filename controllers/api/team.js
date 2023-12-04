@@ -2,11 +2,6 @@ const userModel = require("../../models/user");
 const User = userModel.User; // User alias
 const Booking = require("../../models/booking");
 const Availability = require("../../models/availability");
-const Nanny = require("../../models/nanny");
-const Parent = require("../../models/parent");
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
-const { Key } = require("@mui/icons-material");
 
 module.exports = {
   getAllNannies,
@@ -26,7 +21,6 @@ async function getAllNannies(req, res) {
 
 // create / get booking doc
 async function booking(req, res) {
-  console.log('this is req.user', req.user)
   const booking = await Booking.getBooking(req.user._id); // get the booking doc 
 
   console.log('booking is sending back this', booking);
@@ -86,6 +80,12 @@ async function updateBooking(req, res) {
       },
       { returnDocument: 'after' }
     ).populate('user nanny');
+
+    // Now that 'user' is populated, populate 'user.bookings'
+    await updatedBooking.populate('user.bookings');
+
+    // Now that 'user.bookings' is populated, populate 'user.bookings.nanny'
+    await updatedBooking.populate('user.bookings.nanny');
 
     // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
     await updatedBooking.populate('nanny.weeklyAvailability');
