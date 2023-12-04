@@ -32,7 +32,7 @@ let outerTheme = (mode) =>
             textAlign: 'center',
           },
           h5: {
-            textAlign: 'center',
+            textAlign: 'center', //updating universal behaviour
           },
         },
       },
