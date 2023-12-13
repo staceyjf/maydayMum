@@ -46,8 +46,11 @@ async function updateUser(req, res) {
     { $set: req.body }, 
     {returnDocument: 'after'}
   ).populate('parent')
+  .populate('bookings')
   .populate('nanny')
   .populate('weeklyAvailability');
+
+  await updatedUser.populate('bookings.nanny')
 
   const token = createJWT(updatedUser); // send back complete user
 

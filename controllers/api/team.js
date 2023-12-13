@@ -46,7 +46,6 @@ async function addNanny(req, res) {
 async function updateBooking(req, res) {
 
   console.log('req.user before update:', req.user);
-  console.log('req.body before update:', req.body);
 
   try {
     // add booking doc to the bookings array in User Model
