@@ -47,6 +47,8 @@ function AccountProfileDetails({user, setUser, showButton}) {
 
   async function handleSubmit(evt) { 
     evt.preventDefault(); 
+
+    console.log(userData)
     try { 
       const userUpdate = await updateToken(userData);
       console.log(userUpdate);
