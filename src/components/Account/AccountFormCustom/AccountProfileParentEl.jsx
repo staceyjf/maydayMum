@@ -4,6 +4,8 @@ import { getBookedDays } from '../../../utilities/account-utils';
 
 function AccountProfileParentEl({ userData, onRoleChange, showButton }) {
 
+  console.log(userData)
+
   return (
     <>
       <CardHeader

@@ -13,9 +13,7 @@ function App() {
   const [booking, setBooking] = useState({}); 
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation(); // user's current location 
-
-  console.log('this is the user on app.js', user)
-
+  
   // Fetch initial user data
   useEffect(() => {
     async function fetchProfileData() {

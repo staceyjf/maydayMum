@@ -43,7 +43,7 @@ async function updateUser(req, res) {
 
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
-    { $set: req.body },
+    { $set: req.body }, 
     {returnDocument: 'after'}
   ).populate('parent')
   .populate('nanny')

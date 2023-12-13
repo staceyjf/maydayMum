@@ -44,6 +44,10 @@ async function addNanny(req, res) {
 
 // finalise the booking
 async function updateBooking(req, res) {
+
+  console.log('req.user before update:', req.user);
+  console.log('req.body before update:', req.body);
+
   try {
     // add booking doc to the bookings array in User Model
     await User.findOneAndUpdate(
@@ -82,7 +86,7 @@ async function updateBooking(req, res) {
     ).populate('user nanny');
 
     // Now that 'user' is populated, populate 'user.bookings'
-    await updatedBooking.populate('user.bookings');
+    await updatedBooking.populate('user.bookings user.parent');
 
     // Now that 'user.bookings' is populated, populate 'user.bookings.nanny'
     await updatedBooking.populate('user.bookings.nanny');

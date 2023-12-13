@@ -5,21 +5,24 @@ export async function signUp(userData) {
   console.log('Sending userData to server:', userData);
     const token = await usersAPI.signUp(userData);
     localStorage.setItem('token', token);
-    return getUser();
+    const updatedUser = await getUser();
+    return updatedUser;
 }
 
 // save the token in the browsers local storage
 export async function login(credentials) {
   const token = await usersAPI.login(credentials);
   localStorage.setItem('token', token);
-  return getUser();
+  const updatedUser = await getUser();
+  return updatedUser;
 }
 
 // update the token
 export async function updateToken(userData) {
   const token = await accountAPI.updateUser(userData);
   localStorage.setItem('token', token);
-  return getUser();
+  const updatedUser = await getUser();
+  return updatedUser;
 }
 
 export function logOut() {

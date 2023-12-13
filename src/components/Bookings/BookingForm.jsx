@@ -63,22 +63,13 @@ function BookingForm({ user, setUser, booking, setBooking }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-        const hasChanges = Object.keys(userData).some(
-          (key) => userData[key] !== user[key]
-        );
-
-        if (hasChanges) {
-          await updateToken(userData);
-          // setUser(updateUser);
-          // setSuccessMessage('User details updated');
-        } 
-        
       const updatedBooking = await updateBooking(bookingData);
       setBooking(updatedBooking);
-      // const userUpdate = await updateToken(updatedBooking.user);
       console.log('this is updatedBooking', updatedBooking);
-      console.log('this is what is setting user in bookingform', updatedBooking.user);
-      setUser(updatedBooking.user);
+    
+      const userUpdate = await updateToken(updatedBooking.user);
+      console.log('this is what is setting user in bookingform', userUpdate);
+      setUser(userUpdate);
       setSuccessMessage('Booking successful');
       navigate('/accounts/account-profile')
 
