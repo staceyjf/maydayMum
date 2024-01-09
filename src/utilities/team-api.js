@@ -4,7 +4,7 @@ import sendRequest from './send-request'
 const BASE_URL = '/api/team';
 
 export async function getAllNannies() {
-   return sendRequest(`${BASE_URL}/nannies`);
+   return sendRequest (`${BASE_URL}/nannies`);
 }
 
 export async function createBooking() {

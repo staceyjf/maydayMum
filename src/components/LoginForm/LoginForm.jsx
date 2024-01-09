@@ -16,14 +16,15 @@ import loginImg from './loginImg.jpg'
 function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-          Mayday Mum
-        {' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+      <b>Don't fancy signing up - explore a Parent profile with: </b><br />
+      <b>User address:</b> alice@gmail.com <br />
+      <b>Password: </b>1234 <br /><br />
+      {'\nCopyright © Mayday Mum '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 function LoginForm({handleToggle, setUser}) {
   const [credentials, setCredentials] = useState({ 
@@ -139,6 +140,7 @@ function LoginForm({handleToggle, setUser}) {
                   <Link onClick={handleToggle} variant="body2" style={{ cursor: 'pointer' }}>
                     {"Don't have an account? Sign Up"}
                   </Link>
+                  
                 </Grid>
               </Grid>
               <p className="error-message">&nbsp;{error}</p>

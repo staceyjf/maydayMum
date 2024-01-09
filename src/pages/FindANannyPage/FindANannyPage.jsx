@@ -20,6 +20,12 @@ function NannyProfilePage({ user, booking, setBooking }) {
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
 
   useEffect(() => {
+       // Check for user existence
+       if (!user) {
+        navigate('/users/log-in');
+        return; // Exit early if there is no user
+      }
+
     async function fetchAllNannies() {
       try {
         const allNannies = await teamAPI.getAllNannies();
@@ -39,17 +45,11 @@ function NannyProfilePage({ user, booking, setBooking }) {
         console.error("Error with getting booking data", error);
       }
     }
-  
-    if (!user) {
-      navigate('/users/log-in');
-    } else {
-        // Retrieve the booking data 
-        getBooking();
-      // Fetch all nannies regardless of whether the booking exists or not
-      fetchAllNannies();
-    }
-  
-  }, [user, navigate]);
+
+    getBooking();
+    fetchAllNannies();
+    
+  }, [user]);
   
 
   return (

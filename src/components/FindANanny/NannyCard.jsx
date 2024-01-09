@@ -88,21 +88,29 @@ function NannyCard({ nanny, user, setBooking }) {
           </Stack>
           <Stack direction="row" spacing={1}>
             {nannyAvaibilityFiltered.map((day) => (
-              // iterate
-              <Chip label={day} color="secondary" key={day} />
-            ))}
+                // iterate to give the days
+                <Chip label={day} color="secondary" key={day} />
+              ))}
           </Stack>
         </Box>
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: 'flex-end' }}>
+        {nannyAvaibilityFiltered.length !== 0 ? (
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={(evt) => handleAddToBooking(evt, nanny)} // Pass nanny as an argument
+          >
+            BOOK ME
+          </Button>
+        ) : 
         <Button
-          type="submit"
-          variant="contained"
-          onClick={(evt) => handleAddToBooking(evt, nanny)} // Pass nanny as an argument
-        >
-          BOOK ME
-        </Button>
+        variant="text"
+      >
+        All booked up
+      </Button>
+        }
       </CardActions>
     </Card>
   );
