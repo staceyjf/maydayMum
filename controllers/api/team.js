@@ -12,34 +12,55 @@ module.exports = {
 
 // get all nanny profiles
 async function getAllNannies(req, res) {
-  const nannies = await User.find({ role: 'nanny' })
+  try {
+    // define the page specifics
+    // const page = parseInt(req.query.page) || 1; //turn the page query param into a number or defaults to one as a back up
+    // const pageSize = 20;
+
+    const nannies = await User.find({ role: 'nanny' })
+    // .skip((page - 1) * pageSize) // determines what subset of data needs to be returned
+    // .limit(pageSize) //determine the number of results retrieved by page
     .populate('nanny')
     .populate('weeklyAvailability');
   // console.log('getAllNannies is sending back this', nannies);
   res.json(nannies);
-}
+  } catch (error) {
+    console.error("Error fetching nannies", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 
 // create / get booking doc
 async function booking(req, res) {
-  const booking = await Booking.getBooking(req.user._id); // get the booking doc 
+  try {
+    const booking = await Booking.getBooking(req.user._id); // get the booking doc 
 
-  console.log('booking is sending back this', booking);
-  res.json(booking);
+    console.log('booking is sending back this', booking);
+    res.json(booking);
+  } catch (error) {
+    console.error("Error getting booking", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
 
 // add selected nanny to parent booking doc
 async function addNanny(req, res) {
-  const booking = await Booking.getBooking(req.user._id); // get the booking doc 
-  // add nanny to the booking
-  let updatedBooking = await booking.addNannyToBooking(req.body._id)
+  try {
+    const booking = await Booking.getBooking(req.user._id); // get the booking doc 
+    // add nanny to the booking
+    let updatedBooking = await booking.addNannyToBooking(req.body._id)
+    
+    await updatedBooking.populate('user nanny') // Populate 'nanny' first
   
-  await updatedBooking.populate('user nanny') // Populate 'nanny' first
-
-  // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
-  await updatedBooking.populate('nanny.weeklyAvailability');
-
-  console.log('addNanny to booking is sending back this', updatedBooking);
-  res.json(updatedBooking);
+    // Now that 'nanny' is populated, populate 'nanny.weeklyAvailability'
+    await updatedBooking.populate('nanny.weeklyAvailability');
+  
+    console.log('addNanny to booking is sending back this', updatedBooking);
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error("Error getting addNanny", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
 
 // finalise the booking

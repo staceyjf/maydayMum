@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NannyList from '../../components/FindANanny/NannyList';
 import NannySearch from '../../components/FindANanny/NannySearch';
+import PageControls from '../../components/FindANanny/PageControls';
 import { getFormattedDateRange } from '../../utilities/date-utils'; 
 import { 
   Box, 
@@ -15,10 +16,17 @@ import * as teamAPI from '../../utilities/team-api';
 function NannyProfilePage({ user, booking, setBooking }) {
   const navigate = useNavigate();
   const [nannies, setNannies] = useState([]); // all nannies
-  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
+  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies }); // stores the result of user filtering
+  const [paginatedNannies, setPaginatedNannies] = useState([]); // This state will store the paginated subset of nannies
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
+  const [currentPage, setCurrentPage] = useState(1); // holds the current page
+  const itemsPerPage = 10; // controls number per a page
 
+  console.log(nanniesForSearchFilter)
+
+
+  // filter and sort nanny data plus getBooking.
   useEffect(() => {
        // Check for user existence
        if (!user) {
@@ -28,7 +36,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
 
     async function fetchAllNannies() {
       try {
-        const allNannies = await teamAPI.getAllNannies();
+        const allNannies = await teamAPI.getAllNannies(); //send the page as a query param
         setNannies(allNannies);
         setNanniesForSearchFilter(allNannies);
         setIsLoading(false);
@@ -47,10 +55,22 @@ function NannyProfilePage({ user, booking, setBooking }) {
     }
 
     getBooking();
-    fetchAllNannies();
+    fetchAllNannies(); 
     
   }, [user]);
   
+  // handle pagination for nannies
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const slicedNannies = nanniesForSearchFilter.slice(startIndex, endIndex);
+    setPaginatedNannies(slicedNannies);
+  }, [nanniesForSearchFilter, currentPage, itemsPerPage]);
+
+  // Handle page change
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
@@ -88,7 +108,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
                     <NannySearch 
                       nannies={nannies}
                       booking={booking}
-                      setNanniesForSearchFilter={setNanniesForSearchFilter}
+                      setNanniesForSearchFilter={handleSearchResults}
                     />
                   </Grid>
                   <Grid
@@ -97,10 +117,15 @@ function NannyProfilePage({ user, booking, setBooking }) {
                     lg={9}
                   >
                     <NannyList
-                      nanniesForSearchFilter={nanniesForSearchFilter}
+                      nanniesForSearchFilter={paginatedNannies} //update with results limited to pagination logic
                       user={user}
                       setBooking={setBooking}
                     />
+                    <PageControls
+                        currentPage={currentPage}
+                        totalPages={Math.ceil(nanniesForSearchFilter.length / itemsPerPage)}
+                        onPageChange={handlePageChange}
+                      />
                   </Grid>
                 </Grid>
               </div>
