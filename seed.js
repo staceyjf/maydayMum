@@ -1,17 +1,20 @@
 require('dotenv').config();
 require('./config/database');
 
-const User = require('./models/user');
+const userModel = require("./models/user");
+const User = userModel.User; // User alias
 const Nanny = require('./models/nanny');
 const Booking = require('./models/booking');
+const Availability = require("./models/availability");
 
 // IIFE
 // Immediately Invoked Function Expression
 (async function () {
   // Delete existing data if needed
-  // await User.deleteMany({});
-  // await Nanny.deleteMany({});
-  // await Booking.deleteMany({});
+  await User.deleteMany({});
+  await Nanny.deleteMany({});
+  await Booking.deleteMany({});
+  await Availability.deleteMany({});
 
   // Create a function to generate a random phone number
   const generateRandomPhoneNumber = () => {
@@ -53,14 +56,27 @@ const Booking = require('./models/booking');
       isAdmin: false,
     });
 
+    const getRandomBoolean = () => Math.random() < 0.5;
+
     const nanny = await Nanny.create({
       aboutDescription: aboutDescription,
       nightRate: 250 + i * 10, // Adjust nightRate based on the iteration
-      isWccCleared: i % 2 === 0, // Alternate between true and false
-      isFirstAidCertified: i % 3 === 0, // Alternate between true and false
+      isWccCleared: getRandomBoolean(), // Alternate between true and false
+      isFirstAidCertified: getRandomBoolean(), // Alternate between true and false
+    });
+
+    const avalis = await Availability.create({
+      Monday: getRandomBoolean(), // Alternate between true and false, 
+      Tuesday: getRandomBoolean(), // Alternate between true and false, 
+      Wednesday: getRandomBoolean(), // Alternate between true and false,
+      Thursday: getRandomBoolean(), // Alternate between true and false,
+      Friday: getRandomBoolean(), // Alternate between true and false,
+      Saturday: getRandomBoolean(), // Alternate between true and false,
+      Sunday: getRandomBoolean(), // Alternate between true and false
     });
 
     nannyUser.nanny = nanny._id;
+    nannyUser.weeklyAvailability = avalis._id;
     await nannyUser.save();
 
     nannyUsers.push(nannyUser);

@@ -43,6 +43,7 @@ Join our Mayday Mum family today, and let us make your nights more peaceful and 
 - Log out
 - Sign up
 - View a list the available nannies
+- Pagination to mange the number of nannies listed
 - View/add/update a profile
 - Enable different views based on user's logged in status
 - Book a nanny
