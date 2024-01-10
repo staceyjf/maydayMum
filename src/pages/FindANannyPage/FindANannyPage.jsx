@@ -5,6 +5,7 @@ import NannySearch from '../../components/FindANanny/NannySearch';
 import { getFormattedDateRange } from '../../utilities/date-utils'; 
 import { 
   Box, 
+  Button,
   Container, 
   Stack, 
   Typography, 
@@ -15,9 +16,35 @@ import * as teamAPI from '../../utilities/team-api';
 function NannyProfilePage({ user, booking, setBooking }) {
   const navigate = useNavigate();
   const [nannies, setNannies] = useState([]); // all nannies
-  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState({ ...nannies });
+  const [nanniesForSearchFilter, setNanniesForSearchFilter] = useState([{ ...nannies }]);
   const [isLoading, setIsLoading] = useState(true);
   const formattedDateRange = getFormattedDateRange(); // my 'get week range of dates' function
+
+  // deadling with pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalNannies = nanniesForSearchFilter.length
+  const pageSize = 20;
+  const pages = Math.floor(totalNannies / pageSize)
+
+  //Page controls
+  const goToPrev = () => {
+    const prevPage = Math.max(currentPage - 1, 1)
+    setCurrentPage(prevPage)
+  }
+
+  const goToNext = () => {
+    const nextPage = Math.min(currentPage + 1, pages)
+    setCurrentPage(nextPage)
+  }
+
+  const start = pageSize * (currentPage - 1);
+  const end = pageSize * currentPage;
+  const nanniesPerPage = nanniesForSearchFilter.slice(start, end);
+
+  const canGoPrev = currentPage > 1;
+  const canGoNext = currentPage < pages;
+
+  console.log(nanniesPerPage)
 
   useEffect(() => {
        // Check for user existence
@@ -75,6 +102,20 @@ function NannyProfilePage({ user, booking, setBooking }) {
                 Find amazing local nannies from across the Northern Beaches for {formattedDateRange}
                 </Typography>
               </div>
+
+              <Box display="flex" justifyContent="flex-end" alignItems="center">
+                <Button disabled={!canGoPrev} onClick={goToPrev}>
+                  prev
+                </Button>
+                <Typography>
+                  {currentPage} of {pages}
+                </Typography>
+                <Button disabled={!canGoNext} onClick={goToNext}>
+                  next
+                </Button>
+              </Box>
+
+
               <div>
                 <Grid
                   container
@@ -97,7 +138,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
                     lg={9}
                   >
                     <NannyList
-                      nanniesForSearchFilter={nanniesForSearchFilter}
+                      nannies={nanniesPerPage}
                       user={user}
                       setBooking={setBooking}
                     />
