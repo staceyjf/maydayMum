@@ -25,7 +25,6 @@ const generateSecureRandomPhoneNumber = () => {
   return `04814${paddedNumber}`;
 };
 
-
 // Function to generate a secure random boolean
 const getSecureRandomBoolean = () => {
   const randomBit = crypto.randomInt(2); // 0 or 1
