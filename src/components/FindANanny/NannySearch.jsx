@@ -36,6 +36,13 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
     async function handleSubmit(evt) {
       evt.preventDefault();
       try {
+        const noDaysSelected = Object.keys(bookingData).every((key) => !key.includes('day') || !bookingData[key]);
+
+
+        if (noDaysSelected) {
+          // If no days are selected, display all nannies
+          setNanniesForSearchFilter(nannies);
+        } else {
         // Filter nanny data based on the bookingData object
         const selectedDays = Object.keys(bookingData).filter((key) => key.includes('day'));
         const filteredNannies = nannies.filter((nanny) => {
@@ -43,6 +50,7 @@ function NannySearch({nannies, setNanniesForSearchFilter, booking}) {
           return selectedDays.some((day) => bookingData[day] && nanny.weeklyAvailability[day]);
         });
         setNanniesForSearchFilter(filteredNannies);
+       }
       } catch {
         setError('Update failed - please try again');
       }

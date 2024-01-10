@@ -103,17 +103,6 @@ function NannyProfilePage({ user, booking, setBooking }) {
                 </Typography>
               </div>
 
-              <Box display="flex" justifyContent="flex-end" alignItems="center">
-                <Button disabled={!canGoPrev} onClick={goToPrev}>
-                  prev
-                </Button>
-                <Typography>
-                  {currentPage} of {pages}
-                </Typography>
-                <Button disabled={!canGoNext} onClick={goToNext}>
-                  next
-                </Button>
-              </Box>
 
 
               <div>
@@ -147,6 +136,17 @@ function NannyProfilePage({ user, booking, setBooking }) {
               </div>
             </Stack>
           </Container>
+              <Box display="flex" justifyContent="flex-end" alignItems="center">
+                <Button disabled={!canGoPrev} onClick={goToPrev}>
+                  prev
+                </Button>
+                <Typography>
+                {currentPage} of {pages > 0 ? pages : 1}
+                </Typography>
+                <Button disabled={!canGoNext} onClick={goToNext}>
+                  next
+                </Button>
+              </Box>
         </Box>
       )}
     </>
