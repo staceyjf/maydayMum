@@ -23,7 +23,7 @@ function NannyProfilePage({ user, booking, setBooking }) {
   // deadling with pagination
   const [currentPage, setCurrentPage] = useState(1);
   const totalNannies = nanniesForSearchFilter.length
-  const pageSize = 20;
+  const pageSize = 2;
   const pages = Math.floor(totalNannies / pageSize)
 
   //Page controls
