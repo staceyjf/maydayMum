@@ -6,6 +6,7 @@ const User = userModel.User; // User alias
 const Nanny = require('./models/nanny');
 const Booking = require('./models/booking');
 const Availability = require("./models/availability");
+const crypto = require('crypto');
 
 // IIFE
 // Immediately Invoked Function Expression
@@ -16,11 +17,13 @@ const Availability = require("./models/availability");
   await Booking.deleteMany({});
   await Availability.deleteMany({});
 
-  // Create a function to generate a random phone number
-  const generateRandomPhoneNumber = () => {
-    const randomNumber = Math.floor(Math.random() * 1000000000).toString().padStart(10, '0');
-    return `04814${randomNumber}`;
-  };
+// Function to generate a secure random phone number
+const generateSecureRandomPhoneNumber = () => {
+  const randomBuffer = crypto.randomBytes(4); // Adjust the number of bytes based on your needs
+  const randomNumber = parseInt(randomBuffer.toString('hex'), 16);
+  const paddedNumber = randomNumber.toString().padStart(10, '0');
+  return `04814${paddedNumber}`;
+};
 
   // Unique values for names, surnames, and about descriptions
   const uniqueNames = ['Alice', 'Bob', 'Cindy', 'David', 'Emma', 'Frank', 'Grace', 'Henry', 'Ivy', 'Jack'];
@@ -49,7 +52,7 @@ const Availability = require("./models/availability");
       firstName: name,
       surname: surname,
       location: '2099',
-      phoneNumber: generateRandomPhoneNumber(),
+      phoneNumber: generateSecureRandomPhoneNumber(),
       email: `${name.toLowerCase()}${surname.toLowerCase()}@gmail.com`,
       password: '1234',
       role: 'nanny',
