@@ -45,6 +45,7 @@ function AccountPage({ user, setUser }) {
                 >
                   <AccountProfile
                     user={user}
+                    setUser={setUser}
                   />
                   {/* conditionally render nanny availability  */}
                   {user.role === 'nanny' && (
