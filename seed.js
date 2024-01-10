@@ -19,10 +19,17 @@ const crypto = require('crypto');
 
 // Function to generate a secure random phone number
 const generateSecureRandomPhoneNumber = () => {
-  const randomBuffer = crypto.randomBytes(4); // Adjust the number of bytes based on your needs
+  const randomBuffer = crypto.randomBytes(4); // 
   const randomNumber = parseInt(randomBuffer.toString('hex'), 16);
   const paddedNumber = randomNumber.toString().padStart(10, '0');
   return `04814${paddedNumber}`;
+};
+
+
+// Function to generate a secure random boolean
+const getSecureRandomBoolean = () => {
+  const randomBit = crypto.randomInt(2); // 0 or 1
+  return Boolean(randomBit);
 };
 
   // Unique values for names, surnames, and about descriptions
@@ -59,23 +66,21 @@ const generateSecureRandomPhoneNumber = () => {
       isAdmin: false,
     });
 
-    const getRandomBoolean = () => Math.random() < 0.5;
-
     const nanny = await Nanny.create({
       aboutDescription: aboutDescription,
       nightRate: 250 + i * 10, // Adjust nightRate based on the iteration
-      isWccCleared: getRandomBoolean(), // Alternate between true and false
-      isFirstAidCertified: getRandomBoolean(), // Alternate between true and false
+      isWccCleared: getSecureRandomBoolean(), // Alternate between true and false
+      isFirstAidCertified: getSecureRandomBoolean(), // Alternate between true and false
     });
 
     const avalis = await Availability.create({
-      Monday: getRandomBoolean(), // Alternate between true and false, 
-      Tuesday: getRandomBoolean(), // Alternate between true and false, 
-      Wednesday: getRandomBoolean(), // Alternate between true and false,
-      Thursday: getRandomBoolean(), // Alternate between true and false,
-      Friday: getRandomBoolean(), // Alternate between true and false,
-      Saturday: getRandomBoolean(), // Alternate between true and false,
-      Sunday: getRandomBoolean(), // Alternate between true and false
+      Monday: getSecureRandomBoolean(), // Alternate between true and false, 
+      Tuesday: getSecureRandomBoolean(), // Alternate between true and false, 
+      Wednesday: getSecureRandomBoolean(), // Alternate between true and false,
+      Thursday: getSecureRandomBoolean(), // Alternate between true and false,
+      Friday: getSecureRandomBoolean(), // Alternate between true and false,
+      Saturday: getSecureRandomBoolean(), // Alternate between true and false,
+      Sunday: getSecureRandomBoolean(), // Alternate between true and false
     });
 
     nannyUser.nanny = nanny._id;
