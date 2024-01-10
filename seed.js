@@ -7,79 +7,66 @@ const Booking = require('./models/booking');
 
 // IIFE
 // Immediately Invoked Function Expression
-(async function() {
-  await User.deleteMany({});
-  await Nanny.deleteMany({});
-  await Booking.deleteMany({});
+(async function () {
+  // Delete existing data if needed
+  // await User.deleteMany({});
+  // await Nanny.deleteMany({});
+  // await Booking.deleteMany({});
 
-  const parent1 = await User.create({
-    firstName: 'Jane', 
-    surname: 'Smith', 
-    location: '2000', 
-    phoneNumber: '048143555', 
-    email: 'jane@gmail.com', 
-    password: '1234', 
-    role: 'parent',
-    isAdmin: false,
-    parent: {
-      numberOfChildren: 2,
-      childrenAge: [ 1 , 1 ],
-      bookings: []
-    },
-  });
-  
-  const admin = await User.create({
-    firstName: 'Stacey', 
-    surname: 'Smith', 
-    location: '2095', 
-    phoneNumber: '048143511', 
-    email: 'stacey@gmail.com', 
-    password: '1234', 
-    role: 'parent',
-    isAdmin: true,
-  });
- 
-  const nannyUser1 = await User.create({
-    firstName: 'Sam', 
-    surname: 'Jones', 
-    location: '2099', 
-    phoneNumber: '048143545', 
-    email: 'sam@gmail.com', 
-    password: '1234', 
-    role: 'nanny',
-    isAdmin: false, 
-  });
+  // Create a function to generate a random phone number
+  const generateRandomPhoneNumber = () => {
+    const randomNumber = Math.floor(Math.random() * 1000000000).toString().padStart(10, '0');
+    return `04814${randomNumber}`;
+  };
 
-  const nanny1 = await Nanny.create({
-    aboutDescription: "I love being a nanny and can't wait to prove you with extra support so you can feel secure in knowing your children are well looked after",
-    nightRate: 250,
-    isWccCleared: true,
-    isFirstAidCertified: true,
-  });
+  // Unique values for names, surnames, and about descriptions
+  const uniqueNames = ['Alice', 'Bob', 'Cindy', 'David', 'Emma', 'Frank', 'Grace', 'Henry', 'Ivy', 'Jack'];
+  const uniqueSurnames = ['Smith', 'Johnson', 'Jones', 'Williams', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor'];
+  const uniqueAboutDescriptions = [
+    "Experienced nanny with a passion for childcare.",
+    "Fun and loving nanny dedicated to creating a safe environment.",
+    "Skilled in engaging children in educational activities.",
+    "Enthusiastic and energetic nanny committed to child development.",
+    "Patient and caring nanny with excellent communication skills.",
+    "Passionate about fostering a positive and nurturing atmosphere.",
+    "Creative and resourceful nanny with a love for arts and crafts.",
+    "Detail-oriented nanny focused on meeting the unique needs of each child.",
+    "Friendly and responsible nanny with a strong sense of responsibility.",
+    "Adaptable and reliable nanny with a warm and friendly personality.",
+  ];
 
-  nannyUser1.nanny = nanny1._id;
-  await nannyUser1.save();
+  // Create 10 nanny users
+  const nannyUsers = [];
+  for (let i = 0; i < 10; i++) {
+    const name = uniqueNames[i % uniqueNames.length];
+    const surname = uniqueSurnames[i % uniqueSurnames.length];
+    const aboutDescription = uniqueAboutDescriptions[i % uniqueAboutDescriptions.length];
 
-  const nannyUser2 = await User.create({
-    firstName: 'Cindy', 
-    surname: 'Jones', 
-    location: '2095', 
-    phoneNumber: '048143222', 
-    email: 'cindy@gmail.com', 
-    password: '1234', 
-    role: 'nanny',
-    isAdmin: false, 
-  });
+    const nannyUser = await User.create({
+      firstName: name,
+      surname: surname,
+      location: '2099',
+      phoneNumber: generateRandomPhoneNumber(),
+      email: `${name.toLowerCase()}${surname.toLowerCase()}@gmail.com`,
+      password: '1234',
+      role: 'nanny',
+      isAdmin: false,
+    });
 
-  const nanny2 = await Nanny.create({
-    aboutDescription: "I am a fun loving nanny with 1000 hours of experience",
-  });
+    const nanny = await Nanny.create({
+      aboutDescription: aboutDescription,
+      nightRate: 250 + i * 10, // Adjust nightRate based on the iteration
+      isWccCleared: i % 2 === 0, // Alternate between true and false
+      isFirstAidCertified: i % 3 === 0, // Alternate between true and false
+    });
 
-  nannyUser2.nanny = nanny2._id;
-  await nannyUser2.save();
-  
-  console.log(parent1, nannyUser1, nannyUser2, admin)
+    nannyUser.nanny = nanny._id;
+    await nannyUser.save();
+
+    nannyUsers.push(nannyUser);
+  }
+
+  console.log(nannyUsers);
 
   process.exit();
-
 })();
