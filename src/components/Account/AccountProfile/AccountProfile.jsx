@@ -3,6 +3,8 @@ import {  Avatar, Box, Button, Card, CardActions, CardContent, Divider, Typograp
 import { updateToken } from '../../../utilities/users-service';
 
 function AccountProfile({user, setUser, }) {
+  const cloudName = process.env.REACT_APP_CLOUD_NAME || "default_cloud_name";
+
   const [image, setImage] = useState(null);
   const [userData, setUserData] = useState({...user});
   const [error, setError] = useState(''); 
@@ -20,10 +22,10 @@ function AccountProfile({user, setUser, }) {
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "maydaymum"); 
-    data.append("cloud_name", "dmavbbqol");
+    data.append("cloud_name", cloudName);
   
     try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/dmavbbqol/upload`, {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
         method: 'post',
         body: data,
       });
