@@ -3,36 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@heroicons/react": "^2.1.1",
-    "@mui/icons-material": "^5.15.6",
-    "@mui/joy": "^5.0.0-beta.24",
-    "@mui/material": "^5.15.6",
+    "@heroicons/react": "^2.0.18",
+    "@mui/icons-material": "^5.14.8",
+    "@mui/joy": "^5.0.0-beta.5",
+    "@mui/material": "^5.14.8",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
-    "cloudinary": "^1.41.3",
-    "dotenv": "^16.3.2",
+    "cloudinary": "^1.40.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.6.8",
+    "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3",
-    "react-scripts": "^5.0.1",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1",
     "serve-favicon": "^2.5.0",
     "ssl-express-www": "^3.2.1",
-    "web-vitals": "^3.5.1",
-    "domexception": "^2.0.1",
-    "sourcemap-codec": "^1.4.8",
-    "workbox-background-sync": "^6.6.0"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -58,12 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.4"
-  },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-transform-private-property-in-object"
-    ]
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "proxy": "http://localhost:3001"
 }
