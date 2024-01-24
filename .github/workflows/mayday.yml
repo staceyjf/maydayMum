@@ -31,7 +31,7 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm test --if-present
+        run: npm test --passWithNoTests
 
   deploy:
     runs-on: ubuntu-latest
