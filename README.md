@@ -6,8 +6,6 @@
 
 </div>
 
-To see the deployed site: https://maydaymum.staceyfanner.com/
-
 <div align="center">
 
 </div>
